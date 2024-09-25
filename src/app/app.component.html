@@ -4,10 +4,29 @@
   </div>
   <div class="cabecera">
     <app-cabecera />
+    <div>
+      <button mat-button [matMenuTriggerFor]="aboveMenu">Home</button>
+      <mat-menu #aboveMenu="matMenu" yPosition="above">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+      </mat-menu>
+
+      <button mat-button [matMenuTriggerFor]="belowMenu">Mesas</button>
+      <mat-menu #belowMenu="matMenu" yPosition="below">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+      </mat-menu>
+
+      <button mat-button [matMenuTriggerFor]="beforeMenu">Datos</button>
+      <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+      </mat-menu>
+    </div>
   </div>
   <div class="footer">
-    <app-footer />
-    {{dato}}
+    <app-footer ></app-footer>
+    {{data}}
   </div>
   <div class="menu"></div>
   <div class="body">
