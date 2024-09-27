@@ -9,7 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CabeceraComponent } from "./cabecera/cabecera.component";
 
 //* utiles
-import { ConectorComponent } from './conector/conector.component';
+import { ConectorComponent, Mesa } from './conector/conector.component';
 
 @Component({
   selector: 'app-root',
@@ -20,12 +20,20 @@ import { ConectorComponent } from './conector/conector.component';
 })
 
 export class AppComponent {
-
   conexion : ConectorComponent;
-  
+  dato: Mesa = {} as Mesa;
+
   constructor() {
     this.conexion = new ConectorComponent();
-    
     this.conexion.conectar();
+
+
+    this.conexion.client.subscribe(this.conexion.topico);
+    this.conexion.client.on('message', (topic:string, message:Uint8Array) => {
+      this.dato = JSON.parse(message.toString());
+      console.log(this.dato.gameNumber);
+    });
+
+  
   }
 }
