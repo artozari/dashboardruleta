@@ -28,6 +28,4 @@ export class AppComponent {
     
     this.conexion.conectar();
   }
-  
-
 }

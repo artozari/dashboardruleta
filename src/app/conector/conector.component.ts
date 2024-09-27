@@ -29,41 +29,48 @@ export class ConectorComponent {
   server: string ;
   cantMesas: number;
   client: any;
+
   //# Variables de IU
   // data: string = "";
   // numMesas: number;
   
   constructor() {
     
-    this.cantMesas = 10;
+    this.cantMesas = 100;
     // this.data = 'Sin datos';
     // this.numMesas = 0;
     this.server = "ws://sielcondev01.site:9105";
     this.clientName = "mqttClinte";
     this.topico = "sts/dashboard/local/CA_SLCN/ts";
-    /* this.client = mqtt.connect(this.server, {
+    this.client = mqtt.connect(this.server, {
       clientId: this.clientName,
       clean: true,
-    }); */
+    });
     
     this.client.on("message", (topic:string, message:string) => {
       console.log(message.toString());
       // this.client.end();
     });
 
-    this.client.publish(this.topico, "conectado")
+    this.client.publish(this.topico, "conectado");
     this.client.subscribe(this.topico);
+
+    this.publish(this.topico, "conectado");
     // this.alconectar();
   };
   
   publish(topic: string, message: string) {
     this.client.publish(topic, message);
+    //# Aqui se pubica el json modiicado con los datos random cada X tiempo
+    for(let i = 1; i <= this.cantMesas; i++){
+      setInterval(() => {
+        this.client.publish(`${this.topico}${(i)}}`, `${JSON.stringify(this.modJson(jsondata))}`);
+        console.log(`${this.topico}`, `${JSON.stringify(this.modJson(jsondata))}`);
+      }, 3000);
+    }
   }
 
-  //> Aqui se pubica el json modiicado con los datos random cada X tiempo
-  // setInterval(() => {
-  //   this.client.publish(`${this.topico}`, `${JSON.stringify(this.modJson(jsondata))}`);
-  // }, 3000);
+  //> TODO generar mas mesas para mostrar en la IU
 
   alconectar(){
     this.client.on('connect', () => {
