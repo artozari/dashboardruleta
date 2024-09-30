@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import mqtt from 'mqtt';
 
 export interface Mesa {
+  key: number;
   ts: number;
   gameNumber: number;
   casinoData: (string | number)[];

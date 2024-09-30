@@ -38,6 +38,7 @@ export class AppComponent {
       // console.log(this.dato);
       
       this.Mesas[this.i] ={
+        key: this.i,
         ts: this.dato.ts,
         gameNumber: this.dato.gameNumber,
         casinoData: this.dato.casinoData,
@@ -45,14 +46,8 @@ export class AppComponent {
         configData: this.dato.configData,
         winningNumbersData: this.dato.winningNumbersData
       }
-      console.log(this.i);
-      // console.log(this.Mesas[this.i].gameNumber);
-      console.log(this.Mesas[this.i].gameNumber);
-      
+      console.log(this.Mesas);  
       this.i++;
-      this.i >= 5 && delete this.Mesas[this.i-5];
-      console.log(this.Mesas);
-      
     });
   }
 
