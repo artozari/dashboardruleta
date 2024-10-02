@@ -7,11 +7,13 @@ import { FooterComponent } from './footer/footer.component';
 import { CabeceraComponent } from "./cabecera/cabecera.component";
 import { ConectorComponent, Mesa } from './conector/conector.component';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MesaComponent } from './mesa/mesa.component';
+import { number } from 'echarts';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ConectorComponent, RouterOutlet, CabeceraComponent , MatButtonModule, BodyMainComponent, FooterComponent, BodyMainComponent , MatMenuModule, ReactiveFormsModule],
+  imports: [ConectorComponent, RouterOutlet, CabeceraComponent , MatButtonModule, BodyMainComponent, MesaComponent, FooterComponent, BodyMainComponent , MatMenuModule, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -28,12 +30,12 @@ export class AppComponent {
   dato: Mesa = {} as Mesa;
   Mesas: Record<string, Mesa> = {};
   i:number=0;
-  mesaArray:string[];
-
+  mesaArray:number[];
+  numberGamesfromTable:number[];
   
-
   constructor() {
-
+    
+    this.numberGamesfromTable = [];
     this.mesaArray = [];
     this.conexion = new ConectorComponent();
     this.conexion.conectar();
@@ -43,7 +45,8 @@ export class AppComponent {
     this.conexion.client.on('message', (topic:string, message:Uint8Array) => {
       this.dato = JSON.parse(message.toString()); 
       this.Mesas[this.i] ={
-        key: this.i,
+        key: this.i+1,
+        mesa:this.dato.tableData[1],
         ts: this.dato.ts,
         gameNumber: this.dato.gameNumber,
         casinoData: this.dato.casinoData,
@@ -51,35 +54,32 @@ export class AppComponent {
         configData: this.dato.configData,
         winningNumbersData: this.dato.winningNumbersData
       }
-      // console.log(this.Mesas);
       this.i++;
     });
   }
+
   cambiarMostrarMesa(){
     this.mostrarMesa = !this.mostrarMesa;
     if (this.mostrarMesa) {
       const valMesaInput = this.formSelectTable.get('mesaInput');
       if (valMesaInput) {
         let val = valMesaInput?.value;
-        // console.log(val);
         this.obtenerMesaDeMesas(val)
       }else{
         console.log("no hay datos");
-        
-      }
-      
       }
     }
-  
-
-  obtenerMesaDeMesas(keyMesa:any):void{
-    // console.log(this.Mesas[keyMesa]);
-    this.mesaArray[0] = this.Mesas[keyMesa].key.toString();
-    this.mesaArray[1] = this.Mesas[keyMesa].ts.toString();
-    this.mesaArray[2] = this.Mesas[keyMesa].gameNumber.toString();
-    console.log(this.Mesas);
-    
   }
+  
+  obtenerMesaDeMesas(keyMesa:any):void{
+    console.log(this.Mesas[keyMesa]);
+    this.Mesas[keyMesa].winningNumbersData.forEach(element => {
+      if (typeof element[3] === "number") {
+        this.numberGamesfromTable.push(element[3]);
+      }
+    });
+    console.log(this.numberGamesfromTable);
+    }
 
 }
 

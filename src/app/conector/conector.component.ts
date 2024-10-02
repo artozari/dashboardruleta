@@ -3,6 +3,7 @@ import mqtt from 'mqtt';
 
 export interface Mesa {
   key: number;
+  mesa:number|string;
   ts: number;
   gameNumber: number;
   casinoData: (string | number)[];
