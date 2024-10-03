@@ -8,7 +8,6 @@ import { CabeceraComponent } from "./cabecera/cabecera.component";
 import { ConectorComponent, Mesa } from './conector/conector.component';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MesaComponent } from './mesa/mesa.component';
-import { number } from 'echarts';
 
 @Component({
   selector: 'app-root',
@@ -44,16 +43,15 @@ export class AppComponent {
     
     this.conexion.client.on('message', (topic:string, message:Uint8Array) => {
       this.dato = JSON.parse(message.toString()); 
-      this.Mesas[this.i] ={
-        key: this.i+1,
-        mesa:this.dato.tableData[1],
+      this.Mesas[this.dato.tableData[1]] = { //aqui recupera el id de la mesa y lo guarda en esa posicion en Mesas
         ts: this.dato.ts,
         gameNumber: this.dato.gameNumber,
         casinoData: this.dato.casinoData,
         tableData: this.dato.tableData,
         configData: this.dato.configData,
         winningNumbersData: this.dato.winningNumbersData
-      }
+      };
+      // console.log(this.Mesas);
       this.i++;
     });
   }
@@ -64,22 +62,36 @@ export class AppComponent {
       const valMesaInput = this.formSelectTable.get('mesaInput');
       if (valMesaInput) {
         let val = valMesaInput?.value;
-        this.obtenerMesaDeMesas(val)
+        this.obtenerUltimosValDeMesas(val)
       }else{
         console.log("no hay datos");
       }
     }
   }
   
-  obtenerMesaDeMesas(keyMesa:any):void{
-    console.log(this.Mesas[keyMesa]);
-    this.Mesas[keyMesa].winningNumbersData.forEach(element => {
-      if (typeof element[3] === "number") {
-        this.numberGamesfromTable.push(element[3]);
+  obtenerUltimosValDeMesas(keyMesa:any):void{
+    console.log(this.numberGamesfromTable + " entra ", this.Mesas[keyMesa].winningNumbersData[0][2]);
+      if (typeof this.Mesas[keyMesa].winningNumbersData[0][3] === "number") {
+        if(this.numberGamesfromTable.length >= 10){
+          this.numberGamesfromTable.shift();
+        }
+        this.numberGamesfromTable.push(this.Mesas[keyMesa].winningNumbersData[0][3]);
       }
-    });
-    console.log(this.numberGamesfromTable);
-    }
+    console.log(this.numberGamesfromTable + " sale ", this.Mesas[keyMesa].winningNumbersData[0][2]);
+  }
+
+  obtenerUltimosValDeMesas2(keyMesa:any):void{
+    console.log(this.numberGamesfromTable + " entra ", this.Mesas[keyMesa].winningNumbersData[0][2]);
+          if(this.numberGamesfromTable.length >= 10){
+            this.numberGamesfromTable.shift();
+          }
+          if (typeof this.Mesas[keyMesa].winningNumbersData[0][3] === "number") {
+            console.log(this.numberGamesfromTable.push(this.Mesas[keyMesa].winningNumbersData[0][3]));
+            
+            this.numberGamesfromTable.push(this.Mesas[keyMesa].winningNumbersData[0][3]); 
+          }
+    console.log(this.numberGamesfromTable + " sale ", this.Mesas[keyMesa].winningNumbersData[0][2]);
+  }
 
 }
 
