@@ -1,3 +1,8 @@
 <div>
+  <div >
+    @if("gameNumber | async as value"){
+    <p>El valor actual es: {{ gameNumber }}</p>
+    }
+  </div>
     <div id="main" style="width: 600px;height:400px;"></div>
   </div>

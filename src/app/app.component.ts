@@ -51,7 +51,6 @@ export class AppComponent {
         configData: this.dato.configData,
         winningNumbersData: this.dato.winningNumbersData
       };
-      // console.log(this.Mesas);
       this.i++;
     });
   }
@@ -62,36 +61,20 @@ export class AppComponent {
       const valMesaInput = this.formSelectTable.get('mesaInput');
       if (valMesaInput) {
         let val = valMesaInput?.value;
-        this.obtenerUltimosValDeMesas(val)
+        typeof val === "number" && this.obtenerUltimosValDeMesas(val);
       }else{
         console.log("no hay datos");
       }
     }
   }
-  
-  obtenerUltimosValDeMesas(keyMesa:any):void{
-    console.log(this.numberGamesfromTable + " entra ", this.Mesas[keyMesa].winningNumbersData[0][2]);
-      if (typeof this.Mesas[keyMesa].winningNumbersData[0][3] === "number") {
-        if(this.numberGamesfromTable.length >= 10){
-          this.numberGamesfromTable.shift();
-        }
-        this.numberGamesfromTable.push(this.Mesas[keyMesa].winningNumbersData[0][3]);
+
+  obtenerUltimosValDeMesas(keyMesa:number):void{
+    this.Mesas[keyMesa].winningNumbersData.forEach(element => {
+      if (typeof element[3] === "number"){
+        this.numberGamesfromTable.length >= 10 && this.numberGamesfromTable.shift();
+        this.numberGamesfromTable.push(element[3])
       }
-    console.log(this.numberGamesfromTable + " sale ", this.Mesas[keyMesa].winningNumbersData[0][2]);
+    });
   }
-
-  obtenerUltimosValDeMesas2(keyMesa:any):void{
-    console.log(this.numberGamesfromTable + " entra ", this.Mesas[keyMesa].winningNumbersData[0][2]);
-          if(this.numberGamesfromTable.length >= 10){
-            this.numberGamesfromTable.shift();
-          }
-          if (typeof this.Mesas[keyMesa].winningNumbersData[0][3] === "number") {
-            console.log(this.numberGamesfromTable.push(this.Mesas[keyMesa].winningNumbersData[0][3]));
-            
-            this.numberGamesfromTable.push(this.Mesas[keyMesa].winningNumbersData[0][3]); 
-          }
-    console.log(this.numberGamesfromTable + " sale ", this.Mesas[keyMesa].winningNumbersData[0][2]);
-  }
-
 }
-
+//# todo generate automatic updates of the data graph

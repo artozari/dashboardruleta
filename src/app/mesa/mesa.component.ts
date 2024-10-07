@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import * as echarts from 'echarts';
 
 @Component({
@@ -8,43 +8,36 @@ import * as echarts from 'echarts';
   templateUrl: `./mesa.component.html`,
   styles: ``
 })
+
 export class MesaComponent {
 
   @Input() gameNumber:number[] = [];
-  // data:string[]=[];
-
-  // constructor(){
-  //   for (let i = 0; i <= this.gameNumber.length; i++) {
-  //     this.data.push(this.gameNumber[i].toString())
-  //   };  
-  //   console.log(this.data);
-    
-  // }
-
   ngAfterViewInit(){
-    let myChart = echarts.init(document.getElementById('main'));
-    
-    // Specify the configuration items and data for the chart
-    let option = {
-        
+    let myChart = echarts.init(document.getElementById('main'),"dark");
+
+      // Specify the configuration items and data for the chart
+      let option = {
+        title: {
+          text: 'Mesa'
+        },
+        tooltip: {},
+        legend: {
+          data: ['Mesas']
+        },
         xAxis: {
-          type: 'category',
-          data:[this.gameNumber[0].toString(),this.gameNumber[1].toString(),this.gameNumber[2].toString(),this.gameNumber[3].toString(),this.gameNumber[4].toString()],
+          data: [this.gameNumber[0].toString(),this.gameNumber[1].toString(),this.gameNumber[2].toString(),this.gameNumber[3].toString(),this.gameNumber[4].toString()]
         },
-        yAxis: {
-          type: 'value'
-        },
+        yAxis: {},
         series: [
           {
-            data: [this.gameNumber[0],this.gameNumber[1],this.gameNumber[2],this.gameNumber[3],this.gameNumber[4]],
-            type: 'line',
-            smooth: true
+            name: 'Mesas',
+            type: 'bar',
+            data: [this.gameNumber[0],this.gameNumber[1],this.gameNumber[2],this.gameNumber[3],this.gameNumber[4]]
           }
         ]
       };
-      // this.gameNumber[0].toString(),this.gameNumber[1].toString(),this.gameNumber[2].toString(),this.gameNumber[3].toString(),this.gameNumber[4].toString()
 
-
+      // Display the chart using the configuration items and data just specified.
       myChart.setOption(option);
-  }
+    }
 }
