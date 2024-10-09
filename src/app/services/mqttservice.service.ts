@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ConectorComponent, Mesa } from '../conector/conector.component';
+import { BehaviorSubject, Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,11 @@ export class Mqttservice {
   i:number=0;
   mesaArray:number[];
   numberGamesfromTable:number[];
+
+  private mesasSubject = new BehaviorSubject<Record<string, Mesa>>(this.Mesas);
+
+  mesas$: Observable<Record<string, Mesa>> = this.mesasSubject.asObservable();
+
   
   constructor() {
     
@@ -34,14 +41,28 @@ export class Mqttservice {
       };
       this.i++;
     });
-  }
 
-  obtenerUltimosValDeMesas(keyMesa:number):void{
+    
+  }
+  
+
+  obtenerUltimosValDeMesa(keyMesa:number):number[]{
     this.Mesas[keyMesa].winningNumbersData.forEach(element => {
       if (typeof element[3] === "number"){
         this.numberGamesfromTable.length >= 10 && this.numberGamesfromTable.shift();
         this.numberGamesfromTable.push(element[3])
       }
     });
+    console.log("jhfv");
+    
+    return this.numberGamesfromTable;
+  }
+
+  obtenerMesas(): Observable<Record<string, Mesa>> {
+    return this.mesas$;
+  }
+
+  obtenerMesa(nroMesa:number){
+    return this.Mesas[nroMesa];
   }
 }
