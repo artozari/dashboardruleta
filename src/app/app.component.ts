@@ -33,6 +33,7 @@ export class AppComponent {
   numberGamesfromTable:number[];
   
   constructor() {
+ 
     
     this.numberGamesfromTable = [];
     this.mesaArray = [];
@@ -66,15 +67,6 @@ export class AppComponent {
         console.log("no hay datos");
       }
     }
-  }
-
-  obtenerUltimosValDeMesas(keyMesa:number):void{
-    this.Mesas[keyMesa].winningNumbersData.forEach(element => {
-      if (typeof element[3] === "number"){
-        this.numberGamesfromTable.length >= 10 && this.numberGamesfromTable.shift();
-        this.numberGamesfromTable.push(element[3])
-      }
-    });
   }
 }
 //# todo generate automatic updates of the data graph
