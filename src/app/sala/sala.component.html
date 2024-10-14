@@ -1,1 +1,16 @@
-<p>sala works!</p>
+
+<div>
+    <div class="map-container">
+        <div class="map"></div>
+    </div>
+    <div class="tables-contaier">
+        @if(showTables){
+            @for (k of valor; track $index) {
+                <div>mesa {{mesas[k].tableData[3]}}</div>
+                <app-mesa (click)="cambiarMostrarMesa(k)" [dato]="mesas[k]"></app-mesa>
+            }
+        }@else {
+            <app-mesa (click)="cambiarMostrarMesa(tableSelect)" [dato]="mesas[tableSelect]"></app-mesa>
+        }
+    </div>
+</div>

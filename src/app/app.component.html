@@ -14,9 +14,9 @@
   <div class="menu"></div>
   <div class="body">
     @if(mostrarMesa){
-      <app-mesa [gameNumber]="numberGamesfromTable"></app-mesa>
+      <app-sala [mesas]=Mesas></app-sala>
     }@else{
-      <app-sala ></app-sala>
+      <app-mesa [dato]="dato"></app-mesa>
     }
   </div>
   <div class="footer">

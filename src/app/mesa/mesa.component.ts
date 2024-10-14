@@ -1,5 +1,6 @@
-import { Component, Input} from '@angular/core';
+import { Component,  Input,  Output,  SimpleChanges} from '@angular/core';
 import * as echarts from 'echarts';
+import { Mesa } from '../conector/conector.component';
 
 @Component({
   selector: 'app-mesa',
@@ -11,33 +12,44 @@ import * as echarts from 'echarts';
 
 export class MesaComponent {
 
-  @Input() gameNumber:number[] = [];
-  ngAfterViewInit(){
-    let myChart = echarts.init(document.getElementById('main'),"dark");
-
-      // Specify the configuration items and data for the chart
-      let option = {
+  @Input() dato = {} as Mesa;
+  @Output() nroTable:number=1;
+  myChart:any;
+  option = {}
+  ngOnChanges(changes: SimpleChanges) {
+    
+    // if (this.myChart) {
+    //   this.myChart.remove();
+    // }
+    this.myChart = echarts.init(document.getElementById(this.dato.tableData[1].toString())); 
+      this.option = {
         title: {
-          text: 'Mesa'
-        },
-        tooltip: {},
-        legend: {
-          data: ['Mesas']
-        },
-        xAxis: {
-          data: [this.gameNumber[0].toString(),this.gameNumber[1].toString(),this.gameNumber[2].toString(),this.gameNumber[3].toString(),this.gameNumber[4].toString()]
-        },
-        yAxis: {},
-        series: [
-          {
-            name: 'Mesas',
-            type: 'bar',
-            data: [this.gameNumber[0],this.gameNumber[1],this.gameNumber[2],this.gameNumber[3],this.gameNumber[4]]
-          }
-        ]
-      };
+          text: `${this.dato.tableData[3]}`
+            },
+            tooltip: {},
+            legend: {
+              data: ['Juego']
+            },
+            xAxis: {
+              data: [this.dato.winningNumbersData[0][2],this.dato.winningNumbersData[1][2],this.dato.winningNumbersData[2][2],this.dato.winningNumbersData[3][2],this.dato.winningNumbersData[4][2]]
+            },
+            yAxis: {},
+            series: [
+              {
+                name: 'Juego',
+                type: 'line',
+                smooth: false,
+                data: [this.dato.winningNumbersData[0][3],this.dato.winningNumbersData[1][3],this.dato.winningNumbersData[2][3],this.dato.winningNumbersData[3][3],this.dato.winningNumbersData[4][3]]
+              }
+            ]
+          };
+          
+          this.myChart.setOption(this.option);
+          // Realizar alguna acción con el nuevo valor
+        };
 
-      // Display the chart using the configuration items and data just specified.
-      myChart.setOption(option);
-    }
+        cambiarMostrarMesa(){
+          this.dato.tableData[1];
+        }
+    
 }
