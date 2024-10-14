@@ -1,8 +1,9 @@
 <div>
   <div >
-    @if("gameNumber | async as value"){
-    <p>El valor actual es: {{ gameNumber }}</p>
-    }
-  </div>
-    <div id="main" style="width: 600px;height:400px;"></div>
+    <!-- @if("gameNumber | async as value"){
+    <p>El juego actual es: {{ gameNumber }}</p>
+    {{this.dato.ts}}
+    } -->
+  </div >
+    <div [id]="dato.tableData[1]" style="width: 500px;height:400px;"></div>
   </div>

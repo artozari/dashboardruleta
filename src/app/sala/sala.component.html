@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div>
     <div class="mapa">
         <div class="mapa__container"></div>
@@ -7,5 +8,21 @@
             {{tables()}}
             {{dato()}}
         </div>
+=======
+
+<div>
+    <div class="map-container">
+        <div class="map"></div>
+    </div>
+    <div class="tables-contaier">
+        @if(showTables){
+            @for (k of valor; track $index) {
+                <div>mesa {{mesas[k].tableData[3]}}</div>
+                <app-mesa (click)="cambiarMostrarMesa(k)" [dato]="mesas[k]"></app-mesa>
+            }
+        }@else {
+            <app-mesa (click)="cambiarMostrarMesa(tableSelect)" [dato]="mesas[tableSelect]"></app-mesa>
+        }
+>>>>>>> 5fe0964845db375dfa3a3938cb3cce4e3e9cee51
     </div>
 </div>
