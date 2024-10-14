@@ -19,6 +19,7 @@ import { SalaComponent } from './sala/sala.component';
 })
 
 export class AppComponent{
+  saludo="hello"
 
   formSelectTable = new FormGroup({
     mesaInput: new FormControl(''),
@@ -42,7 +43,9 @@ export class AppComponent{
     
     this.conexion.client.on('message', (topic:string, message:Uint8Array) => {
       this.dato = JSON.parse(message.toString()); 
-      this.Mesas[this.dato.tableData[1]] = { //aqui recupera el id de la mesa y lo guarda en esa posicion en Mesas
+      console.log(this.dato);
+      
+      this.Mesas[this.dato.tableData[1]] = {
         ts: this.dato.ts,
         gameNumber: this.dato.gameNumber,
         casinoData: this.dato.casinoData,

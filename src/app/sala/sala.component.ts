@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, signal, Input } from '@angular/core';
 import { Mesa } from '../conector/conector.component';
+
 
 @Component({
   selector: 'app-sala',
@@ -10,7 +11,16 @@ import { Mesa } from '../conector/conector.component';
 })
 export class SalaComponent {
 
+  tables = signal("calor inicial de mesas");
+  @Input() dato={};
+
+  mostrarDato(){
+    console.log(this.dato);
+  }
+
   constructor() {
+    console.log(this.dato);
+    
   }
   
 

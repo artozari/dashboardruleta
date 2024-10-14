@@ -1,5 +1,6 @@
 import { Component, Input} from '@angular/core';
 import * as echarts from 'echarts';
+import { Mesa } from '../conector/conector.component';
 
 @Component({
   selector: 'app-mesa',
@@ -12,6 +13,7 @@ import * as echarts from 'echarts';
 export class MesaComponent {
 
   @Input() gameNumber:number[] = [];
+  @Input() table:Mesa={} as Mesa;
   ngAfterViewInit(){
     let myChart = echarts.init(document.getElementById('main'),"dark");
 
