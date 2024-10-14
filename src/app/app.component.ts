@@ -31,7 +31,13 @@ export class AppComponent{
   numberGamesfromTable:number[];
   mostrarMesa = true;
   
+<<<<<<< HEAD
   constructor() {  
+=======
+  constructor() {
+ 
+    
+>>>>>>> 0f9c1bdd937d0a07185f8e56b7ca722aa95eea79
     this.numberGamesfromTable = [];
     this.mesaArray = [];
     this.conexion = new ConectorComponent();
@@ -53,6 +59,7 @@ export class AppComponent{
   cambiarMostrarMesa(){
     this.mostrarMesa = !this.mostrarMesa;
   }
+<<<<<<< HEAD
 
   // obtenerUltimosValDeMesa(keyMesa:any):void{
   //   this.Mesas[keyMesa].winningNumbersData.forEach(element => {
@@ -64,3 +71,7 @@ export class AppComponent{
   // }
 
 }
+=======
+}
+//# todo generate automatic updates of the data graph
+>>>>>>> 0f9c1bdd937d0a07185f8e56b7ca722aa95eea79

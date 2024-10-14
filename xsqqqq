@@ -1,0 +1,77 @@
+[33mcommit 63f13861b9c114a13c4b8662db2ce1c958dd6a26[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Angel Artozari <artozaria@sielcon.com.ar>
+Date:   Mon Oct 7 10:39:55 2024 -0300
+
+    actualizacion de css
+
+[33mcommit 02c91244c89607444bc1a6886d6dab87934ff071[m
+Author: Angel Artozari <artozaria@sielcon.com.ar>
+Date:   Thu Oct 3 18:38:16 2024 -0300
+
+    ultimo
+
+[33mcommit 0542b6d3b729bdcc1843189f83ec0efda2dee18a[m
+Author: Angel Artozari <artozaria@sielcon.com.ar>
+Date:   Wed Oct 2 17:38:35 2024 -0300
+
+    se muestra en grafico de lineas las ultimas bolitas que salieron de cada mesa
+
+[33mcommit 5318fb4ad9258a69906f9af0e5288611a6e8d2ce[m
+Author: unknown <artozari@gmail.com>
+Date:   Wed Oct 2 09:23:35 2024 -0300
+
+    mostrando estadistica en barra inestable
+
+[33mcommit 0f47829b419d2dfe85e283c59cdb2ff97f16b051[m
+Author: Angel Artozari <artozaria@sielcon.com.ar>
+Date:   Mon Sep 30 17:50:16 2024 -0300
+
+    viendo como hacer para que se guarden los datos correctamente
+
+[33mcommit 00d07b4e0ec8d6dbbea1d8e5fa584c849bd23737[m
+Author: Angel Artozari <artozaria@sielcon.com.ar>
+Date:   Mon Sep 30 16:50:37 2024 -0300
+
+    viendo como hacer para que se guarden los datos correctamente y se eliminen los mas antiguos en el objeto<record> Mesas
+
+[33mcommit 0d03e46d693c4af1ca680986d69e56a97028c5d2[m
+Author: Angel Artozari <artozaria@sielcon.com.ar>
+Date:   Fri Sep 27 17:52:28 2024 -0300
+
+    datos en pantalla
+
+[33mcommit 4a9da1b0ef998058b8635ab3cb163400f8dc6c9e[m
+Author: Angel Artozari <artozaria@sielcon.com.ar>
+Date:   Fri Sep 27 11:25:23 2024 -0300
+
+    funcionando enviando 100 mesas sumuladas
+
+[33mcommit 8fe1cfa79b5dfbb93813bced4acac977da6d3170[m
+Author: Angel Artozari <artozaria@sielcon.com.ar>
+Date:   Thu Sep 26 17:59:08 2024 -0300
+
+    fin desarrollo en oficina 26 de septiembre 2024
+
+[33mcommit 052b9472fcb11a32baabfbfdd3e96a04e32268ca[m
+Author: unknown <artozari@gmail.com>
+Date:   Wed Sep 25 13:38:41 2024 -0300
+
+    Enviando 10 mesas, datos no totalmente randoms
+
+[33mcommit ba7d450dd73e44bd8d279f9ff9dc4e91d6157fec[m
+Author: unknown <artozari@gmail.com>
+Date:   Wed Sep 18 02:04:50 2024 -0300
+
+    actualizacion de datos desde mqtt mosquitto
+
+[33mcommit 2c1b792d16cf696d73fb583f2e04b5a0a9ab5a17[m
+Author: unknown <artozari@gmail.com>
+Date:   Wed Sep 18 02:02:05 2024 -0300
+
+    first commit
+
+[33mcommit d2338e7c6af8187fceb0d7e7217f0dd113722ac1[m
+Author: Angel Mamani Corbalan <artozari@gmail.com>
+Date:   Sun Sep 8 23:11:51 2024 -0300
+
+    initial commit
