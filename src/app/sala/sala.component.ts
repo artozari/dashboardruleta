@@ -21,7 +21,6 @@ export class SalaComponent {
     this.tableSelect = "";
     this.valor = Object.keys(this.mesas);
     console.log(this.valor);
-    
   }
 
   ngOnChanges(changes: SimpleChanges) {

@@ -14,7 +14,6 @@ export class MesaComponent implements OnChanges {
 
   @Input() dato = {} as Mesa;
   @Output() nroTable:number=1;
-  miNewVar:string="para el commit"
   myChart:any;
   option = {};
   constructor(){
@@ -23,11 +22,12 @@ export class MesaComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data'] && changes['data'].currentValue) {
       if (this.myChart) {
-        this.myChart.dispose();
-        let myChart:any;
-        this.myChart = echarts.init(document.getElementById(this.dato.tableData[1].toString())); 
+          this.myChart.disponse();
+      }
     }
-  }
+  
+    console.log(document.getElementById(this.dato.tableData[1].toString()));
+  
     this.myChart = echarts.init(document.getElementById(this.dato.tableData[1].toString())); 
     this.option = {
       title: {
@@ -44,13 +44,12 @@ export class MesaComponent implements OnChanges {
       series: [
         {
           name: 'Juego',
-          type: 'line',
+          type: 'bar',
           smooth: false,
           data: [this.dato.winningNumbersData[0][3],this.dato.winningNumbersData[1][3],this.dato.winningNumbersData[2][3],this.dato.winningNumbersData[3][3],this.dato.winningNumbersData[4][3]]
         }
       ]
     };
-    
     this.myChart.setOption(this.option);
     // Realizar alguna acción con el nuevo valor
   };
