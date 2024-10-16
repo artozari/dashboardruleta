@@ -1,8 +1,5 @@
-import { Component, signal} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-// import {MatMenuModule} from '@angular/material/menu';
-// import {MatButtonModule} from '@angular/material/button';
-import { BodyMainComponent } from "./body-main/body-main.component";
+import { Component, AfterViewInit, signal} from '@angular/core';
+import { RouterOutlet } from '@angular/router';import { BodyMainComponent } from "./body-main/body-main.component";
 import { FooterComponent } from './footer/footer.component';
 import { CabeceraComponent } from "./cabecera/cabecera.component";
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -30,8 +27,9 @@ export class AppComponent{
   mesaArray:number[];
   numberGamesfromTable:number[];
   mostrarMesa = true;
-  
-  constructor() {  
+
+  constructor(){
+
     this.numberGamesfromTable = [];
     this.mesaArray = [];
     this.conexion = new ConectorComponent();
@@ -39,7 +37,7 @@ export class AppComponent{
     this.conexion.client.subscribe(this.conexion.topico);
     this.conexion.client.on('message', (topic:string, message:Uint8Array) => {
       this.dato = JSON.parse(message.toString()); 
-      this.Mesas[this.dato.tableData[1]] = { //aqui recupera el id de la mesa y lo guarda en esa posicion en Mesas
+      this.Mesas[this.dato.tableData[1]] = {
         ts: this.dato.ts,
         gameNumber: this.dato.gameNumber,
         casinoData: this.dato.casinoData,
@@ -53,14 +51,5 @@ export class AppComponent{
   cambiarMostrarMesa(){
     this.mostrarMesa = !this.mostrarMesa;
   }
-
-  // obtenerUltimosValDeMesa(keyMesa:any):void{
-  //   this.Mesas[keyMesa].winningNumbersData.forEach(element => {
-  //     if (typeof element[3] === "number"){
-  //       this.numberGamesfromTable.length >= 10 && this.numberGamesfromTable.shift();
-  //       this.numberGamesfromTable.push(element[3])
-  //     }
-  //   });
-  // }
 
 }

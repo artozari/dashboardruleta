@@ -7,7 +7,7 @@ import { Mesa } from '../conector/conector.component';
   standalone: true,
   imports: [],
   templateUrl: `./mesa.component.html`,
-  styles: ``
+  styleUrl: `./mesa.component.css`
 })
 
 export class MesaComponent {
