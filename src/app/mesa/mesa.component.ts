@@ -35,20 +35,22 @@ export class MesaComponent implements OnChanges {
     //# debe obtenerse los valores de cada 10 minutos redondos utilizando el mod de los minutos actuales entre 10... es la info inferior de la grafica
     const categories = (function () {
       const ahora = new Date();
-      const hora = ahora.getHours();
-      const minutos = ahora.getMinutes();
+const hora = ahora.getHours();
+const minutos = ahora.getMinutes();
 
-      const minutosRedondos = Math.floor(minutos / 10) * 10;
-      const horaRedonda = hora - 1;
+const minutosRedondos = Math.floor(minutos / 10) * 10;
+const horaRedonda = hora - 1;
 
-      const res = [];
-      for (let i = 0; i < 6; i++) {
-        const minutosIntervalo = horaRedonda * 60 + minutosRedondos + i * 10;
-        const horasIntervalo = Math.floor(minutosIntervalo / 60);
-        const minutosIntervaloRestantes = minutosIntervalo % 60;
-        const intervalo = `${String(horasIntervalo).padStart(2, '0')}:${String(minutosIntervaloRestantes).padStart(2, '0')}`;
-        res.push(intervalo);
-      }
+const res = [];
+for (let i = 0; i < 6; i++) {
+  const minutosIntervalo = (horaRedonda * 60 + minutosRedondos + i * 10)+10;
+  const horasIntervalo = Math.floor(minutosIntervalo / 60);
+  console.log(horasIntervalo);
+  
+  const minutosIntervaloRestantes = minutosIntervalo % 60;
+  const intervalo = `${String(horasIntervalo).padStart(2, '0')}:${String(minutosIntervaloRestantes).padStart(2, '0')}`;
+  res.push(intervalo);
+}
       return res;
     })();
 
