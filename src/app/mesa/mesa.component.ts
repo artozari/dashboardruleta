@@ -2,7 +2,7 @@ import { Component,  Input,  Output, OnChanges,  SimpleChanges} from '@angular/c
 import * as echarts from 'echarts';
 import { Mesa } from '../conector/conector.component';
 
-interface app {
+interface App {
   count: number;
 }
 @Component({
@@ -15,39 +15,57 @@ interface app {
 
 export class MesaComponent implements OnChanges {
   
-  app:app={}as app;
+  app:App={count:0}as App;
+  resCat2 : number [] = [];
+  resData2: number [] = [];
   @Input() dato = {} as Mesa;
   @Output() nroTable:number=1;
   myChart:any;
   option = {};
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['data'] && changes['data'].currentValue) {
+    if (changes['data']?.currentValue) {
       if (this.myChart) {
-        this.myChart.disponse();
+        this.myChart.disponse();  
       }
     }
     
     this.myChart = echarts.init(document.getElementById(this.dato.tableData[1].toString())); 
 
+    //# debe obtenerse los valores de cada 10 minutos redondos utilizando el mod de los minutos actuales entre 10... es la info inferior de la grafica
     const categories = (function () {
-      let now = new Date();
-      let res = [];
-      let len = 10;
-      while (len--) {
-        res.unshift(now.toLocaleTimeString().replace(/^\D*/, ''));
-        now = new Date(+now - 600000);
+      const ahora = new Date();
+      const hora = ahora.getHours();
+      const minutos = ahora.getMinutes();
+
+      const minutosRedondos = Math.floor(minutos / 10) * 10;
+      const horaRedonda = hora - 1;
+
+      const res = [];
+      for (let i = 0; i < 6; i++) {
+        const minutosIntervalo = horaRedonda * 60 + minutosRedondos + i * 10;
+        const horasIntervalo = Math.floor(minutosIntervalo / 60);
+        const minutosIntervaloRestantes = minutosIntervalo % 60;
+        const intervalo = `${String(horasIntervalo).padStart(2, '0')}:${String(minutosIntervaloRestantes).padStart(2, '0')}`;
+        res.push(intervalo);
       }
       return res;
     })();
-    const categories2 = (function () {
-      let res = [];
-      let len = 10;
-      while (len--) {
-        res.push(10 - len - 1);
-      }
-      return res;
+
+    //# la barra info superior donde se van acumulando la cantidad de juegos que realizo la mesa
+    const categories2 = ( () => {
+      if (this.resCat2.length < 10) {
+        for (let i = 0; i < 10; i++) {
+          (typeof this.dato.winningNumbersData[0][2] == "number")&&(this.resCat2.push(this.dato.winningNumbersData[0][2]));
+        }
+      }else{
+        this.resCat2.shift();
+        (typeof this.dato.winningNumbersData[0][2] == "number")&&(this.resCat2.push(this.dato.winningNumbersData[0][2]));
+      }      
+      return this.resCat2;
     })();
+
+    //# Es la linea que muestra el promedio de jugadas que se realizaron en la mesa en los ultimos 10 minutos
     const data: number[] = (function () {
       let res = [];
       let len = 10;
@@ -56,15 +74,30 @@ export class MesaComponent implements OnChanges {
       }
       return res;
     })();
-    const data2: number[] = (function () {
+
+    //# Estas son las barras que muestra la cantidad de jugadas que se realizaron en la mesa en los ultimos 10 minutos
+    const data2 = ( ()=> {
+      // let len = 0;
+      // while (len < 10) {
+      //   console.log(this.dato.winningNumbersData[0][3]);
+        
+      //   (typeof this.dato.winningNumbersData[0][3] == "number")&&(this.resCat2.push(+(this.dato.winningNumbersData[0][3].toFixed(1))));
+      //   len++;
+      // }
+      // if (this.resData2.length > 10) {
+      //   this.resData2.shift();
+      // }
+      // return this.resData2;
+      
       let res = [];
       let len = 0;
       while (len < 10) {
-        res.push(+(Math.random() * 10 + 5).toFixed(1));
+        (typeof this.dato.winningNumbersData[0][3] == "number") && res.push(+(this.dato.winningNumbersData[0][3].toFixed(1)));
         len++;
       }
       return res;
     })();
+    
     
     this.option = {
       title: {
@@ -110,7 +143,7 @@ export class MesaComponent implements OnChanges {
         {
           type: 'value',
           scale: true,
-          name: 'Price',
+          name: 'juegos',
           max: 30,
           min: 0,
           boundaryGap: [0.2, 0.2]
@@ -139,42 +172,12 @@ export class MesaComponent implements OnChanges {
         }
       ]
     };
+
+      this.myChart.setOption(this.option);
+    // }, 600000);
+
+    // this.myChart.setOption(this.option);
     
-    this.app.count = 11;
-    setInterval( () => {
-      let axisData = new Date().toLocaleTimeString().replace(/^\D*/, '');
-
-      data.shift();
-      data.push(Math.round(Math.random() * 1000));
-      data2.shift();
-      data2.push(+(Math.random() * 10 + 5).toFixed(1));
-
-      categories.shift();
-      categories.push(axisData);
-      categories2.shift();
-      categories2.push(this.app.count++);
-
-      this.myChart.setOption({
-        xAxis: [
-          {
-            data: categories
-          },
-          {
-            data: categories2
-          }
-        ],
-        series: [
-          {
-            data: data
-          },
-          {
-            data: data2
-          }
-        ]
-      });
-    }, 600000);
-
-    this.myChart.setOption(this.option);
 };
 
   // cambiarMostrarMesa(){

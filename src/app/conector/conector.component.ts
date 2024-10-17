@@ -7,7 +7,20 @@ export interface Mesa {
   casinoData: (string | number)[];
   tableData: (string | number)[];
   configData: (string | number)[];
-  winningNumbersData: (number|string|boolean|null)[][];
+  winningNumbersData:(number|string|boolean|null)[][] ;
+}
+
+interface WinningNumber {
+  id: number;
+  ts: string;
+  gameNumber: number;
+  game: number;
+  rpm: number;
+  condition1: boolean;
+  condition2: boolean;
+  condition3: boolean;
+  condition4: boolean;
+  drawCount: number;
 }
 
 @Component({
@@ -47,3 +60,4 @@ export class ConectorComponent {
     });
   }
 }  
+
