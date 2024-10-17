@@ -69,7 +69,7 @@ export class MesaComponent implements OnChanges {
     this.option = {
       title: {
         // text: 'Dynamic Data'
-        text: this.dato.gameNumber
+        text: this.dato.tableData[3]
       },
       tooltip: {
         trigger: 'axis',
@@ -90,7 +90,7 @@ export class MesaComponent implements OnChanges {
         }
       },
       dataZoom: {
-        show: true,
+        show: false,
         start: 0,
         end: 100
       },
@@ -177,8 +177,8 @@ export class MesaComponent implements OnChanges {
     this.myChart.setOption(this.option);
 };
 
-  cambiarMostrarMesa(){
-    this.dato.tableData[1];
-  }
+  // cambiarMostrarMesa(){
+  //   this.dato.tableData[1];
+  // };
     
 } 

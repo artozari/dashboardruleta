@@ -6,11 +6,10 @@
     <div class="tables-container">
         @if(showTables){
             @for (k of valor; track $index) {
-                <!-- <div>mesa {{mesas[k].tableData[3]}}</div> -->
-                <app-mesa (click)="cambiarMostrarMesa(k)" [dato]="mesas[k]"></app-mesa>
+                <app-mesa (click)="cambiarMostrarMesa(k)" onKeyDown="doSomething();" [dato]="mesas[k]"></app-mesa>
             }
         }@else {
-            <app-mesa (click)="cambiarMostrarMesa(tableSelect)" [dato]="mesas[tableSelect]"></app-mesa>
+            <app-mesa (click)="cambiarMostrarMesa(tableSelect)" onKeyDown="doSomething();" [dato]="mesas[tableSelect]"></app-mesa>
         }
     </div>
 </div>

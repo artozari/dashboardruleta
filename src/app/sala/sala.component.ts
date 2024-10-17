@@ -1,4 +1,4 @@
-import { Component, Input, signal, SimpleChanges } from '@angular/core';
+import { Component, Input,  SimpleChanges } from '@angular/core';
 import { Mesa } from '../conector/conector.component';
 import { MesaComponent } from "../mesa/mesa.component";
 
