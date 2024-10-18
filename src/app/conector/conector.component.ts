@@ -7,8 +7,10 @@ export interface Mesa {
   casinoData: (string | number)[];
   tableData: (string | number)[];
   configData: (string | number)[];
-  winningNumbersData:(number|string|boolean|null)[][] ;
+  winningNumbersData:dataInWinning[];
 }
+
+type dataInWinning = [number,string,number,number,number,boolean,boolean,boolean,number|null,number];
 
 interface WinningNumber {
   id: number;
