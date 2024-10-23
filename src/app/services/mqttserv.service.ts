@@ -13,7 +13,7 @@ export class MqttservService {
   Mesas: Record<string, Mesa> = {};
   i:number=0;
   numberGamesfromTable:number[];
-  //> el constuctor
+  //# el constuctor
   constructor() {
     
     this.numberGamesfromTable = [];

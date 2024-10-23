@@ -27,8 +27,15 @@ export class AppComponent{
   mesaArray:number[];
   numberGamesfromTable:number[];
   mostrarMesa = true;
+  time:string;
 
   constructor(){
+    
+    this.time="";
+    setInterval(() => {
+      this.time = new Date().toLocaleTimeString();
+    }, 1000);
+  
 
     this.numberGamesfromTable = [];
     this.mesaArray = [];
