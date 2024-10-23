@@ -1,4 +1,4 @@
-import { Component,  Input,  Output, OnChanges,  SimpleChanges} from '@angular/core';
+import { Component,  Input,   OnChanges,  SimpleChanges} from '@angular/core';
 import * as echarts from 'echarts';
 import { Mesa } from '../conector/conector.component';
 import  {UtilsComponent}  from '../utils/utils.component';
@@ -19,15 +19,16 @@ export class MesaComponent implements OnChanges {
 
   @Input() dato = {} as Mesa;
   app:App={count:0}as App;
+
+  cantIntervalos = 5;
+  intervals = 10; // en minutos
   resCat : [] = [];
   resCat2 : any[] = [];
   
   resData: number [] = [];
   resData2: [] = [];
-  @Output() nroTable:number=1;
   myChart:any;
   option = {};
-  utils = new UtilsComponent();
   
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data']?.currentValue) {
@@ -38,16 +39,17 @@ export class MesaComponent implements OnChanges {
     
     this.myChart = echarts.init(document.getElementById(this.dato.tableData[1].toString())); 
 
-    //# debe obtenerse los valores de cada 10 minutos redondos utilizando el mod de los minutos actuales entre 10... es la info inferior de la grafica
-    const categories = (function () {
+
+    //# debe obtenerse los valores de cada rango de minutos redondos utilizando el mod de los minutos actuales entre 10... es la info inferior de la grafica
+    const categories = ( () => {
     const ahora = new Date();
     const hora = ahora.getHours();
     const minutos = ahora.getMinutes();
     const minutosRedondos = Math.floor(minutos / 10) * 10;
-    const horaRedonda = hora - 1;
+    const horaRedonda = new Date(ahora.getTime() - this.cantIntervalos*this.intervals*60*1000).getHours(); 
     const res = [];
-    for (let i = 0; i < 6; i++) {
-      const minutosIntervalo = (horaRedonda * 60 + minutosRedondos + i * 10)+10;
+    for (let i = 0; i < this.cantIntervalos; i++) {
+      const minutosIntervalo = (horaRedonda * 60 + minutosRedondos + i * this.intervals)+this.intervals;
       const horasIntervalo = Math.floor(minutosIntervalo / 60);      
       const minutosIntervaloRestantes = minutosIntervalo % 60;
       const intervalo = `${String(horasIntervalo).padStart(2, '0')}:${String(minutosIntervaloRestantes).padStart(2, '0')}`;
@@ -58,13 +60,13 @@ export class MesaComponent implements OnChanges {
   
   //# la barra info superior donde se van acumulando la cantidad de juegos que realizo la mesa
   const categories2 = ( () => {
-      if (this.resCat2.length < 10) {
-        for (let i = 0; i < 10; i++) {
-          (typeof this.dato.winningNumbersData[0][2] == "number")&&(this.resCat2.push(this.dato.winningNumbersData[i][2]));
+      if (this.resCat2.length < this.dato.winningNumbersData.length) {
+        for (const element of this.dato.winningNumbersData) {//#chekear cantidades si se sincronizan
+          this.resCat2.push(element[2]);
         }
       }else{
-          this.resCat2.shift();
-        (typeof this.dato.winningNumbersData[4][2] == "number")&&(this.resCat2.push(this.dato.winningNumbersData[4][2]));
+        this.resCat2.shift();
+        this.resCat2.push(this.dato.winningNumbersData[4][2]);
       }      
       return this.resCat2;
     })();
@@ -84,13 +86,15 @@ export class MesaComponent implements OnChanges {
       let res = [];
       let len = 0;
       while (len < 10) {
-        (typeof this.dato.winningNumbersData[0][3] == "number") && res.push(+(this.dato.winningNumbersData[0][3].toFixed(1)));
+        (typeof this.dato.winningNumbersData[0][3] === "number") && res.push(+(this.dato.winningNumbersData[0][3].toFixed(1)));
         len++;
       }
+      (typeof this.dato.winningNumbersData[0][3] === "number") && res.push(+(this.dato.winningNumbersData[0][3].toFixed(1)));
+      res.shift();
       return res;
     })();
 
-    const data3 = this.getGamesInAllRange(this.dato.winningNumbersData.length,0.05,this.dato, new Date().getTime())
+    const data3 = this.getGamesInAllRange(this.dato.winningNumbersData.length,this.intervals,this.dato, new Date().getTime())
     console.log(data3, this.dato.tableData[1]);
     
     this.option = {
@@ -138,7 +142,7 @@ export class MesaComponent implements OnChanges {
           type: 'value',
           scale: true,
           name: 'juegos',
-          max: 30,
+          max: 8,
           min: 0,
           boundaryGap: [0.2, 0.2]
         },
@@ -146,7 +150,7 @@ export class MesaComponent implements OnChanges {
           type: 'value',
           scale: true,
           name: 'Order',
-          max: 1200,
+          max: 8,
           min: 0,
           boundaryGap: [0.2, 0.2]
         }
@@ -157,45 +161,45 @@ export class MesaComponent implements OnChanges {
           type: 'bar',
           xAxisIndex: 1,
           yAxisIndex: 1,
-          data: data
-        },
+          data: data3
+        }/* ,
         {
           name: 'Dynamic Line',
           type: 'line',
           data: data2
-        }
+        } */
       ]
     };
 
       this.myChart.setOption(this.option);
 };
 
-getGamesInAllRange(cant:number, rango:number, mesa:Mesa, until:number):number[]{
-  let res:number[] = [];
-  for (let i = 0; i < cant; i++) {
-    res.push(this.getLastN_Sums(rango, mesa, until));
-  }
-  return res;
-};
-
-getLastN_Sums(rango:number, mesa:Mesa, until:number):number{
-  let totalGamesInLastRange:number=0;//> es pocible que esta variable no tenga que inicializarce desde 0 otra vez o guardarse como una global
-  let from:number = until - rango * 60 * 1000;
-  console.log(new Date(until).toLocaleTimeString());
-  for (const data of mesa.winningNumbersData) {
-    if (this.isInRange(parseInt(data[1]), from, until)) {
-      totalGamesInLastRange++;
+getGamesInAllRange(cant:number, rango:number, mesa:Mesa, until:number):number[] {
+    let res = [];
+    for (let i = 0; i < cant; i++) {
+        res.unshift(this.getLastN_Sums(rango, mesa, until-1));
+        until -= rango * 60 * 1000;
     }
-  }
-  return totalGamesInLastRange;
-};
-
-isInRange(valor:number, from:number, until:number):boolean{
-  let result:boolean=false;
-  if (valor >= from && valor <= until) {
-    result= true;
-  }
-  return result;
+    return res;
+}
+;
+getLastN_Sums(rango:number, mesa:Mesa, until:number):number {
+    let totalGamesInLastRange = 0;
+    let since = until - rango * 60 * 1000;
+    mesa.winningNumbersData.forEach(element => {
+        if (this.isInRange(parseInt(element[1]),since,until)) {
+            totalGamesInLastRange++;
+        }
+    });
+    return totalGamesInLastRange;
+}
+;
+isInRange(valor:number, since:number, until:number):boolean {
+    let result = false;
+    if (valor >= since && valor <= until) {
+        result = true;
+    }   
+    return result;
 };
 
 
