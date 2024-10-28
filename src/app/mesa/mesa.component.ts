@@ -33,17 +33,12 @@ export class MesaComponent implements OnChanges {
   option = {};
   
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['data']?.currentValue) {
-      if (this.myChart) {
-        this.myChart.disponse();  
-      }
-    }
-    if (this.min) {
-      console.log('====================================');
-      console.log(this.min);
-      console.log('====================================');
-      
-    }
+    // if (changes['data']?.currentValue) {
+    //   if (this.myChart) {
+    //     this.myChart.disponse();  
+    //   }
+    // }
+    
     this.myChart = echarts.init(document.getElementById(this.dato.tableData[1].toString())); 
 
 
@@ -62,7 +57,7 @@ export class MesaComponent implements OnChanges {
 
   //# Numero de muestra en la parte superior de la grafica
   // const categories2 = ( () => {
-  //   if (this.resCat2.length < this.cantIntervalos) {
+  //   if ( this.resCat2.length < this.cantIntervalos) {
   //     for (let i = 1 ; i <= this.cantIntervalos; i++) {
   //       this.resCat2.push(i)
   //     }
@@ -137,23 +132,23 @@ export class MesaComponent implements OnChanges {
         {
           type: 'value',
           scale: true,
-          name: 'Games',
-          max: 8,
+          name: ``,
+          max: 30,
           min: 0,
           boundaryGap: [0.2, 0.2]
         },
         {
           type: 'value',
           scale: true,
-          name: 'Order',
-          max: 8,
+          name: '',
+          max: 30,
           min: 0,
           boundaryGap: [0.2, 0.2]
         }
       ],
       series: [
         {
-          name: 'Dynamic Bar',
+          name: `Total Games: ${data3.reduce((count,val)=>{return count+val},0)}`,
           type: 'bar',
           xAxisIndex: 1,
           yAxisIndex: 1,
@@ -166,6 +161,50 @@ export class MesaComponent implements OnChanges {
         } */
       ]
     };
+
+    // if (this.dato === {} as Mesa ) {
+    //   this.option = {
+    //     graphic: {
+    //       elements: [
+    //         {
+    //           type: 'group',
+    //           left: 'center',
+    //           top: 'center',
+    //           children: new Array(7).fill(0).map((val, i) => ({
+    //             type: 'rect',
+    //             x: i * 20,
+    //             shape: {
+    //               x: 0,
+    //               y: -40,
+    //               width: 10,
+    //               height: 80
+    //             },
+    //             style: {
+    //               fill: '#5470c6'
+    //             },
+    //             keyframeAnimation: {
+    //               duration: 1000,
+    //               delay: i * 200,
+    //               loop: true,
+    //               keyframes: [
+    //                 {
+    //                   percent: 0.5,
+    //                   scaleY: 0.3,
+    //                   easing: 'cubicIn'
+    //                 },
+    //                 {
+    //                   percent: 1,
+    //                   scaleY: 1,
+    //                   easing: 'cubicOut'
+    //                 }
+    //               ]
+    //             }
+    //           }))
+    //         }
+    //       ]
+    //     }
+    //   };
+    // }
 
       this.myChart.setOption(this.option);
 };
