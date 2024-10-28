@@ -13,6 +13,7 @@ export class SalaComponent {
 
   showTables:boolean;
   @Input() mesas:Record<string, Mesa> = {};
+  @Input() min:number=0;
   valor:string[]=[];
   tableSelect: string;
 

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, signal} from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';import { BodyMainComponent } from "./body-main/body-main.component";
 import { FooterComponent } from './footer/footer.component';
 import { CabeceraComponent } from "./cabecera/cabecera.component";
@@ -27,14 +27,18 @@ export class AppComponent{
   mesaArray:number[];
   numberGamesfromTable:number[];
   mostrarMesa = true;
-  time:string;
+  time:string="";
+  min:number;
+
 
   constructor(){
     
-    this.time="";
+    this.min=0;
     setInterval(() => {
       this.time = new Date().toLocaleTimeString();
+      this.min = new Date().getMinutes();
     }, 1000);
+
   
 
     this.numberGamesfromTable = [];
