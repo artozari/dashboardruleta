@@ -4,15 +4,14 @@
         <div class="map"></div>
     </div>
     <div class="tables-container">
-        {{n}}
         @if(showTables){
             @for (k of valor; track $index) {
                 <app-mesa [dato]="mesas[k]" ></app-mesa>
-                <button (click)="cambiarMostrarMesa(k)">ver Mesa</button>
+                <button (click)="cambiarMostrarMesa(k)">Ver Mesa</button>
             }
         }@else {
-            <app-mesa [dato]="mesas[tableSelect]" [min]="min"></app-mesa>
-            <button (click)="cambiarMostrarMesa(tableSelect)">ver Sala</button>
+            <app-mesa [dato]="mesas[tableSelect]"></app-mesa>
+            <button (click)="cambiarMostrarMesa(tableSelect)">Ver Sala</button>
         }
     </div>
 </div>

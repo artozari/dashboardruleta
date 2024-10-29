@@ -20,23 +20,17 @@ export class AppComponent{
   conexion : ConectorComponent;
   dato: Mesa = {} as Mesa;
   mesas: Record<string, Mesa> = {};
-  mesaArray:number[];
-  numberGamesfromTable:number[];
+  mesaArray:number[]=[];
+  numberGamesfromTable:number[]=[];
   mostrarMesa = true;
   time:string = new Date().toLocaleTimeString();
-  min:number;
-
 
   constructor(){
-    
-    this.min=0;
+
     setInterval(() => {
       this.time = new Date().toLocaleTimeString();
-      this.min = new Date().getMinutes();
     }, 1000);
 
-    this.numberGamesfromTable = [];
-    this.mesaArray = [];
     this.conexion = new ConectorComponent();
     this.conexion.conectar();
     this.conexion.client.subscribe(this.conexion.topico);
@@ -49,9 +43,10 @@ export class AppComponent{
         tableData: this.dato.tableData,
         configData: this.dato.configData,
         winningNumbersData: this.dato.winningNumbersData
-      };   
+      };        
     });
   }
+  
   
   cambiarMostrarMesa(){
     this.mostrarMesa = !this.mostrarMesa;
