@@ -1,4 +1,4 @@
-import { Component, Input,  SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges,  SimpleChanges } from '@angular/core';
 import { Mesa } from '../conector/conector.component';
 import { MesaComponent } from "../mesa/mesa.component";
 
@@ -9,25 +9,22 @@ import { MesaComponent } from "../mesa/mesa.component";
   templateUrl: './sala.component.html',
   styleUrl: './sala.component.css'
 })
-export class SalaComponent {
-
-  showTables:boolean;
-  @Input() mesas:Record<string, Mesa> = {};
-  valor:string[]=[];
-  tableSelect: string;
+export class SalaComponent implements OnChanges {
+ 
+  @Input() mesas:Record<string, Mesa>={};
+  @Input() min:number = 0
+  showTables:boolean = true;
+  valor:string[]=Object.keys(this.mesas);
+  tableSelect: string="";
   
-  constructor(){
-    this.showTables = true;
-    this.tableSelect = "";
-  }
-  
-  
-  ngOnChanges(changes: SimpleChanges) {
-    this.valor = Object.keys(this.mesas);
-    console.log(this.valor);
+  ngOnChanges(changes: SimpleChanges): void {
+    // if (changes['mesas']?.currentValue) {
+      // this.valor = Object.keys(this.mesas);
+      // console.log(this.valor);
+    // }
     
   }
-
+  
   cambiarMostrarMesa(key:string){
     this.showTables = !this.showTables;
     this.tableSelect = key;

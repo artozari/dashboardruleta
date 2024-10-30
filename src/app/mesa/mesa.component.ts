@@ -1,4 +1,4 @@
-import { Component,  Input,   OnChanges,  SimpleChanges} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import * as echarts from 'echarts';
 import { Mesa } from '../conector/conector.component';
 import  {UtilsComponent}  from '../utils/utils.component';
@@ -17,10 +17,10 @@ interface App {
 
 export class MesaComponent implements OnChanges {
 
-  @Input() dato = {} as Mesa;
-
+  @Input() dato:Mesa = {} as Mesa;
+  @Input() min:number = 0;
   app:App={count:0}as App;
-
+  
   cantIntervalos = 10;
   intervals = 1; // en minutos
   resCat : string[] = [];
@@ -32,14 +32,13 @@ export class MesaComponent implements OnChanges {
   option = {};
   
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['dato'].firstChange === false) {
+    if (changes['dato']?.currentValue) {
       if (this.myChart) {
-        this.myChart.disponse();  
+        this.myChart.remove();  
       }
     }
     
-    
-    this.myChart = echarts.init(document.getElementById(this.dato.tableData[1].toString())); 
+  this.myChart = echarts.init(document.getElementById(this.dato.tableData[1].toString())); 
 
   //# Valores de los rangos en la grafica
   const categories = ( () => {
@@ -238,7 +237,7 @@ isInRange(valor:number, since:number, until:number):boolean {
     let result = false;
     if (since < valor && valor <= until) {
         result = true;
-    }   
+    }  
     return result;
 };
 } 

@@ -6,7 +6,7 @@
     <div class="tables-container">
         @if(showTables){
             @for (k of valor; track $index) {
-                <app-mesa [dato]="mesas[k]" ></app-mesa>
+                <app-mesa [dato]="mesas[k]" [min]="min"></app-mesa>
                 <button (click)="cambiarMostrarMesa(k)">Ver Mesa</button>
             }
         }@else {

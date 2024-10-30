@@ -15,20 +15,22 @@ import { SalaComponent } from './sala/sala.component';
   styleUrl: './app.component.css',
 })
 
-export class AppComponent{
+export class AppComponent {
 
   conexion : ConectorComponent;
+  mesas: Record<string, Mesa>={};
   dato: Mesa = {} as Mesa;
-  mesas: Record<string, Mesa> = {};
-  mesaArray:number[]=[];
-  numberGamesfromTable:number[]=[];
-  mostrarMesa = true;
+  cantTablesRecived:string[]=[];
+  mostrarSala = true;
   time:string = new Date().toLocaleTimeString();
+  min:number = 0;
+  tableSelected:string = "";
 
   constructor(){
 
     setInterval(() => {
       this.time = new Date().toLocaleTimeString();
+      this.min = new Date().getMinutes();
     }, 1000);
 
     this.conexion = new ConectorComponent();
@@ -43,13 +45,16 @@ export class AppComponent{
         tableData: this.dato.tableData,
         configData: this.dato.configData,
         winningNumbersData: this.dato.winningNumbersData
-      };        
+      };
+      this.cantTablesRecived = Object.keys(this.mesas);
     });
-  }
+
+    this.cantTablesRecived = Object.keys(this.mesas);
+  }  
   
-  
-  cambiarMostrarMesa(){
-    this.mostrarMesa = !this.mostrarMesa;
+  cambiarMostrarMesa(k:string):void{
+    this.tableSelected = k;
+    this.mostrarSala = !this.mostrarSala;
   }
 
 }
