@@ -6,17 +6,25 @@
     <app-cabecera />
   </div>
   <div class="menu"></div>
-  <p style="display: flex; align-items: center; justify-content: center; font-size: 30px;">{{time}}</p>
+  <p
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    "
+  >
+    {{ time }}
+  </p>
   <div class="body">
-    @if(mostrarSala){
+    @if (mostrarSala) {
       @for (k of cantTablesRecived; track $index) {
         <div class="allTable">
           <app-mesa [dato]="mesas[k]" [min]="min"></app-mesa>
           <button (click)="cambiarMostrarMesa(k)">Ver Mesa</button>
         </div>
       }
-    }
-    @else{
+    } @else {
       <div class="oneTable">
         <app-mesa [dato]="mesas[tableSelected]" [min]="min"></app-mesa>
         <button (click)="cambiarMostrarMesa(tableSelected)">Ver Sala</button>
@@ -24,6 +32,6 @@
     }
   </div>
   <div class="footer">
-    <app-footer ></app-footer>
+    <app-footer></app-footer>
   </div>
 </div>

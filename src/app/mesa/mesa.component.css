@@ -1,11 +1,11 @@
-.graph-container{
-    display: flex;
-    border: 1px solid red;
+.graph-container {
+  display: flex;
+  /* border: 1px solid red; */
 }
 
-.graph{
-    width: 900px;
-    height: 400px;
-    border: 1px solid blue;
-    display: flex;
+.graph {
+  width: 900px;
+  height: 400px;
+  /* border: 1px solid blue; */
+  display: flex;
 }
