@@ -1,11 +1,11 @@
 .graph-container {
   display: flex;
-  /* border: 1px solid red; */
+  justify-content: center;
+  align-items: center;
 }
 
 .graph {
-  width: 900px;
-  height: 400px;
-  /* border: 1px solid blue; */
   display: flex;
+  width: 600px;
+  height: 350px;
 }
