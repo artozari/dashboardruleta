@@ -12,9 +12,12 @@ type EChartsOption = echarts.EChartsOption;
   templateUrl: `./mesa.component.html`,
   styleUrl: `./mesa.component.css`,
 })
+
 export class MesaComponent implements OnChanges {
   @Input() dato: Mesa = {} as Mesa;
   @Input() min: number = 0;
+  timeToSemaforo: number = 10000;
+  interval: any;
 
   cantIntervalos = 10;
   intervals = 1; // en minutos
@@ -28,44 +31,93 @@ export class MesaComponent implements OnChanges {
 
   optionWaiting = {};
 
-  ngOnChanges(changes: SimpleChanges) {
+  constructor() {
+    this.interval = () => {
+      setInterval(() => {
+        if (this.timeToSemaforo < 0) {
+          console.log("semaforo en Rojo");
+        }
+        if (this.timeToSemaforo >= 0 && this.timeToSemaforo <= 5000) {
+          console.log("semaforo en amarillo");
+        }
+        if (this.timeToSemaforo > 5000 && this.timeToSemaforo <= 10000) {
+          console.log("semaforo en Verde");
+        }
+        this.timeToSemaforo = this.timeToSemaforo - 1000;
+      }, 1000);
+    };
 
+    if (this.timeToSemaforo < 0) {
+      clearInterval(this.interval);
+    }
+
+    this.interval();
+  }
+
+  ngAfterViewInit() {
+    this.timeToSemaforo = 10000;
+    console.log(this.dato.tableData[1].toString());
+    this.myChart = echarts.init(document.getElementById(this.dato.tableData[1].toString()));
+    this.optionWaiting = {
+      graphic: {
+        elements: [
+          {
+            type: 'group',
+            left: 'center',
+            top: 'center',
+            children: new Array(7).fill(0).map((val, i) => ({
+              type: 'rect',
+              x: i * 20,
+              shape: {
+                x: 0,
+                y: -40,
+                width: 10,
+                height: 80,
+              },
+              style: {
+                fill: '#5470c6',
+              },
+              keyframeAnimation: {
+                duration: 1000,
+                delay: i * 200,
+                loop: true,
+                keyframes: [
+                  {
+                    percent: 0.5,
+                    scaleY: 0.3,
+                    easing: 'cubicIn',
+                  },
+                  {
+                    percent: 1,
+                    scaleY: 1,
+                    easing: 'cubicOut',
+                  },
+                ],
+              },
+            })),
+          },
+        ],
+      },
+    };
+    this.myChart.setOption(this.optionWaiting);
+
+    this.myChart.hideLoading();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
 
     if (changes['dato']?.firstChange === false) {
       if (this.myChart) {
         echarts.dispose(this.myChart);
       }
+      this.myChart = echarts.init(document.getElementById(this.dato.tableData[1].toString()));
     }
     else {
       console.log("aqui");
       this.myChart = echarts.init(
         document.getElementById(this.dato.tableData[1].toString())
       );
-
-      // this.myChart.showLoading("default", {
-      //   text: 'loading',
-      //   color: '#c23531',
-      //   textColor: '#000',
-      //   maskColor: 'rgba(255, 255, 255, 0.8)',
-      //   zlevel: 0,
-
-      //   // Font size. Available since `v4.8.0`.
-      //   fontSize: 12,
-      //   // Show an animated "spinner" or not. Available since `v4.8.0`.
-      //   showSpinner: true,
-      //   // Radius of the "spinner". Available since `v4.8.0`.
-      //   spinnerRadius: 10,
-      //   // Line width of the "spinner". Available since `v4.8.0`.
-      //   lineWidth: 5,
-      //   // Font thick weight. Available since `v5.0.1`.
-      //   fontWeight: 'normal',
-      //   // Font style. Available since `v5.0.1`.
-      //   fontStyle: 'normal',
-      //   // Font family. Available since `v5.0.1`.
-      //   fontFamily: 'sans-serif'
-      // });
     }
-
 
 
     //# Valores de los rangos en la grafica
@@ -186,47 +238,8 @@ export class MesaComponent implements OnChanges {
       ],
     };
 
-    this.optionWaiting = {
-      graphic: {
-        elements: [
-          {
-            type: 'group',
-            left: 'center',
-            top: 'center',
-            children: new Array(7).fill(0).map((val, i) => ({
-              type: 'rect',
-              x: i * 20,
-              shape: {
-                x: 0,
-                y: -40,
-                width: 10,
-                height: 80,
-              },
-              style: {
-                fill: '#5470c6',
-              },
-              keyframeAnimation: {
-                duration: 1000,
-                delay: i * 200,
-                loop: true,
-                keyframes: [
-                  {
-                    percent: 0.5,
-                    scaleY: 0.3,
-                    easing: 'cubicIn',
-                  },
-                  {
-                    percent: 1,
-                    scaleY: 1,
-                    easing: 'cubicOut',
-                  },
-                ],
-              },
-            })),
-          },
-        ],
-      },
-    };
+
+
 
     this.myChart.setOption(this.option);
   }
