@@ -6,19 +6,12 @@
     <app-cabecera />
   </div>
   <div class="menu"></div>
-  <p
-    style="
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-    "
-  >
+  <p class="mainClock">
     {{ time }}
   </p>
   <div class="body">
     @if (mostrarSala) { @for (k of cantTablesRecived; track $index) {
-    <div class="allTable">
+    <div class="allTable" [style.animation]="animation" [style.background_Color]="background_Color">
       <app-mesa [dato]="mesas[k]" [min]="min"></app-mesa>
       <button (click)="cambiarMostrarMesa(k)">Ver Mesa</button>
     </div>

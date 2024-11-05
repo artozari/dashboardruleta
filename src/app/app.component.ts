@@ -25,6 +25,9 @@ import { SalaComponent } from './sala/sala.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+
+  animation = "infinite resplandorAnimationRed 5s";
+  background_Color = "red";
   conexion: ConectorComponent;
   mesas: Record<string, Mesa> = {};
   dato: Mesa = {} as Mesa;

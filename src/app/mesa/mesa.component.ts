@@ -16,7 +16,7 @@ type EChartsOption = echarts.EChartsOption;
 export class MesaComponent implements OnChanges {
   @Input() dato: Mesa = {} as Mesa;
   @Input() min: number = 0;
-  timeToSemaforo: number = 10000;
+  timeToSemaforo: number;
   interval: any;
 
   cantIntervalos = 10;
@@ -27,99 +27,16 @@ export class MesaComponent implements OnChanges {
   resData: number[] = [];
   resData2: [] = [];
   myChart: any = {} as EChartsOption;
+  myChartLoad: any = {} as EChartsOption;
   option = {};
-
   optionWaiting = {};
 
   constructor() {
-    this.interval = () => {
-      setInterval(() => {
-        if (this.timeToSemaforo < 0) {
-          console.log("semaforo en Rojo");
-        }
-        if (this.timeToSemaforo >= 0 && this.timeToSemaforo <= 5000) {
-          console.log("semaforo en amarillo");
-        }
-        if (this.timeToSemaforo > 5000 && this.timeToSemaforo <= 10000) {
-          console.log("semaforo en Verde");
-        }
-        this.timeToSemaforo = this.timeToSemaforo - 1000;
-      }, 1000);
-    };
-
-    if (this.timeToSemaforo < 0) {
-      clearInterval(this.interval);
-    }
-
-    this.interval();
+    this.timeToSemaforo = 3;
   }
 
   ngAfterViewInit() {
-    this.timeToSemaforo = 10000;
-    console.log(this.dato.tableData[1].toString());
     this.myChart = echarts.init(document.getElementById(this.dato.tableData[1].toString()));
-    this.optionWaiting = {
-      graphic: {
-        elements: [
-          {
-            type: 'group',
-            left: 'center',
-            top: 'center',
-            children: new Array(7).fill(0).map((val, i) => ({
-              type: 'rect',
-              x: i * 20,
-              shape: {
-                x: 0,
-                y: -40,
-                width: 10,
-                height: 80,
-              },
-              style: {
-                fill: '#5470c6',
-              },
-              keyframeAnimation: {
-                duration: 1000,
-                delay: i * 200,
-                loop: true,
-                keyframes: [
-                  {
-                    percent: 0.5,
-                    scaleY: 0.3,
-                    easing: 'cubicIn',
-                  },
-                  {
-                    percent: 1,
-                    scaleY: 1,
-                    easing: 'cubicOut',
-                  },
-                ],
-              },
-            })),
-          },
-        ],
-      },
-    };
-    this.myChart.setOption(this.optionWaiting);
-
-    this.myChart.hideLoading();
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-
-    if (changes['dato']?.firstChange === false) {
-      if (this.myChart) {
-        echarts.dispose(this.myChart);
-      }
-      this.myChart = echarts.init(document.getElementById(this.dato.tableData[1].toString()));
-    }
-    else {
-      console.log("aqui");
-      this.myChart = echarts.init(
-        document.getElementById(this.dato.tableData[1].toString())
-      );
-    }
-
-
     //# Valores de los rangos en la grafica
     const categories = (() => {
       const ahora = new Date();
@@ -182,7 +99,7 @@ export class MesaComponent implements OnChanges {
         },
       },
       dataZoom: {
-        show: true,
+        show: false,
         start: 0,
         end: 100,
       },
@@ -209,7 +126,153 @@ export class MesaComponent implements OnChanges {
         },
         {
           type: 'value',
-          scale: false,
+          scale: true,
+          name: '',
+          max: 36,
+          min: 0,
+          boundaryGap: [0.2, 0.2],
+        },
+      ],
+      series: [
+        {
+          name: `Total Games: ${data3.reduce((count, val) => {
+            return count + val;
+          }, 0)}`,
+          type: 'bar',
+          xAxisIndex: 1,
+          yAxisIndex: 1,
+          data: data3,
+        },
+        {
+          name: `${this.dato.winningNumbersData[
+            this.dato.winningNumbersData.length - 1
+          ][3]
+            }`,
+          type: 'line',
+          data: data2,
+          smooth: false,
+        },
+      ],
+    };
+    this.myChart.setOption(this.option);
+  }
+
+  //> Aqui se repite para cada cambio, hay que ver las funciones repetidas
+
+  ngOnChanges(changes: SimpleChanges) {
+
+    if (changes['min']?.firstChange === false) {
+      if (Date.now() - this.dato.ts <= 5000) {
+        this.timeToSemaforo = 0;
+        console.log("verde");
+      }
+      if (Date.now() - this.dato.ts > 5000) {
+        this.timeToSemaforo = 1;
+        console.log("amarillo");
+      }
+      if (Date.now() - this.dato.ts > 10000) {
+        this.timeToSemaforo = 2;
+        console.log("rojo");
+      }
+      if (this.timeToSemaforo === 3) {
+        this.timeToSemaforo = 3;
+      }
+      if (this.myChart) {
+        echarts.dispose(this.myChart);
+      }
+    }
+
+    this.myChart = echarts.init(document.getElementById(this.dato.tableData[1].toString()));
+
+    //# Valores de los rangos en la grafica
+    const categories = (() => {
+      const ahora = new Date();
+      const minInicio = ahora.getMinutes() % this.intervals;
+      let horaInicial = new Date(
+        new Date(
+          ahora.getTime() - this.cantIntervalos * this.intervals * 60 * 1000
+        ).getTime() -
+        minInicio * 60 * 1000
+      ).getTime();
+      const res: string[] = [];
+      for (let i = 0; i < this.cantIntervalos; i++) {
+        horaInicial += this.intervals * 60 * 1000;
+        res.push(
+          new Date(horaInicial).toLocaleTimeString('es-ES', {
+            hour: 'numeric',
+            minute: 'numeric',
+          })
+        );
+      }
+      return res;
+    })();
+
+    const data2 = (() => {
+      const startIndex = Math.max(this.dato.winningNumbersData.length - this.cantIntervalos, 0);
+      return this.dato.winningNumbersData.slice(startIndex).map(item => item[3]);
+    })();
+
+    //# Valores de las barras que muestran el numero de jugadas realizadas en los intervalos de tiempo en la grafica
+    let horaInicial = Date.now() - (Date.now() % (this.intervals * 60 * 1000));
+    const data3 = this.getGamesInAllRange(
+      this.cantIntervalos,
+      this.intervals,
+      this.dato,
+      horaInicial
+    );
+
+    this.option = {
+      title: {
+        // text: 'Dynamic Data'
+        text: this.dato.tableData[3],
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#283b56',
+          },
+        },
+      },
+      legend: {},
+      toolbox: {
+        show: true,
+        feature: {
+          dataView: { readOnly: false },
+          restore: {},
+          saveAsImage: {},
+        },
+      },
+      dataZoom: {
+        show: false,
+        start: 0,
+        end: 100,
+      },
+      xAxis: [
+        {
+          type: 'category',
+          boundaryGap: true,
+          data: categories,
+        },
+        {
+          type: 'category',
+          boundaryGap: true,
+          data: data3,
+        },
+      ],
+      yAxis: [
+        {
+          type: 'value',
+          scale: true,
+          name: ``,
+          max: 36,
+          min: 0,
+          boundaryGap: [0.2, 0.2],
+        },
+        {
+          type: 'value',
+          scale: true,
           name: '',
           max: 36,
           min: 0,
@@ -238,9 +301,6 @@ export class MesaComponent implements OnChanges {
       ],
     };
 
-
-
-
     this.myChart.setOption(this.option);
   }
 
@@ -254,7 +314,7 @@ export class MesaComponent implements OnChanges {
         return count + (since < valor && valor <= until ? 1 : 0);
       }, 0);
 
-      res.push(totalGamesInLastRange);
+      res.unshift(totalGamesInLastRange);
       until = since;
     }
 
