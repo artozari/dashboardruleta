@@ -37,58 +37,6 @@
   font-size: 30px;
 }
 
-.allTable {
-  padding: 20px 20px;
-  box-shadow: 0px 0px 20px;
-  /* animation: infinite resplandorAnimationRed 5s; */
-}
-
-.oneTable {
-  padding: 20px 20px;
-  box-shadow: 0px 0px 20px;
-  /* animation: infinite resplandorAnimationGreen 5s; */
-}
-
-@keyframes resplandorAnimationGreen {
-  0%,
-  100% {
-    box-shadow: 5px 0px 20px green inset;
-  }
-  50% {
-    box-shadow: 0px 0px 0px inset;
-  }
-}
-
-@keyframes resplandorAnimationYellow {
-  0%,
-  100% {
-    box-shadow: 5px 0px 20px rgb(238, 255, 0) inset;
-  }
-  50% {
-    box-shadow: 0px 0px 0px inset;
-  }
-}
-
-@keyframes resplandorAnimationRed {
-  0%,
-  100% {
-    box-shadow: 5px 0px 20px rgb(179, 6, 63) inset;
-  }
-  50% {
-    box-shadow: 0px 0px 0px inset;
-  }
-}
-
-@keyframes resplandorAnimationWhite {
-  0%,
-  100% {
-    box-shadow: 5px 0px 20px rgb(151, 151, 151) inset;
-  }
-  50% {
-    box-shadow: 0px 0px 0px inset;
-  }
-}
-
 .logo {
   display: inline;
   justify-self: center;
@@ -99,4 +47,10 @@
   justify-self: center;
   align-self: center;
   grid-area: 1 / 2 / 2 / 3;
+}
+
+.graphIndiv {
+  display: flex;
+  width: 750px;
+  height: 450px;
 }

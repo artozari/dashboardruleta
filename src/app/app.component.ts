@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ConectorComponent, Mesa } from './conector/conector.component';
 import { MesaComponent } from './mesa/mesa.component';
 import { SalaComponent } from './sala/sala.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -20,14 +21,13 @@ import { SalaComponent } from './sala/sala.component';
     ReactiveFormsModule,
     MesaComponent,
     SalaComponent,
+    CommonModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
 
-  animation = "infinite resplandorAnimationRed 5s";
-  background_Color = "red";
   conexion: ConectorComponent;
   mesas: Record<string, Mesa> = {};
   dato: Mesa = {} as Mesa;
@@ -36,7 +36,7 @@ export class AppComponent {
   time: string = new Date().toLocaleTimeString();
   min: number = 0;
   tableSelected: string = '';
-  semaforo: number = 0;
+  semaforo: string[] = [];
 
   constructor() {
     setInterval(() => {

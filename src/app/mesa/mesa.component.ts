@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import * as echarts from 'echarts';
 import { Mesa } from '../conector/conector.component';
 import { UtilsComponent } from '../utils/utils.component';
@@ -8,7 +9,9 @@ type EChartsOption = echarts.EChartsOption;
 @Component({
   selector: 'app-mesa',
   standalone: true,
-  imports: [UtilsComponent],
+  imports: [UtilsComponent,
+    CommonModule
+  ],
   templateUrl: `./mesa.component.html`,
   styleUrl: `./mesa.component.css`,
 })
@@ -16,11 +19,19 @@ type EChartsOption = echarts.EChartsOption;
 export class MesaComponent implements OnChanges {
   @Input() dato: Mesa = {} as Mesa;
   @Input() min: number = 0;
-  timeToSemaforo: number;
+  @Input() mostrarSala: boolean=true;
+  timeToSemaforo: string[];
+  clases: string[] = [
+    "allTable",
+    "animate1",
+    "animate2",
+    "animate3",
+    "animate4",
+  ];
   interval: any;
 
   cantIntervalos = 10;
-  intervals = 1; // en minutos
+  intervals = 10; // en minutos
   resCat: string[] = [];
   resCat2: any[] = [];
 
@@ -32,7 +43,14 @@ export class MesaComponent implements OnChanges {
   optionWaiting = {};
 
   constructor() {
-    this.timeToSemaforo = 3;
+    this.timeToSemaforo = [""];
+    this.clases = [
+      "allTable",
+      "animate1",
+      "animate2",
+      "animate3",
+      "animate4",
+    ];
   }
 
   ngAfterViewInit() {
@@ -144,7 +162,7 @@ export class MesaComponent implements OnChanges {
           data: data3,
         },
         {
-          name: `${this.dato.winningNumbersData[
+          name: `Last Game: ${this.dato.winningNumbersData[
             this.dato.winningNumbersData.length - 1
           ][3]
             }`,
@@ -162,23 +180,30 @@ export class MesaComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
 
     if (changes['min']?.firstChange === false) {
-      if (Date.now() - this.dato.ts <= 5000) {
-        this.timeToSemaforo = 0;
-        console.log("verde");
-      }
-      if (Date.now() - this.dato.ts > 5000) {
-        this.timeToSemaforo = 1;
-        console.log("amarillo");
-      }
-      if (Date.now() - this.dato.ts > 10000) {
-        this.timeToSemaforo = 2;
-        console.log("rojo");
-      }
-      if (this.timeToSemaforo === 3) {
-        this.timeToSemaforo = 3;
-      }
       if (this.myChart) {
         echarts.dispose(this.myChart);
+      }
+    }
+
+    const ts = parseInt(this.dato.winningNumbersData[this.dato.winningNumbersData.length - 1][1]);
+    console.log(this.dato.ts, Date.now(), Date.now() - ts, ts);
+    let grp: string = this.mostrarSala ? "graph" : "graphIndiv";
+
+    if (changes['min']?.currentValue) {
+      if (this.timeToSemaforo === null) {
+        this.timeToSemaforo = ["allTable", "animate4", grp];
+      }
+      if (Date.now() - ts < 10000) {
+        this.timeToSemaforo = ["allTable", "animate3", grp];
+        console.log("rojo");
+      }
+      if (Date.now() - ts < 5000) {
+        this.timeToSemaforo = ["allTable", "animate2", grp];
+        console.log("amarillo");
+      }
+      if (Date.now() - ts >= 5000) {
+        this.timeToSemaforo = ["allTable", "animate1", grp];
+        console.log("verde");
       }
     }
 
@@ -290,7 +315,7 @@ export class MesaComponent implements OnChanges {
           data: data3,
         },
         {
-          name: `${this.dato.winningNumbersData[
+          name: `Last Game: ${this.dato.winningNumbersData[
             this.dato.winningNumbersData.length - 1
           ][3]
             }`,

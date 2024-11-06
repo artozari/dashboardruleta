@@ -11,14 +11,14 @@
   </p>
   <div class="body">
     @if (mostrarSala) { @for (k of cantTablesRecived; track $index) {
-    <div class="allTable" [style.animation]="animation" [style.background_Color]="background_Color">
+    <div class="allTable">
       <app-mesa [dato]="mesas[k]" [min]="min"></app-mesa>
       <button (click)="cambiarMostrarMesa(k)">Ver Mesa</button>
     </div>
     } } @else {
     <div class="oneTable">
-      <app-mesa [dato]="mesas[tableSelected]" [min]="min"></app-mesa>
-      <button (click)="cambiarMostrarMesa(tableSelected)">Ver Sala</button>
+      <app-mesa [mostrarSala]="mostrarSala" [dato]="mesas[tableSelected]" [min]="min"></app-mesa>
+      <button (click)="cambiarMostrarMesa(tableSelected)" >Ver Sala</button>
     </div>
     }
   </div>
