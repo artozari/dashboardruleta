@@ -17,7 +17,6 @@ import { CommonModule } from '@angular/common';
     CabeceraComponent,
     BodyMainComponent,
     FooterComponent,
-    BodyMainComponent,
     ReactiveFormsModule,
     MesaComponent,
     SalaComponent,
