@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  font-size: 14px;
+  background: #2c2f36;
+  color: white;
+  padding: 30px;
+}
+
+#wrapper {
+  margin: auto;
+}
+
+#buildZone {
+  display: flex;
+}
+
+.canvas-container,
+#canvas {
+  transition: all 0.2 ease-in-out;
+}
+
+#canvas {
+  background: #212328;
+  border-radius: 5px;
+}
+
+#controls {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+#controls i {
+  background: #4881b8;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  border-radius: 100%;
+  transition: all 0.2s ease-in-out;
+  margin: 5px 0;
+}
+#controls i:hover {
+  background: #6595c3;
+  cursor: pointer;
+}
+#controls #clear {
+  background: #e54f6b;
+  margin-top: auto;
+}
+#controls #clear:hover {
+  background: #ea7389;
+}
+
+#styleZone {
+  display: flex;
+  margin-top: 20px;
+  width: 300px;
+  height: 40px;
+}
+
+#styleZone span {
+  width: 60px;
+  height: 30px;
+  border-radius: 3px;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+  border: 2px solid transparent;
+}
+
+#styleZone span.isSelected i {
+  opacity: 1;
+  transform: scale(1);
+}
+#styleZone span:hover,
+#styleZone span.isSelected {
+  cursor: pointer;
+  border-color: white;
+}
+#styleZone i {
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.56, 0.35, 0, 1.7);
+  transform: scale(0.6);
+}

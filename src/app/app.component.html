@@ -10,6 +10,7 @@
     {{ time }}
   </p>
   <div class="body">
+    <app-salamap/>
     @if (mostrarSala) { @for (k of cantTablesRecived; track $index) {
     <div class="allTable">
       <app-mesa [dato]="mesas[k]" [min]="min"></app-mesa>

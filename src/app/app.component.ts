@@ -8,6 +8,7 @@ import { ConectorComponent, Mesa } from './conector/conector.component';
 import { MesaComponent } from './mesa/mesa.component';
 import { SalaComponent } from './sala/sala.component';
 import { CommonModule } from '@angular/common';
+import { SalamapComponent } from './salamap/salamap.component';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,8 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     MesaComponent,
     SalaComponent,
-    CommonModule
+    CommonModule,
+    SalamapComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

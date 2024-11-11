@@ -2,14 +2,12 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as echarts from 'echarts';
 import { Mesa } from '../conector/conector.component';
-import { UtilsComponent } from '../utils/utils.component';
-
 type EChartsOption = echarts.EChartsOption;
 
 @Component({
   selector: 'app-mesa',
   standalone: true,
-  imports: [UtilsComponent,
+  imports: [
     CommonModule
   ],
   templateUrl: `./mesa.component.html`,
@@ -19,7 +17,7 @@ type EChartsOption = echarts.EChartsOption;
 export class MesaComponent implements OnChanges {
   @Input() dato: Mesa = {} as Mesa;
   @Input() min: number = 0;
-  @Input() mostrarSala: boolean=true;
+  @Input() mostrarSala: boolean = true;
   timeToSemaforo: string[];
   clases: string[] = [
     "allTable",
