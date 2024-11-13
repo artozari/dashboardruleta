@@ -10,16 +10,36 @@
     {{ time }}
   </p>
   <div class="body">
-    <app-salamap/>
-    @if (mostrarSala) { @for (k of cantTablesRecived; track $index) {
-    <div class="allTable">
-      <app-mesa [dato]="mesas[k]" [min]="min"></app-mesa>
-      <button (click)="cambiarMostrarMesa(k)">Ver Mesa</button>
+    <div class="mapaSala">
+      <app-salamap [dato]="mesas[1]"/>
     </div>
-    } } @else {
+    @if (mostrarSala) {
+    <div class="graphSala">
+      @for (k of cantTablesRecived; track $index) {
+      <div class="allTable">
+        <app-mesa [dato]="mesas[k]" [min]="min"></app-mesa>
+        <button class="btnfos btnfos-h" (click)="cambiarMostrarMesa(k)">
+          Ver Mesa
+        </button>
+      </div>
+      }
+    </div>
+    } @if(!mostrarSala) {
     <div class="oneTable">
-      <app-mesa [mostrarSala]="mostrarSala" [dato]="mesas[tableSelected]" [min]="min"></app-mesa>
-      <button (click)="cambiarMostrarMesa(tableSelected)" >Ver Sala</button>
+      <button
+        class="btnfos btnfos-h"
+        (click)="cambiarMostrarMesa(tableSelected)"
+      >
+        Ver Sala
+      </button>
+      <div class="dashMesa">
+        <app-mesa
+          [mostrarSala]="mostrarSala"
+          [dato]="mesas[tableSelected]"
+          [min]="min"
+        />
+        <app-winning-games-graph [dato]="mesas[tableSelected]" [min]="min" />
+      </div>
     </div>
     }
   </div>

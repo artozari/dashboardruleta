@@ -8,17 +8,20 @@
   display: flex;
   width: 450px;
   height: 250px;
+  padding: 20px;
 }
 
-.graphIndiv{
+.graphIndiv {
   display: flex;
   width: 850px;
   height: 450px;
 }
 
 .allTable {
-  padding: 20px 20px;
-  box-shadow: 0px 0px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .animate1 {
@@ -34,11 +37,7 @@
   box-shadow: 5px 0px 20px rgb(255, 255, 255) inset;
 }
 
-.oneTable {
-  padding: 20px 20px;
-  box-shadow: 0px 0px 20px;
-  animation: infinite resplandorAnimationGreen 5s;
-}
+
 
 @keyframes resplandorAnimationGreen {
   0%,
@@ -76,6 +75,6 @@
     box-shadow: 5px 0px 20px rgb(151, 151, 151) inset;
   }
   50% {
-    box-shadow: 0px 0px 0px  inset;
+    box-shadow: 0px 0px 0px inset;
   }
 }

@@ -110,7 +110,7 @@ export class MesaComponent implements OnChanges {
         show: true,
         feature: {
           dataView: { readOnly: false },
-          restore: {},
+          // restore: {},
           saveAsImage: {},
         },
       },
@@ -136,7 +136,7 @@ export class MesaComponent implements OnChanges {
           type: 'value',
           scale: true,
           name: ``,
-          max: 36,
+          max: 70,
           min: 0,
           boundaryGap: [0.2, 0.2],
         },
@@ -144,7 +144,7 @@ export class MesaComponent implements OnChanges {
           type: 'value',
           scale: true,
           name: '',
-          max: 36,
+          max: 70,
           min: 0,
           boundaryGap: [0.2, 0.2],
         },
@@ -159,15 +159,15 @@ export class MesaComponent implements OnChanges {
           yAxisIndex: 1,
           data: data3,
         },
-        {
-          name: `Last Game: ${this.dato.winningNumbersData[
-            this.dato.winningNumbersData.length - 1
-          ][3]
-            }`,
-          type: 'line',
-          data: data2,
-          smooth: false,
-        },
+        // {
+        //   name: `Last Game: ${this.dato.winningNumbersData[
+        //     this.dato.winningNumbersData.length - 1
+        //   ][3]
+        //     }`,
+        //   type: 'line',
+        //   data: data2,
+        //   smooth: false,
+        // },
       ],
     };
     this.myChart.setOption(this.option);
@@ -184,7 +184,6 @@ export class MesaComponent implements OnChanges {
     }
 
     const ts = parseInt(this.dato.winningNumbersData[this.dato.winningNumbersData.length - 1][1]);
-    console.log(this.dato.ts, Date.now(), Date.now() - ts, ts);
     let grp: string = this.mostrarSala ? "graph" : "graphIndiv";
 
     if (changes['min']?.currentValue) {
@@ -193,15 +192,12 @@ export class MesaComponent implements OnChanges {
       }
       if (Date.now() - ts < 10000) {
         this.timeToSemaforo = ["allTable", "animate3", grp];
-        console.log("rojo");
       }
       if (Date.now() - ts < 5000) {
         this.timeToSemaforo = ["allTable", "animate2", grp];
-        console.log("amarillo");
       }
       if (Date.now() - ts >= 5000) {
         this.timeToSemaforo = ["allTable", "animate1", grp];
-        console.log("verde");
       }
     }
 
@@ -263,7 +259,7 @@ export class MesaComponent implements OnChanges {
         show: true,
         feature: {
           dataView: { readOnly: false },
-          restore: {},
+          // restore: {},
           saveAsImage: {},
         },
       },
@@ -289,7 +285,7 @@ export class MesaComponent implements OnChanges {
           type: 'value',
           scale: true,
           name: ``,
-          max: 36,
+          max: 70,
           min: 0,
           boundaryGap: [0.2, 0.2],
         },
@@ -297,7 +293,7 @@ export class MesaComponent implements OnChanges {
           type: 'value',
           scale: true,
           name: '',
-          max: 36,
+          max: 70,
           min: 0,
           boundaryGap: [0.2, 0.2],
         },
@@ -312,15 +308,15 @@ export class MesaComponent implements OnChanges {
           yAxisIndex: 1,
           data: data3,
         },
-        {
-          name: `Last Game: ${this.dato.winningNumbersData[
-            this.dato.winningNumbersData.length - 1
-          ][3]
-            }`,
-          type: 'line',
-          data: data2,
-          smooth: false,
-        },
+        // {
+        //   name: `Last Game: ${this.dato.winningNumbersData[
+        //     this.dato.winningNumbersData.length - 1
+        //   ][3]
+        //     }`,
+        //   type: 'line',
+        //   data: data2,
+        //   smooth: false,
+        // },
       ],
     };
 
