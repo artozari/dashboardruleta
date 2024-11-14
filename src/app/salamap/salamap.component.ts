@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, effect, Input, OnChanges, signal, SimpleChanges } from '@angular/core';
 import { Mesa } from "../conector/conector.component";
-import { Canvas, Rect, Circle, Triangle, Path, loadSVGFromString } from 'fabric';
+import { Canvas, Rect, Circle, Triangle, Path, FabricText } from 'fabric';
 @Component({
   selector: 'app-salamap',
   standalone: true,
@@ -10,8 +10,7 @@ import { Canvas, Rect, Circle, Triangle, Path, loadSVGFromString } from 'fabric'
 })
 export class SalamapComponent implements OnChanges {
 
-  @Input() dato: Mesa = {} as Mesa;
-  dat: any;
+  @Input() dato: () => Record<string, Mesa> = signal({});
   val = 0;
   canvas: any;
   buildZone: any;
@@ -24,43 +23,54 @@ export class SalamapComponent implements OnChanges {
   isSelectedClass: string;
   strokeWidth: number;
   strokeColor: string;
+  last: number = 1;
+  var = console.log("variables");
+  
 
   constructor() {
-    this.dato = {} as Mesa;
     this.colors = ['#43c8bf', '#896bc8', '#e54f6b', '#a5346b', '#234f6b', '#ffffff'];
     this.defaultColor = this.colors[0];
     this.activeElement = null;
     this.isSelectedClass = 'isSelected';
     this.strokeWidth = 2;
     this.strokeColor = this.defaultColor;
-  }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['dato']?.firstChange === false) {
-      console.log(this.dato);
-      this.val++;
+    effect(() => {
       this.canvas.add(new Circle({
         radius: 30,
         strokeWidth: this.strokeWidth,
         stroke: this.strokeColor,
         fill: 'transparent',
         left: 100,
-        top: 100
-      }));
-      this.dat = `JSON.stringify(this.datos) ${this.val}`;
-    }
-    if (changes['dato']?.firstChange === true) {
-      console.log(this.dato);
-      this.val += 2;
-      
-      this.dat = `JSON.stringify(this.datos) ${this.val}`;
-    }
+        top: 100,
+        selectable: true,
+        hoverCursor: "hola"
+      }),
 
+        new FabricText(`${this.dato()?.[1]?.winningNumbersData[this.dato()[1].winningNumbersData.length - 1][3]}`, { //# Este se dibuja
+          textBackgroundColor: "#ffffff",
+          fontSize: 20,
+          left: 120,
+          top: 95,
+          selectable: true
+        }),
+      );
+      console.log("effect");
+      
+    });
+    console.log("constructor");
 
   }
 
-  ngAfterViewInit() {
-    console.log(this.dato);
+  ngOnInit() {
+    console.log("ngOnInit");
+
+    // );
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("ngOnChange");
+    ///////////////////////////////////
 
     this.canvas = new Canvas("canvas", { width: 640, height: 360 });
     this.buildZone = document.getElementById('buildZone');
@@ -171,16 +181,36 @@ export class SalamapComponent implements OnChanges {
       this.canvas.add(path);
     });
 
-    // document.getElementById('otraMesa')!.addEventListener('click', () => {
-    //   const pathString = "<svg width='209' height='467' viewBox='0 0 209 467' fill='none' xmlns='http://www.w3.org/2000/svg'><g clip-path='url(#clip0_7_10)'><rect width='210' height='467' rx='78' fill='black' style='fill:black;fill-opacity:1;'/><rect x='10' y='8' width='189' height='449' rx='78' fill='#DF1515' style='fill:#DF1515;fill:color(display-p3 0.8750 0.0839 0.0839);fill-opacity:1;'/><rect width='143' height='277' rx='43' transform='matrix(1 0 0 -1 33 435)' fill='#003E00' style='fill:#003E00;fill:color(display-p3 0.0000 0.2417 0.0000);fill-opacity:1;'/><circle cx='103' cy='86' r='68' fill='#B39316' style='fill:#B39316;fill:color(display-p3 0.7000 0.5775 0.0875);fill-opacity:1;'/><circle cx='103' cy='86' r='59' fill='#DF1515' style='fill:#DF1515;fill:color(display-p3 0.8745 0.0824 0.0824);fill-opacity:1;'/></g><defs><clipPath id='clip0_7_10'><rect width='209' height='467' fill='white' style='fill:white;fill-opacity:1;'/></clipPath></defs></svg>";
-    //   console.log("otra mesa");
-    //   loadSVGFromString(pathString, (result) => {
-    //     const clonedObjects = result.objects.map((object) => this.canvas.util.object.clone(object));
-    //     this.canvas.add(...clonedObjects);
-    //     clonedObjects.forEach((object) => object.centerH().centerV());
-    //   });
-    // });
+    //////////////////////////////////////
 
+    if (changes['dato']?.currentValue) {
+      
+      this.val++;
+      this.canvas.add(new Circle({
+        radius: 30,
+        strokeWidth: this.strokeWidth,
+        stroke: this.strokeColor,
+        fill: 'transparent',
+        left: 100,
+        top: 100,
+        selectable: true,
+        hoverCursor: "hola"
+      }),
+        new FabricText(`${this.dato()?.[1]?.tableData?.[3]}`, {
+          textBackgroundColor: "#ffffff",
+          fontSize: 20,
+          left: 120,
+          top: 115,
+          selectable: false
+        }),
+      );
+    }
+
+  }
+
+  ngAfterViewInit() {
+    console.log("ngAfterViewInit");
+    
   }
 
   deleteActiveObjects() {

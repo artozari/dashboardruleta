@@ -10,10 +10,11 @@
     {{ time }}
   </p>
   <div class="body">
+    @if(mostrarSala){
     <div class="mapaSala">
-      <app-salamap [dato]="mesas[1]"/>
+      <app-salamap [dato]="miSignal()" />
     </div>
-    @if (mostrarSala) {
+    } @if (mostrarSala) {
     <div class="graphSala">
       @for (k of cantTablesRecived; track $index) {
       <div class="allTable">
@@ -25,6 +26,9 @@
       }
     </div>
     } @if(!mostrarSala) {
+    <div class="mapaSala">
+      <app-salamap [dato]="miSignal()" />
+    </div>
     <div class="oneTable">
       <button
         class="btnfos btnfos-h"

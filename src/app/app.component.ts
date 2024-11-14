@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BodyMainComponent } from './body-main/body-main.component';
 import { FooterComponent } from './footer/footer.component';
@@ -33,6 +33,7 @@ export class AppComponent {
 
   conexion: ConectorComponent;
   mesas: Record<string, Mesa> = {};
+  misMesas = signal(this.mesas);
   dato: Mesa = {} as Mesa;
   cantTablesRecived: string[] = [];
   mostrarSala = true;
@@ -41,7 +42,10 @@ export class AppComponent {
   tableSelected: string = '';
   semaforo: string[] = [];
 
+
   constructor() {
+
+
     setInterval(() => {
       this.time = new Date().toLocaleTimeString();
       this.min = new Date().getMinutes();
@@ -62,6 +66,11 @@ export class AppComponent {
       };
       this.cantTablesRecived = Object.keys(this.mesas);
     });
+
+  }
+
+  get miSignal() {
+    return signal(this.misMesas);
   }
 
   cambiarMostrarMesa(k: string): void {
