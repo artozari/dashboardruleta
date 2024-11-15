@@ -60,7 +60,7 @@ body {
   margin-top: auto;
 }
 #controls #clear:hover {
-  background: #ea7389;
+  background: #c2a5ab;
 }
 
 #styleZone {
@@ -73,7 +73,7 @@ body {
 }
 
 #styleZone span {
-  width: 60px;
+  width: 600px;
   height: 30px;
   border-radius: 3px;
   margin-right: 15px;
@@ -81,20 +81,29 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease-in-out;
-  border: 2px solid transparent;
+  border: 2px solid red;
 }
 
 #styleZone span.isSelected i {
   opacity: 1;
   transform: scale(1);
 }
-#styleZone span:hover,
-#styleZone span.isSelected {
+
+span:hover{
+  cursor: pointer;
+  
+}
+
+#styleZone .isSelected{
+  border: 1px solid white;
   cursor: pointer;
   border-color: white;
 }
+
 #styleZone i {
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.56, 0.35, 0, 1.7);
   transform: scale(0.6);
 }
+
+

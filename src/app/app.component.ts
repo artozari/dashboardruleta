@@ -3,11 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { BodyMainComponent } from './body-main/body-main.component';
 import { FooterComponent } from './footer/footer.component';
 import { CabeceraComponent } from './cabecera/cabecera.component';
-import { ReactiveFormsModule } from '@angular/forms';
+// import { ReactiveFormsModule } from '@angular/forms';
 import { ConectorComponent, Mesa } from './conector/conector.component';
 import { MesaComponent } from './mesa/mesa.component';
-import { SalaComponent } from './sala/sala.component';
-import { CommonModule } from '@angular/common';
+// import { SalaComponent } from './sala/sala.component';
+// import { CommonModule } from '@angular/common';
 import { SalamapComponent } from './salamap/salamap.component';
 import { WinningGamesGraphComponent } from './winning-games-graph/winning-games-graph.component';
 
@@ -19,10 +19,10 @@ import { WinningGamesGraphComponent } from './winning-games-graph/winning-games-
     CabeceraComponent,
     BodyMainComponent,
     FooterComponent,
-    ReactiveFormsModule,
+    // ReactiveFormsModule,
     MesaComponent,
-    SalaComponent,
-    CommonModule,
+    // SalaComponent,
+    // CommonModule,
     SalamapComponent,
     WinningGamesGraphComponent
   ],
@@ -39,7 +39,7 @@ export class AppComponent {
   mostrarSala = true;
   time: string = new Date().toLocaleTimeString();
   min: number = 0;
-  tableSelected: string = '';
+  tableSelected: string = '1';
   semaforo: string[] = [];
 
 

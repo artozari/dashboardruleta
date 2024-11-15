@@ -1,4 +1,4 @@
-import { Component, effect, Input, OnChanges, signal, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Mesa } from "../conector/conector.component";
 import { Canvas, Rect, Circle, Triangle, Path, FabricText } from 'fabric';
 @Component({
@@ -10,9 +10,8 @@ import { Canvas, Rect, Circle, Triangle, Path, FabricText } from 'fabric';
 })
 export class SalamapComponent implements OnChanges {
 
-  @Input() dato: () => Record<string, Mesa> = signal({});
-  val = 0;
-  canvas: any;
+  @Input() dato: Record<string, Mesa>;
+  canvas = new Canvas();
   buildZone: any;
   wrapper: any;
   paddingShift: any;
@@ -23,56 +22,27 @@ export class SalamapComponent implements OnChanges {
   isSelectedClass: string;
   strokeWidth: number;
   strokeColor: string;
-  last: number = 1;
   var = console.log("variables");
-  
 
   constructor() {
+    this.dato = {};
     this.colors = ['#43c8bf', '#896bc8', '#e54f6b', '#a5346b', '#234f6b', '#ffffff'];
     this.defaultColor = this.colors[0];
     this.activeElement = null;
     this.isSelectedClass = 'isSelected';
     this.strokeWidth = 2;
     this.strokeColor = this.defaultColor;
-
-    effect(() => {
-      this.canvas.add(new Circle({
-        radius: 30,
-        strokeWidth: this.strokeWidth,
-        stroke: this.strokeColor,
-        fill: 'transparent',
-        left: 100,
-        top: 100,
-        selectable: true,
-        hoverCursor: "hola"
-      }),
-
-        new FabricText(`${this.dato()?.[1]?.winningNumbersData[this.dato()[1].winningNumbersData.length - 1][3]}`, { //# Este se dibuja
-          textBackgroundColor: "#ffffff",
-          fontSize: 20,
-          left: 120,
-          top: 95,
-          selectable: true
-        }),
-      );
-      console.log("effect");
-      
-    });
     console.log("constructor");
-
-  }
-
-  ngOnInit() {
-    console.log("ngOnInit");
-
-    // );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.canvas = new Canvas("canvas", { width: 640, height: 360 });
+    this.canvas.clear();
+
+    this.canvas.add(new FabricText(`desde ngOnChanges`));
     console.log("ngOnChange");
     ///////////////////////////////////
 
-    this.canvas = new Canvas("canvas", { width: 640, height: 360 });
     this.buildZone = document.getElementById('buildZone');
     this.wrapper = document.getElementById('wrapper');
     this.styleZone = document.getElementById('styleZone');
@@ -93,6 +63,8 @@ export class SalamapComponent implements OnChanges {
 
       span.appendChild(icon);
       span.addEventListener('click', () => {
+        console.log("clic");
+        
         if (span.className !== this.isSelectedClass) {
           span.classList.toggle(this.isSelectedClass);
           if (this.activeElement) {
@@ -108,9 +80,8 @@ export class SalamapComponent implements OnChanges {
           activeObjects.forEach((object: any) => {
             object.set('stroke', this.strokeColor);
           });
-          this.canvas.renderAll();
-
         }
+        this.canvas.renderAll();
       });
       this.styleZone.appendChild(span);
 
@@ -181,37 +152,40 @@ export class SalamapComponent implements OnChanges {
       this.canvas.add(path);
     });
 
-    //////////////////////////////////////
+    this.canvas.add(new Circle({
+      radius: 50,
+      strokeWidth: this.strokeWidth,
+      stroke: this.strokeColor,
+      fill: 'transparent',
+      left: 100,
+      top: 200,
+      selectable: true,
+      hoverCursor: "hola"
+    })
+    );
 
-    if (changes['dato']?.currentValue) {
-      
-      this.val++;
-      this.canvas.add(new Circle({
-        radius: 30,
-        strokeWidth: this.strokeWidth,
-        stroke: this.strokeColor,
-        fill: 'transparent',
-        left: 100,
-        top: 100,
-        selectable: true,
-        hoverCursor: "hola"
-      }),
-        new FabricText(`${this.dato()?.[1]?.tableData?.[3]}`, {
-          textBackgroundColor: "#ffffff",
-          fontSize: 20,
-          left: 120,
-          top: 115,
-          selectable: false
-        }),
-      );
-    }
+    this.canvas.add(
+      new FabricText("this.dato[1].ts.toString()", {
+        textBackgroundColor: "#ffffff",
+        fontSize: 20,
+        left: 120,
+        top: 215,
+        selectable: true
+      }),);
 
   }
 
+  ngOnInit() {
+    console.log("ngOnInit");
+    this.canvas.add(new FabricText(`desde Init`, { top: 35 }));
+  }
   ngAfterViewInit() {
     console.log("ngAfterViewInit");
-    
+    let str = `sin dato`;
+    this.canvas.add(new FabricText(str, { top: 70 }));
   }
+
+
 
   deleteActiveObjects() {
     const activeObjects = this.canvas.getActiveObjects();
