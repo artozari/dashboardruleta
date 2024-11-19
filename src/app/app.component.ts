@@ -55,6 +55,7 @@ export class AppComponent {
     this.conexion.conectar();
     this.conexion.client.subscribe(this.conexion.topico);
     this.conexion.client.on('message', (topic: string, message: Uint8Array) => {
+      
       this.dato = JSON.parse(message.toString());
       this.mesas[this.dato.tableData[1]] = {
         ts: this.dato.ts,
@@ -65,6 +66,7 @@ export class AppComponent {
         winningNumbersData: this.dato.winningNumbersData,
       };
       this.cantTablesRecived = Object.keys(this.mesas);
+      console.log("compon", this.dato.tableData[1]);
     });
 
   }

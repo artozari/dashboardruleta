@@ -8,10 +8,14 @@ import { Canvas, Rect, Circle, Triangle, Path, FabricText } from 'fabric';
   templateUrl: './salamap.component.html',
   styleUrls: ['./salamap.component.css']
 })
+
+
 export class SalamapComponent implements OnChanges {
 
-  @Input() dato: Record<string, Mesa>;
+  var = console.log("--variables");
+  @Input() datoSimple: Mesa = {} as Mesa;
   canvas = new Canvas();
+
   buildZone: any;
   wrapper: any;
   paddingShift: any;
@@ -22,32 +26,66 @@ export class SalamapComponent implements OnChanges {
   isSelectedClass: string;
   strokeWidth: number;
   strokeColor: string;
-  var = console.log("variables");
+  ts: number = 0;
 
   constructor() {
-    this.dato = {};
-    this.colors = ['#43c8bf', '#896bc8', '#e54f6b', '#a5346b', '#234f6b', '#ffffff'];
-    this.defaultColor = this.colors[0];
+    console.log("--constructor");
+    this.colors = ['red', 'yellow', 'green', '#43c8bf', '#896bc8', '#e54f6b', '#a5346b', '#234f6b', '#ffffff'];
+    this.defaultColor = this.colors[3];
     this.activeElement = null;
     this.isSelectedClass = 'isSelected';
     this.strokeWidth = 2;
     this.strokeColor = this.defaultColor;
-    console.log("constructor");
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.canvas = new Canvas("canvas", { width: 640, height: 360 });
-    this.canvas.clear();
+    console.log("--ngOnChange");
+    let ult = this.datoSimple.winningNumbersData.length;
+    let pathString = "M 0 0 Q 50 -50 100 0 L 100 150 Q 50 200 0 150 Z";
 
-    this.canvas.add(new FabricText(`desde ngOnChanges`));
-    console.log("ngOnChange");
-    ///////////////////////////////////
+    let mesa = new Path(pathString, {
+      strokeWidth: this.strokeWidth,
+      stroke: this.strokeColor,
+      angle: 0,
+      left: parseInt(this.datoSimple.tableData[9].toString()),
+      top: parseInt(this.datoSimple.tableData[11].toString()),
+      fill: 'red', // Relleno negro para el fondo
+    });
+    let numero = new FabricText(this.datoSimple.winningNumbersData[ult - 1][3].toString(),
+      {
+        strokeWidth: this.strokeWidth,
+        backgroundColor: this.colors[parseInt(this.datoSimple.tableData[13].toString())],
+        stroke: "black",
+        fill: "black",
+        left: parseInt(this.datoSimple.tableData[9].toString()) + 50,
+        top: parseInt(this.datoSimple.tableData[11].toString()) + 90,
+        id: this.datoSimple.tableData[1],
+      });
 
+    this.canvas.add(mesa, numero);
+
+    // this.canvas.setActiveObject(mesa);
+    // this.canvas.setActiveObject(numero);
+    let grupo = this.canvas.getActiveObject();
+    mesa.get("id")
+    
+    console.log(grupo);
+    
+    this.canvas.renderAll();
+  }
+
+  ngOnInit() {
+    console.log("--ngOnInit");
+    // this.canvas.add(new FabricText(`desde Init`, { top: 35 }));
+
+  }
+  ngAfterViewInit() {
+    console.log("--ngAfterViewInit");
     this.buildZone = document.getElementById('buildZone');
     this.wrapper = document.getElementById('wrapper');
     this.styleZone = document.getElementById('styleZone');
     this.paddingShift = 60;
-    // this.resizeCanvas();
+
 
     this.colors.forEach((color, i) => {
       let span = document.createElement('span');
@@ -63,8 +101,6 @@ export class SalamapComponent implements OnChanges {
 
       span.appendChild(icon);
       span.addEventListener('click', () => {
-        console.log("clic");
-        
         if (span.className !== this.isSelectedClass) {
           span.classList.toggle(this.isSelectedClass);
           if (this.activeElement) {
@@ -148,44 +184,29 @@ export class SalamapComponent implements OnChanges {
         top: 50,
         fill: 'red', // Relleno negro para el fondo
       });
-
       this.canvas.add(path);
     });
 
-    this.canvas.add(new Circle({
-      radius: 50,
-      strokeWidth: this.strokeWidth,
-      stroke: this.strokeColor,
-      fill: 'transparent',
-      left: 100,
-      top: 200,
-      selectable: true,
-      hoverCursor: "hola"
-    })
-    );
 
-    this.canvas.add(
-      new FabricText("this.dato[1].ts.toString()", {
-        textBackgroundColor: "#ffffff",
-        fontSize: 20,
-        left: 120,
-        top: 215,
-        selectable: true
-      }),);
 
+    // this.canvas.add(
+    //   new FabricText(`${this.datoSimple.tableData[3]}`, {
+    //     textBackgroundColor: "#ffffff",
+    //     fontSize: 20,
+    //     left: 120,
+    //     top: 215,
+    //     selectable: true
+    //   }),);
+    this.canvas = new Canvas("canvas", { width: 640, height: 360 });
   }
 
-  ngOnInit() {
-    console.log("ngOnInit");
-    this.canvas.add(new FabricText(`desde Init`, { top: 35 }));
-  }
-  ngAfterViewInit() {
-    console.log("ngAfterViewInit");
-    let str = `sin dato`;
-    this.canvas.add(new FabricText(str, { top: 70 }));
-  }
+  mostrarObjeto() {
+    let objsBuscado = this.canvas.getObjects();
+    console.log(objsBuscado);
 
+    console.log(objsBuscado[3].get("id"));
 
+  }
 
   deleteActiveObjects() {
     const activeObjects = this.canvas.getActiveObjects();
