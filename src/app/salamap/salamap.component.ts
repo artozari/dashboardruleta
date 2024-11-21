@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Mesa } from "../conector/conector.component";
-import { Canvas, Rect, Circle, Triangle, Path, FabricText } from 'fabric';
+import { Canvas, Rect, Circle, Triangle, Path, FabricText, FabricObject } from 'fabric';
 @Component({
   selector: 'app-salamap',
   standalone: true,
@@ -9,13 +9,17 @@ import { Canvas, Rect, Circle, Triangle, Path, FabricText } from 'fabric';
   styleUrls: ['./salamap.component.css']
 })
 
-
 export class SalamapComponent implements OnChanges {
 
   var = console.log("--variables");
   @Input() datoSimple: Mesa = {} as Mesa;
   canvas = new Canvas();
+  objeto: any;
+  ubicacion: number[];
+  mesa = new FabricObject();
+  numero = new FabricObject();
 
+  tsPrev = 0;
   buildZone: any;
   wrapper: any;
   paddingShift: any;
@@ -26,7 +30,7 @@ export class SalamapComponent implements OnChanges {
   isSelectedClass: string;
   strokeWidth: number;
   strokeColor: string;
-  ts: number = 0;
+  pathString = "M 0 0 Q 50 -50 100 0 L 100 50 Q 50 150 0 50 Z";
 
   constructor() {
     console.log("--constructor");
@@ -34,44 +38,67 @@ export class SalamapComponent implements OnChanges {
     this.defaultColor = this.colors[3];
     this.activeElement = null;
     this.isSelectedClass = 'isSelected';
+    this.ubicacion = [0, 0, 0, 0, 0] as const;
     this.strokeWidth = 2;
     this.strokeColor = this.defaultColor;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log("--ngOnChange");
-    let ult = this.datoSimple.winningNumbersData.length;
-    let pathString = "M 0 0 Q 50 -50 100 0 L 100 150 Q 50 200 0 150 Z";
 
-    let mesa = new Path(pathString, {
-      strokeWidth: this.strokeWidth,
-      stroke: this.strokeColor,
-      angle: 0,
-      left: parseInt(this.datoSimple.tableData[9].toString()),
-      top: parseInt(this.datoSimple.tableData[11].toString()),
-      fill: 'red', // Relleno negro para el fondo
-    });
-    let numero = new FabricText(this.datoSimple.winningNumbersData[ult - 1][3].toString(),
-      {
+    this.objeto = this.canvas.getObjects().find((obj) => obj.get("id") === this.datoSimple.tableData[1]);
+
+    if (this.objeto?.get("id") === this.datoSimple.tableData[1]) {
+      this.canvas.clear();
+      this.mesa = new Path(this.pathString, {//#
         strokeWidth: this.strokeWidth,
-        backgroundColor: this.colors[parseInt(this.datoSimple.tableData[13].toString())],
-        stroke: "black",
-        fill: "black",
-        left: parseInt(this.datoSimple.tableData[9].toString()) + 50,
-        top: parseInt(this.datoSimple.tableData[11].toString()) + 90,
+        stroke: this.strokeColor,
+        angle: 0,
+        left: parseInt(this.datoSimple.tableData[9].toString()),
+        top: parseInt(this.datoSimple.tableData[11].toString()),
+        fill: this.colors[parseInt(this.datoSimple.tableData[13].toString())], // Relleno negro para el fondo
+        selectable: false,
         id: this.datoSimple.tableData[1],
       });
+      this.numero = new FabricText(this.datoSimple.winningNumbersData[this.datoSimple.winningNumbersData.length - 1][3].toString(),//#
+        {
+          strokeWidth: this.strokeWidth,
+          backgroundColor: "transparent",
+          stroke: "black",
+          fill: "black",
+          left: parseInt(this.datoSimple.tableData[9].toString()) + 50,
+          top: parseInt(this.datoSimple.tableData[11].toString()) + 90,
+          id: this.datoSimple.tableData[1],
+          selectable: false
+        });
+      this.canvas.add(this.mesa, this.numero);
+    } else {
+      this.mesa = new Path(this.pathString, {//#
+        strokeWidth: this.strokeWidth,
+        stroke: this.strokeColor,
+        angle: 0,
+        left: parseInt(this.datoSimple.tableData[9].toString()),
+        top: parseInt(this.datoSimple.tableData[11].toString()),
+        fill: 'red', // Relleno negro para el fondo
+        selectable: false,
+        id: this.datoSimple.tableData[1],
+      });
+      this.numero = new FabricText(this.datoSimple.winningNumbersData[this.datoSimple.winningNumbersData.length - 1][3].toString(),//#
+        {
+          strokeWidth: this.strokeWidth,
+          backgroundColor: "transparent",
+          stroke: "black",
+          fill: "black",
+          left: parseInt(this.datoSimple.tableData[9].toString()) + 50,
+          top: parseInt(this.datoSimple.tableData[11].toString()) + 90,
+          id: this.datoSimple.tableData[1],
+          selectable: false
+        });
+      this.canvas.add(this.mesa, this.numero);
+    }
 
-    this.canvas.add(mesa, numero);
-
-    // this.canvas.setActiveObject(mesa);
-    // this.canvas.setActiveObject(numero);
-    let grupo = this.canvas.getActiveObject();
-    mesa.get("id")
-    
-    console.log(grupo);
-    
     this.canvas.renderAll();
+
   }
 
   ngOnInit() {
@@ -85,6 +112,7 @@ export class SalamapComponent implements OnChanges {
     this.wrapper = document.getElementById('wrapper');
     this.styleZone = document.getElementById('styleZone');
     this.paddingShift = 60;
+
 
 
     this.colors.forEach((color, i) => {
@@ -187,16 +215,6 @@ export class SalamapComponent implements OnChanges {
       this.canvas.add(path);
     });
 
-
-
-    // this.canvas.add(
-    //   new FabricText(`${this.datoSimple.tableData[3]}`, {
-    //     textBackgroundColor: "#ffffff",
-    //     fontSize: 20,
-    //     left: 120,
-    //     top: 215,
-    //     selectable: true
-    //   }),);
     this.canvas = new Canvas("canvas", { width: 640, height: 360 });
   }
 
@@ -205,7 +223,6 @@ export class SalamapComponent implements OnChanges {
     console.log(objsBuscado);
 
     console.log(objsBuscado[3].get("id"));
-
   }
 
   deleteActiveObjects() {
@@ -228,8 +245,5 @@ export class SalamapComponent implements OnChanges {
     if (newHeight < 360 && newHeight > 250) this.canvas.setHeight(newHeight);
     window.addEventListener('resize', this.resizeCanvas.bind(this));
   }
-
-
-
 
 }

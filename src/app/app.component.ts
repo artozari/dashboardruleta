@@ -1,6 +1,4 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { BodyMainComponent } from './body-main/body-main.component';
 import { FooterComponent } from './footer/footer.component';
 import { CabeceraComponent } from './cabecera/cabecera.component';
 // import { ReactiveFormsModule } from '@angular/forms';
@@ -15,9 +13,7 @@ import { WinningGamesGraphComponent } from './winning-games-graph/winning-games-
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
     CabeceraComponent,
-    BodyMainComponent,
     FooterComponent,
     // ReactiveFormsModule,
     MesaComponent,
@@ -66,7 +62,8 @@ export class AppComponent {
         winningNumbersData: this.dato.winningNumbersData,
       };
       this.cantTablesRecived = Object.keys(this.mesas);
-      console.log("compon", this.dato.tableData[1]);
+      console.log(this.dato.tableData[3], "en app");
+      
     });
 
   }
