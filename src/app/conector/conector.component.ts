@@ -41,7 +41,7 @@ export class ConectorComponent {
   
   constructor() {    
     this.server = "ws://sielcondev01.site:9105";
-    this.clientName = "mqttClinte";
+    this.clientName = "mqttClinteAngel";
     this.topico = "sts1/dashboard/local/CA_SLCN/#";
   };
   

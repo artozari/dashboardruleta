@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Mesa } from "../conector/conector.component";
-import { Canvas, Rect, Circle, Triangle, Path, FabricText, FabricObject } from 'fabric';
+import { Canvas, Rect, Circle, Triangle, Path, FabricText, FabricObject, loadSVGFromString, util, loadSVGFromURL } from 'fabric';
 @Component({
   selector: 'app-salamap',
   standalone: true,
@@ -11,7 +11,7 @@ import { Canvas, Rect, Circle, Triangle, Path, FabricText, FabricObject } from '
 
 export class SalamapComponent implements OnChanges {
 
-  var = console.log("--variables");
+  var = console.log("--variables¬");
   @Input() datoSimple: Mesa = {} as Mesa;
   canvas = new Canvas();
   objeto: any;
@@ -33,7 +33,7 @@ export class SalamapComponent implements OnChanges {
   pathString = "M 0 0 Q 50 -50 100 0 L 100 50 Q 50 150 0 50 Z";
 
   constructor() {
-    console.log("--constructor");
+    console.log("--constructor¬");
     this.colors = ['red', 'yellow', 'green', '#43c8bf', '#896bc8', '#e54f6b', '#a5346b', '#234f6b', '#ffffff'];
     this.defaultColor = this.colors[3];
     this.activeElement = null;
@@ -44,7 +44,7 @@ export class SalamapComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("--ngOnChange");
+    console.log("--ngOnChange¬");
 
     this.objeto = this.canvas.getObjects().find((obj) => obj.get("id") === this.datoSimple.tableData[1]);
 
@@ -60,7 +60,7 @@ export class SalamapComponent implements OnChanges {
         selectable: false,
         id: this.datoSimple.tableData[1],
       });
-      this.numero = new FabricText(this.datoSimple.winningNumbersData[this.datoSimple.winningNumbersData.length - 1][3].toString(),//#
+      this.numero = new FabricText(/* this.datoSimple.winningNumbersData[this.datoSimple.winningNumbersData.length - 1][3].toString() */this.datoSimple.tableData[1].toString(),//#
         {
           strokeWidth: this.strokeWidth,
           backgroundColor: "transparent",
@@ -83,7 +83,7 @@ export class SalamapComponent implements OnChanges {
         selectable: false,
         id: this.datoSimple.tableData[1],
       });
-      this.numero = new FabricText(this.datoSimple.winningNumbersData[this.datoSimple.winningNumbersData.length - 1][3].toString(),//#
+      this.numero = new FabricText(/* this.datoSimple.winningNumbersData[this.datoSimple.winningNumbersData.length - 1][3].toString() */this.datoSimple.tableData[1].toString(),//#
         {
           strokeWidth: this.strokeWidth,
           backgroundColor: "transparent",
@@ -97,17 +97,39 @@ export class SalamapComponent implements OnChanges {
       this.canvas.add(this.mesa, this.numero);
     }
 
+    let svgString = "./Untitled.svg";
+
+    loadSVGFromURL(svgString).then((resultSVG) => {
+      const obj = util.groupSVGElements(
+        resultSVG.objects as FabricObject[],
+        resultSVG.options
+      );
+      obj.set({
+        left: 150,
+        top: 100,
+        // scaleX: 1,
+        // scaleY: 1,
+        // with: 500,
+        // height: 50,
+        originX: "center",
+        originY: "center",
+      });
+
+      this.canvas.add(obj);
+
+    });
+
     this.canvas.renderAll();
 
   }
 
   ngOnInit() {
-    console.log("--ngOnInit");
+    console.log("--ngOnInit¬");
     // this.canvas.add(new FabricText(`desde Init`, { top: 35 }));
 
   }
   ngAfterViewInit() {
-    console.log("--ngAfterViewInit");
+    console.log("--ngAfterViewInit¬");
     this.buildZone = document.getElementById('buildZone');
     this.wrapper = document.getElementById('wrapper');
     this.styleZone = document.getElementById('styleZone');

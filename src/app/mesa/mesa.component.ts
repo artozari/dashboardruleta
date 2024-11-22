@@ -76,10 +76,10 @@ export class MesaComponent implements OnChanges {
       return res;
     })();
 
-    const data2 = (() => {
-      const startIndex = Math.max(this.dato.winningNumbersData.length - this.cantIntervalos, 0);
-      return this.dato.winningNumbersData.slice(startIndex).map(item => item[3]);
-    })();
+    // const data2 = (() => {
+    //   const startIndex = Math.max(this.dato.winningNumbersData.length - this.cantIntervalos, 0);
+    //   return this.dato.winningNumbersData.slice(startIndex).map(item => item[3]);
+    // })();
 
     let horaInicial = Date.now() - (Date.now() % (this.intervals * 60 * 1000));
 
@@ -179,11 +179,11 @@ export class MesaComponent implements OnChanges {
 
     if (changes['min']?.firstChange === false) {
       if (this.myChart) {
-        echarts.dispose(this.myChart);
+        echarts.disconnect(this.myChart);
       }
     }
 
-    const ts = parseInt(this.dato.winningNumbersData[this.dato.winningNumbersData.length - 1][1]);
+    const ts = parseInt(this.dato.winningNumbersData[0][1]);
     let grp: string = this.mostrarSala ? "graph" : "graphIndiv";
 
     if (changes['min']?.currentValue) {
@@ -226,10 +226,10 @@ export class MesaComponent implements OnChanges {
       return res;
     })();
 
-    const data2 = (() => {
-      const startIndex = Math.max(this.dato.winningNumbersData.length - this.cantIntervalos, 0);
-      return this.dato.winningNumbersData.slice(startIndex).map(item => item[3]);
-    })();
+    // const data2 = (() => {
+    //   const startIndex = Math.max(this.dato.winningNumbersData.length - this.cantIntervalos, 0);
+    //   return this.dato.winningNumbersData.slice(startIndex).map(item => item[3]);
+    // })();
 
     //# Valores de las barras que muestran el numero de jugadas realizadas en los intervalos de tiempo en la grafica
     let horaInicial = Date.now() - (Date.now() % (this.intervals * 60 * 1000));

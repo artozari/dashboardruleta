@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { FooterComponent } from './footer/footer.component';
 import { CabeceraComponent } from './cabecera/cabecera.component';
 // import { ReactiveFormsModule } from '@angular/forms';
@@ -29,7 +29,6 @@ export class AppComponent {
 
   conexion: ConectorComponent;
   mesas: Record<string, Mesa> = {};
-  misMesas = signal(this.mesas);
   dato: Mesa = {} as Mesa;
   cantTablesRecived: string[] = [];
   mostrarSala = true;
@@ -41,7 +40,6 @@ export class AppComponent {
 
   constructor() {
 
-
     setInterval(() => {
       this.time = new Date().toLocaleTimeString();
       this.min = new Date().getMinutes();
@@ -50,8 +48,8 @@ export class AppComponent {
     this.conexion = new ConectorComponent();
     this.conexion.conectar();
     this.conexion.client.subscribe(this.conexion.topico);
+
     this.conexion.client.on('message', (topic: string, message: Uint8Array) => {
-      
       this.dato = JSON.parse(message.toString());
       this.mesas[this.dato.tableData[1]] = {
         ts: this.dato.ts,
@@ -63,13 +61,8 @@ export class AppComponent {
       };
       this.cantTablesRecived = Object.keys(this.mesas);
       console.log(this.dato.tableData[3], "en app");
-      
     });
-
-  }
-
-  get miSignal() {
-    return signal(this.misMesas);
+    
   }
 
   cambiarMostrarMesa(k: string): void {

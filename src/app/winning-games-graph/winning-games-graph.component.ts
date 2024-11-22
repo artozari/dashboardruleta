@@ -13,7 +13,7 @@ type EChartsOption = echarts.EChartsOption;
 })
 export class WinningGamesGraphComponent implements OnChanges {
   @Input() dato: Mesa = {} as Mesa;
-  @Input() min: number = 0;
+  // @Input() min: number = 0;
   myChart: any = {} as EChartsOption;
   option = {};
   cantIntervalos = 10;
@@ -26,13 +26,11 @@ export class WinningGamesGraphComponent implements OnChanges {
   ngOnChanges() {
 
     const data2 = (() => {
-      const startIndex = Math.max(this.dato.winningNumbersData.length - this.cantIntervalos, 0);
-      return this.dato.winningNumbersData.slice(startIndex).map(item => item[3]);
-    })();
-
-    const dat = (() => {
-      this.data3 = this.dato.winningNumbersData.slice(-10).map(item => item[3]);
-      return this.data3;
+      // const startIndex = Math.max(this.dato.winningNumbersData.length - this.cantIntervalos,0);
+      let datos = this.dato.winningNumbersData.slice(0, this.cantIntervalos).map(item => item[3]);
+      datos.reverse();
+      console.log(datos);
+      return datos;
     })();
 
     this.myChart = echarts.init(document.getElementById("main"));
@@ -79,9 +77,7 @@ export class WinningGamesGraphComponent implements OnChanges {
       },],
       series: [
         {
-          name: `Last Game: ${this.dato.winningNumbersData[
-            this.dato.winningNumbersData.length - 1
-          ][3]
+          name: `Last Game: ${this.dato.winningNumbersData[0][3]
             }`,
           type: 'line',
           data: data2,
