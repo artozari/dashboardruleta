@@ -8,6 +8,7 @@ import { MesaComponent } from './mesa/mesa.component';
 // import { CommonModule } from '@angular/common';
 import { SalamapComponent } from './salamap/salamap.component';
 import { WinningGamesGraphComponent } from './winning-games-graph/winning-games-graph.component';
+import { ConfiTableComponent } from "./confi-table/confi-table.component";
 
 @Component({
   selector: 'app-root',
@@ -20,8 +21,9 @@ import { WinningGamesGraphComponent } from './winning-games-graph/winning-games-
     // SalaComponent,
     // CommonModule,
     SalamapComponent,
-    WinningGamesGraphComponent
-  ],
+    WinningGamesGraphComponent,
+    ConfiTableComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

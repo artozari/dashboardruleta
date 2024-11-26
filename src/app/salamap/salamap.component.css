@@ -23,16 +23,19 @@ body {
 
 #buildZone {
   display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .canvas-container,
 #canvas {
-  transition: all 0.2 ease-in-out;
+  border-radius: 50px;
 }
 
 #canvas {
-  background: #212328;
-  border-radius: 5px;
+  border-radius: 50px;
+  background: #3b3b3b;
+  box-shadow: inset 26px 26px 53px #5e5e5e, inset -26px -26px 53px #181818;
 }
 
 #controls {
@@ -89,12 +92,11 @@ body {
   transform: scale(1);
 }
 
-span:hover{
+span:hover {
   cursor: pointer;
-  
 }
 
-#styleZone .isSelected{
+#styleZone .isSelected {
   border: 1px solid white;
   cursor: pointer;
   border-color: white;
@@ -105,5 +107,3 @@ span:hover{
   transition: all 0.3s cubic-bezier(0.56, 0.35, 0, 1.7);
   transform: scale(0.6);
 }
-
-

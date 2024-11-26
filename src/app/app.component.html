@@ -11,11 +11,12 @@
   </p>
   <div class="body">
     <div class="mapaSala">
-      <app-salamap  [datoSimple]="dato"/>
+      <app-salamap [datoSimple]="dato" [min]="min"/>
     </div>
     @if (mostrarSala) {
     <div class="graphSala">
       @for (k of cantTablesRecived; track $index) {
+      <div hidden="true">{{ dato.tableData[1] }}</div>
       <div class="allTable">
         <app-mesa [dato]="mesas[k]" [min]="min"></app-mesa>
         <button class="btnfos btnfos-h" (click)="cambiarMostrarMesa(k)">
@@ -39,6 +40,7 @@
           [min]="min"
         />
         <app-winning-games-graph [dato]="mesas[tableSelected]" />
+        <app-confi-table/>
       </div>
     </div>
     }

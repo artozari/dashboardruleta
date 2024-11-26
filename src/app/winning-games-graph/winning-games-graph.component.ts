@@ -14,7 +14,7 @@ type EChartsOption = echarts.EChartsOption;
 export class WinningGamesGraphComponent implements OnChanges {
   @Input() dato: Mesa = {} as Mesa;
   // @Input() min: number = 0;
-  myChart: any = {} as EChartsOption;
+  mySalaChart: any = {} as EChartsOption;
   option = {};
   cantIntervalos = 10;
   data3: number[] = [];
@@ -29,11 +29,10 @@ export class WinningGamesGraphComponent implements OnChanges {
       // const startIndex = Math.max(this.dato.winningNumbersData.length - this.cantIntervalos,0);
       let datos = this.dato.winningNumbersData.slice(0, this.cantIntervalos).map(item => item[3]);
       datos.reverse();
-      console.log(datos);
       return datos;
     })();
 
-    this.myChart = echarts.init(document.getElementById("main"));
+    this.mySalaChart = echarts.init(document.getElementById("main"));
 
     this.option = {
       title: {
@@ -86,6 +85,6 @@ export class WinningGamesGraphComponent implements OnChanges {
       ],
     };
 
-    this.option && this.myChart.setOption(this.option);
+    this.option && this.mySalaChart.setOption(this.option);
   }
 }

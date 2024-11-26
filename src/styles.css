@@ -1,4 +1,8 @@
 /*desktops - higher resolution*/
 :root {
   color-scheme: light dark;
+  background-image: url("../public/5166950.jpg");
+  background-repeat: no-repeat; 
+  background-attachment: fixed; 
+  background-color: #454545;
 }
