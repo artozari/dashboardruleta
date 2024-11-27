@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
 import { FooterComponent } from './footer/footer.component';
 import { CabeceraComponent } from './cabecera/cabecera.component';
-// import { ReactiveFormsModule } from '@angular/forms';
 import { ConectorComponent, Mesa } from './conector/conector.component';
 import { MesaComponent } from './mesa/mesa.component';
-// import { SalaComponent } from './sala/sala.component';
-// import { CommonModule } from '@angular/common';
 import { SalamapComponent } from './salamap/salamap.component';
 import { WinningGamesGraphComponent } from './winning-games-graph/winning-games-graph.component';
-import { ConfiTableComponent } from "./confi-table/confi-table.component";
+import { ConfigTableComponent } from "./config-table/config-table.component";
 
 @Component({
   selector: 'app-root',
@@ -22,7 +19,7 @@ import { ConfiTableComponent } from "./confi-table/confi-table.component";
     // CommonModule,
     SalamapComponent,
     WinningGamesGraphComponent,
-    ConfiTableComponent
+    ConfigTableComponent
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
