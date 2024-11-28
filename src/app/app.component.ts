@@ -20,7 +20,7 @@ import { ConfigTableComponent } from "./config-table/config-table.component";
     SalamapComponent,
     WinningGamesGraphComponent,
     ConfigTableComponent
-],
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -59,9 +59,8 @@ export class AppComponent {
         winningNumbersData: this.dato.winningNumbersData,
       };
       this.cantTablesRecived = Object.keys(this.mesas);
-      console.log(this.dato.tableData[3], "en app");
     });
-    
+
   }
 
   cambiarMostrarMesa(k: string): void {

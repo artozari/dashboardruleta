@@ -2,8 +2,6 @@
   display: flex;
   width: 850px;
   height: 450px;
-  border: 1px red solid;
   background-color: darkgray;
   border-radius: 15px;
-
 }

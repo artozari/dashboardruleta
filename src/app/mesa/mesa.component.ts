@@ -179,24 +179,24 @@ export class MesaComponent implements OnChanges {
 
     if (changes['min']?.firstChange === false) {
       if (this.myChart) {
-        echarts.disconnect(this.myChart);
+        echarts.dispose(this.myChart);
       }
     }
     
     // const ts = parseInt(this.dato.winningNumbersData[0][1]);
     let grp: string = this.mostrarSala ? "graph" : "graphIndiv";
 
-    if (changes['min']?.currentValue) {
+    if (changes['dato']?.currentValue) {
       if (this.timeToSemaforo === null) {
         this.timeToSemaforo = ["allTable", "animate4", grp];
       }
-      if (this.dato.configData[33].toString()=="red") {
+      if (this.dato.configData[33].toString()==="red") {
         this.timeToSemaforo = ["allTable", "animate3", grp];
       }
-      if (this.dato.configData[33].toString()=="yellow") {
+      if (this.dato.configData[33].toString()==="yellow") {
         this.timeToSemaforo = ["allTable", "animate2", grp];
       }
-      if (this.dato.configData[33].toString()=="green") {
+      if (this.dato.configData[33].toString()==="green") {
         this.timeToSemaforo = ["allTable", "animate1", grp];
       }
     }

@@ -11,7 +11,7 @@
   </p>
   <div class="body">
     <div class="mapaSala">
-      <app-salamap [datoSimple]="dato"/>
+      <app-salamap [datoSimple]="dato" />
     </div>
     @if (mostrarSala) {
     <div class="graphSala">
@@ -40,7 +40,7 @@
           [min]="min"
         />
         <app-winning-games-graph [dato]="mesas[tableSelected]" />
-        <app-config-table/>
+        <app-config-table [dato]="mesas[tableSelected]" />
       </div>
     </div>
     }

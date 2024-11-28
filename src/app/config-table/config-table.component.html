@@ -1,7 +1,9 @@
-<p>config-table works!</p>
+<h2 style="text-align: center">{{ title }}</h2>
+
 <ag-grid-angular
   class="ag-theme-quartz-dark"
-  style="height: 500px; width: 650px;"
+  style="height: 400px; width: 800px"
   [rowData]="rowData"
   [columnDefs]="colDefs"
+  (gridReady)="onGridReady($event)"
 />

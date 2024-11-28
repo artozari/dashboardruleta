@@ -11,7 +11,6 @@ import { Canvas, Path, FabricText, FabricObject } from 'fabric';
 
 export class SalamapComponent implements OnChanges {
 
-  var = console.log("--variables¬");
   @Input() datoSimple: Mesa;
   canvas = new Canvas();
   objetos: FabricObject[];
@@ -36,7 +35,6 @@ export class SalamapComponent implements OnChanges {
   constructor() {
     this.objetos = [];
     this.datoSimple = {} as Mesa;
-    console.log("--constructor¬");
     this.colors = ['red', 'yellow', 'green', '#43c8bf', '#896bc8', '#e54f6b', '#a5346b', '#234f6b', '#ffffff'];
     this.defaultColor = this.colors[3];
     this.activeElement = null;
@@ -47,12 +45,15 @@ export class SalamapComponent implements OnChanges {
   }
   //#  onChanges 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("--ngOnChange¬");
 
     if (changes["datoSimple"]?.firstChange === false) {
 
+      this.objetos = this.canvas?.getObjects().filter(Obj => Obj.get('id') === this.datoSimple.tableData[1]);
+
       this.objetos.forEach(element => {
-        this.canvas.remove(element);
+        if (element.get("id") === this.datoSimple.tableData[1]) {
+          this.canvas.remove(element);
+        }
       });
 
       this.mesa = new Path(this.pathString, {//#
@@ -62,7 +63,7 @@ export class SalamapComponent implements OnChanges {
         left: parseInt(this.datoSimple.tableData[9].toString()),
         top: parseInt(this.datoSimple.tableData[11].toString()),
         fill: this.datoSimple.configData[33].toString(),
-        selectable: true,
+        selectable: false,
         id: this.datoSimple.tableData[1],
       });
       this.numero = new FabricText(this.datoSimple.winningNumbersData[0][3].toString(),//#
@@ -74,7 +75,7 @@ export class SalamapComponent implements OnChanges {
           left: parseInt(this.datoSimple.tableData[9].toString()) + 40,
           top: parseInt(this.datoSimple.tableData[11].toString()) + 30,
           id: this.datoSimple.tableData[1],
-          selectable: true
+          selectable: false
         });
       this.idMesa = new FabricText(this.datoSimple.tableData[1].toString(),//#
         {
@@ -89,17 +90,9 @@ export class SalamapComponent implements OnChanges {
         });
       this.canvas.add(this.mesa, this.idMesa, this.numero);
 
-      this.objetos = this.canvas?.getObjects().filter(Obj => Obj.get('id') === this.datoSimple.tableData[1]);
 
-      console.log(this.objetos);
-
-
-
-    } else {
-      console.log("es el primer dato");
 
     }
-
 
     // let svgString = "./Untitled.svg";
     // loadSVGFromURL(svgString).then((resultSVG) => {
@@ -124,12 +117,8 @@ export class SalamapComponent implements OnChanges {
   }
   //#hasta aqui onChanges
   ngOnInit() {
-    console.log("--ngOnInit¬");
-    // this.canvas.add(new FabricText(`desde Init`, { top: 35 }));
-
   }
   ngAfterViewInit() {
-    console.log("--ngAfterViewInit¬");
     this.buildZone = document.getElementById('buildZone');
     this.wrapper = document.getElementById('wrapper');
     this.styleZone = document.getElementById('styleZone');
@@ -155,9 +144,7 @@ export class SalamapComponent implements OnChanges {
 
   mostrarObjeto() {
     let objsBuscado = this.canvas.getObjects();
-    console.log(objsBuscado);
-
-    console.log(objsBuscado[3].get("id"));
+    return objsBuscado;
   }
 
   deleteActiveObjects() {
@@ -171,14 +158,14 @@ export class SalamapComponent implements OnChanges {
     return true;
   }
 
-  resizeCanvas() {
-    // Width
-    let newWidth = this.canvas.getWidth() + (window.innerWidth - (this.buildZone.offsetWidth + this.paddingShift));
-    if (newWidth < 640 && newWidth > 200) this.canvas.setWidth(newWidth);
-    // Height
-    let newHeight = this.canvas.getHeight() + (window.innerHeight - (this.wrapper.offsetHeight + this.paddingShift));
-    if (newHeight < 360 && newHeight > 250) this.canvas.setHeight(newHeight);
-    window.addEventListener('resize', this.resizeCanvas.bind(this));
-  }
+  // resizeCanvas() {
+  //   // Width
+  //   let newWidth = this.canvas.getWidth() + (window.innerWidth - (this.buildZone.offsetWidth + this.paddingShift));
+  //   if (newWidth < 640 && newWidth > 200) this.canvas.setWidth(newWidth);
+  //   // Height
+  //   let newHeight = this.canvas.getHeight() + (window.innerHeight - (this.wrapper.offsetHeight + this.paddingShift));
+  //   if (newHeight < 360 && newHeight > 250) this.canvas.setHeight(newHeight);
+  //   window.addEventListener('resize', this.resizeCanvas.bind(this));
+  // }
 
 }
