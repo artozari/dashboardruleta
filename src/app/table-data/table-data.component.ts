@@ -16,6 +16,7 @@ export class DataTableComponent implements OnChanges {
 
   @Input() dato: Mesa = {} as Mesa;
 
+  title = "";
   gridApi!: GridApi;
   columnDefs: ColDef[] = [];
   rowData: Object[] = [];
@@ -31,7 +32,8 @@ export class DataTableComponent implements OnChanges {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
-    
+    this.title = this.dato.tableData[3].toString();
+
     this.processDataTableMessage(this.dato.tableData);
   }
 

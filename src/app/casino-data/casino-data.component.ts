@@ -17,6 +17,7 @@ export class CasinoDataComponent implements OnChanges {
 
   @Input() dato: Mesa = {} as Mesa;
 
+  title = "";
   gridApi!: GridApi;
   columnDefs: ColDef[] = [];
   rowData: Object[] = [];
@@ -24,41 +25,21 @@ export class CasinoDataComponent implements OnChanges {
 
   constructor() {
 
-    this.columnDefs =
-      [
-        { field: "Data" },
-        { field: "Values" }
-      ];
-
   }
   ngOnChanges(changes: SimpleChanges): void {
-    
+    this.title = this.dato.tableData[3].toString();
     this.processDataTableMessage(this.dato.casinoData);
   }
 
-
   processDataTableMessage(message: any): void {
 
-    let newRowData = [];
-    for (let i = 0; i < message.length - 1; i += 2) {
-      newRowData.push({
-        Data: message[i].toString(),
-        Values: message[i + 1].toString(),
-      });
-    }
+    this.columnDefs = message.filter((_: any, index: number) => index % 2 === 0).map((field: any) => ({ field: field.toString() }));
 
-    this.columnDefs =
-      [
-        { field: "Data" },
-        { field: "Values" }
-      ];
-
-    // Actualiza la tabla de AgGrid
-    if (this.gridApi) {
-      this.gridApi.setGridOption('rowData', newRowData);
-    } else {
-      this.rowData = newRowData;
+    const fila: any = {};
+    for (let i = 0; i < message.length; i += 2) {
+      fila[message[i].toString()] = message[i + 1].toString();
     }
+    this.rowData.push(fila);
   }
 
   onGridReady(params: any): void {

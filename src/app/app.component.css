@@ -125,9 +125,10 @@
 .dashMesa {
   gap: 20px;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 80%;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
