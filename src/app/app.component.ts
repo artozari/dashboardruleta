@@ -6,6 +6,8 @@ import { MesaComponent } from './mesa/mesa.component';
 import { SalamapComponent } from './salamap/salamap.component';
 import { WinningGamesGraphComponent } from './winning-games-graph/winning-games-graph.component';
 import { ConfigTableComponent } from "./config-table/config-table.component";
+import { DataTableComponent } from "./table-data/table-data.component";
+import { CasinoDataComponent } from "./casino-data/casino-data.component";
 
 @Component({
   selector: 'app-root',
@@ -13,13 +15,12 @@ import { ConfigTableComponent } from "./config-table/config-table.component";
   imports: [
     CabeceraComponent,
     FooterComponent,
-    // ReactiveFormsModule,
     MesaComponent,
-    // SalaComponent,
-    // CommonModule,
     SalamapComponent,
     WinningGamesGraphComponent,
-    ConfigTableComponent
+    ConfigTableComponent,
+    DataTableComponent,
+    CasinoDataComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

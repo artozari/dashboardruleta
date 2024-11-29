@@ -19,23 +19,18 @@ export class ConfigTableComponent implements OnChanges {
   title: string;
   colDefs: ColDef[];
   rowData: Object[];
-  private gridApi!: GridApi;
+  gridApi!: GridApi;
 
   constructor() {
-    console.log("============= Constructor =============╗");
     this.title = "Configuracion de Mesa";
     this.colDefs = [
       { field: "Data" },
-      {
-        field: "Values",
-        cellStyle: { background: "green" }
-      },
+      { field: "Values" },
     ];
     this.rowData = [];
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("============= onChanges ===============╗");
     this.updateGridData();
   }
 
@@ -61,7 +56,13 @@ export class ConfigTableComponent implements OnChanges {
       { field: "Data" },
       {
         field: "Values",
-        cellStyle: { background: this.dato.configData[33] }
+        cellStyle: (params: any) => {
+          if (params.value === this.dato.configData[33]) {
+            return { background: params.value };
+          } else {
+            return { background: this.dato.configData[33] };
+          }
+        }
       },];
 
     if (this.gridApi) {
@@ -71,70 +72,16 @@ export class ConfigTableComponent implements OnChanges {
     }
   }
 
+  getRowStyle(params: any) {
+    if (params.data.Values === 'someValue') { // Cambia 'someValue' por la condición que desees
+      return { background: 'lightgreen' }; // Cambia el color según sea necesario
+    }
+    return null; // Estilo por defecto
+  }
+
   ngOnInit() {
-    console.log("============= ngOnInit ================╗");
   }
 
   ngAfterViewInit() {
-    console.log("============= ngAfterViewInit =========╗");
   }
 }
-
-// import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-// import { AgGridAngular } from 'ag-grid-angular'; // Angular Data Grid Component
-// import { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
-// import { Mesa } from '../conector/conector.component';
-// import 'ag-grid-community/styles/ag-grid.css';
-// import 'ag-grid-community/styles/ag-theme-quartz.css';
-
-// @Component({
-//   selector: 'app-config-table',
-//   standalone: true,
-//   imports: [AgGridAngular],
-//   templateUrl: './config-table.component.html',
-//   styleUrl: './config-table.component.css'
-// })
-// export class ConfigTableComponent implements OnChanges {
-
-//   var = console.log("============= Variables ===============╗");
-
-//   @Input() dato: Mesa = {} as Mesa;
-//   title: string;
-//   colDefs: ColDef[];
-//   rowData: Object[];
-
-//   constructor() {
-//     console.log("============= Constructor =============╗");
-//     this.title = "Configuracion de Mesa";
-//     this.colDefs = [];
-//     this.rowData = [];
-//   }
-
-//   ngOnChanges(changes: SimpleChanges) {
-//     console.log("============= onChanges ===============╗");
-
-//     this.title = `Configuracion de Mesa: ${this.dato.configData[33].toString()}`;
-
-//     this.colDefs.push({ field: "Data" });
-//     this.colDefs.push({ field: "Values" });
-
-//     let i = 0;
-
-//     while (i < this.dato.configData.length - 1) {
-//       console.log(this.dato.configData[i + 1]);
-//       this.rowData.push({ Data: this.dato.configData[i].toString(), Values: this.dato.configData[i + 1].toString() });
-//       i += 2;
-//     }
-
-//   }
-
-
-//   ngOnInit() {
-//     console.log("============= ngOnInit ================╗");
-//   }
-
-//   ngAfterViewInit() {
-//     console.log("============= ngAfterViewInit =========╗");
-//   }
-
-// }
