@@ -190,13 +190,13 @@ export class MesaComponent implements OnChanges {
       if (this.timeToSemaforo === null) {
         this.timeToSemaforo = ["allTable", "animate4", grp];
       }
-      if (this.dato.configData[33].toString()==="red") {
+      if (this.dato.status[1].toString()==="red") {
         this.timeToSemaforo = ["allTable", "animate3", grp];
       }
-      if (this.dato.configData[33].toString()==="yellow") {
+      if (this.dato.status[1].toString()==="yellow") {
         this.timeToSemaforo = ["allTable", "animate2", grp];
       }
-      if (this.dato.configData[33].toString()==="green") {
+      if (this.dato.status[1].toString()==="green") {
         this.timeToSemaforo = ["allTable", "animate1", grp];
       }
     }

@@ -51,13 +51,14 @@ export class AppComponent {
 
     this.conexion.client.on('message', (topic: string, message: Uint8Array) => {
       this.dato = JSON.parse(message.toString());
-      this.mesas[this.dato.tableData[1]] = {
+      this.mesas[this.dato.tableData[1].toString()] = {
         ts: this.dato.ts,
         gameNumber: this.dato.gameNumber,
         casinoData: this.dato.casinoData,
         tableData: this.dato.tableData,
         configData: this.dato.configData,
         winningNumbersData: this.dato.winningNumbersData,
+        status: this.dato.status,
       };
       this.cantTablesRecived = Object.keys(this.mesas);
     });

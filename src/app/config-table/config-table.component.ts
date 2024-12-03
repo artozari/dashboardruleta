@@ -57,10 +57,10 @@ export class ConfigTableComponent implements OnChanges {
       {
         field: "Values",
         cellStyle: (params: any) => {
-          if (params.value === this.dato.configData[33]) {
+          if (params.value === this.dato.status[1]) {
             return { background: params.value };
           } else {
-            return { background: this.dato.configData[33] };
+            return { background: this.dato.status[1] };
           }
         }
       },];

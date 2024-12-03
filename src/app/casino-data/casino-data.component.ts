@@ -39,7 +39,12 @@ export class CasinoDataComponent implements OnChanges {
     for (let i = 0; i < message.length; i += 2) {
       fila[message[i].toString()] = message[i + 1].toString();
     }
-    this.rowData.push(fila);
+
+    if (this.gridApi) {
+      this.gridApi.setGridOption('rowData', fila);
+    } else {
+      this.rowData = [fila];
+    }
   }
 
   onGridReady(params: any): void {

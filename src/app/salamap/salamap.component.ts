@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Mesa } from "../conector/conector.component";
-import { Canvas, Path, FabricText, FabricObject } from 'fabric';
+import { Canvas, Path, FabricText, FabricObject, loadSVGFromURL, util } from 'fabric';
 @Component({
   selector: 'app-salamap',
   standalone: true,
@@ -13,6 +13,7 @@ export class SalamapComponent implements OnChanges {
 
   @Input() datoSimple: Mesa;
   canvas = new Canvas();
+  fabric = new FabricObject();
   objetos: FabricObject[];
   ubicacion: number[];
   mesa = new FabricObject();
@@ -62,10 +63,11 @@ export class SalamapComponent implements OnChanges {
         angle: 0,
         left: parseInt(this.datoSimple.tableData[9].toString()),
         top: parseInt(this.datoSimple.tableData[11].toString()),
-        fill: this.datoSimple.configData[33].toString(),
+        fill: this.datoSimple.status[1],
         selectable: false,
         id: this.datoSimple.tableData[1],
       });
+
       this.numero = new FabricText(this.datoSimple.winningNumbersData[0][3].toString(),//#
         {
           strokeWidth: this.strokeWidth,
@@ -77,6 +79,7 @@ export class SalamapComponent implements OnChanges {
           id: this.datoSimple.tableData[1],
           selectable: false
         });
+
       this.idMesa = new FabricText(this.datoSimple.tableData[1].toString(),//#
         {
           strokeWidth: this.strokeWidth,
@@ -94,7 +97,7 @@ export class SalamapComponent implements OnChanges {
 
     }
 
-    // let svgString = "./Untitled.svg";
+    // let svgString = "./sala1.svg";
     // loadSVGFromURL(svgString).then((resultSVG) => {
     //   const obj = util.groupSVGElements(
     //     resultSVG.objects as FabricObject[],
@@ -117,6 +120,31 @@ export class SalamapComponent implements OnChanges {
   }
   //#hasta aqui onChanges
   ngOnInit() {
+    let svgString = "./sala3.svg";
+    loadSVGFromURL(svgString).then((resultSVG) => {
+      const obj = util.groupSVGElements(
+        resultSVG.objects as FabricObject[],
+        resultSVG.options
+      );
+      obj.set({
+        left: 0,
+        top: 0,
+        scaleX: 3,
+        scaleY: 3,
+        originX: 0,
+        originY: 0,
+        selectable: false
+      });
+      this.canvas.add(obj);
+      this.canvas.setWidth(obj.getScaledWidth());
+      this.canvas.setHeight(obj.getScaledHeight());
+      // this.canvas.setDimensions(obj);
+      console.log(this.canvas.getWidth());
+      console.log(this.canvas.getHeight());
+    });
+
+
+    this.canvas.renderAll();
   }
   ngAfterViewInit() {
     this.buildZone = document.getElementById('buildZone');

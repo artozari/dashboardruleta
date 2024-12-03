@@ -29,13 +29,14 @@ body {
 
 .canvas-container,
 #canvas {
-  border-radius: 50px;
+  /* border-radius: 50px; */
 }
 
 #canvas {
-  border-radius: 50px;
-  background: #3b3b3b;
-  box-shadow: inset 26px 26px 53px #5e5e5e, inset -26px -26px 53px #181818;
+  /* border-radius: 50px; */
+  background: transparent;
+  /* /* background: #3b3b3b; */
+  /* box-shadow: inset 26px 26px 53px #5e5e5e, inset -26px -26px 53px #181818; */
 }
 
 #controls {

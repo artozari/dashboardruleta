@@ -10,10 +10,11 @@ export interface Mesa {
   casinoData: (string | number)[];
   tableData: (string | number)[];
   configData: (string | number)[];
-  winningNumbersData:dataInWinning[];
+  winningNumbersData: dataInWinning[];
+  status: string[];
 }
 
-type dataInWinning = [number,string,number,number,number,boolean,boolean,boolean,number|null,number];
+type dataInWinning = [number, string, number, number, number, boolean, boolean, boolean, number | null, number];
 
 
 
@@ -32,20 +33,20 @@ type dataInWinning = [number,string,number,number,number,boolean,boolean,boolean
 //# MQTT class
 export class ConectorComponent {
 
-  clientName:string;
-  topico :string;
-  server: string ;
+  clientName: string;
+  topico: string;
+  server: string;
   client: any;
 
   //# Variables de IU
-  
-  constructor() {    
+
+  constructor() {
     this.server = "ws://sielcondev01.site:9105";
     this.clientName = "mqttClinteAngel";
     this.topico = "sts1/dashboard/local/CA_SLCN/#";
   };
-  
-  conectar():void{
+
+  conectar(): void {
     this.client = mqtt.connect(this.server, {
       clientId: this.clientName,
       clean: true,

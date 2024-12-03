@@ -33,14 +33,16 @@
       >
         Ver Sala
       </button>
-      <app-casino-data [dato]="mesas[tableSelected]"/>
+      <app-casino-data [dato]="mesas[tableSelected]" />
       <div class="dashMesa">
-        <app-mesa
-          [mostrarSala]="mostrarSala"
-          [dato]="mesas[tableSelected]"
-          [min]="min"
-        />
-        <app-winning-games-graph [dato]="mesas[tableSelected]" />
+        <div class="graph">
+          <app-mesa
+            [mostrarSala]="mostrarSala"
+            [dato]="mesas[tableSelected]"
+            [min]="min"
+          />
+          <app-winning-games-graph [dato]="mesas[tableSelected]" />
+        </div>
         <app-config-table [dato]="mesas[tableSelected]" />
         <app-data-table [dato]="mesas[tableSelected]"></app-data-table>
       </div>
