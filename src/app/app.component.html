@@ -10,12 +10,15 @@
     {{ time }}
   </p>
   <div class="body">
+    <input type="text" name="planoInputTxt" id="planoInputTxt" [(ngModel)]="planoSelect">
+    {{planoSelect}}
     <div class="mapaSala">
-      <app-salamap [datoSimple]="dato" />
+      <app-salamap [datoSimple]="dato" [planoSelect]="planoSelect" />
     </div>
     @if (mostrarSala) {
     <div class="graphSala">
-      @for (k of cantTablesRecived; track $index) {
+      @for (k of cantTablesRecived; track $index) { @if (mesas[k].tableData[13]
+      ===planoSelect) {
       <div hidden="true">{{ dato.tableData[1] }}</div>
       <div class="allTable">
         <app-mesa [dato]="mesas[k]" [min]="min"></app-mesa>
@@ -23,7 +26,7 @@
           Ver Mesa
         </button>
       </div>
-      }
+      } }
     </div>
     } @if(!mostrarSala) {
     <div class="oneTable">
@@ -35,7 +38,7 @@
       </button>
       <app-casino-data [dato]="mesas[tableSelected]" />
       <div class="dashMesa">
-        <div class="graph">
+        <div class="cuadros">
           <app-mesa
             [mostrarSala]="mostrarSala"
             [dato]="mesas[tableSelected]"

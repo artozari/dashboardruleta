@@ -28,7 +28,7 @@ export class MesaComponent implements OnChanges {
   ];
   interval: any;
 
-  cantIntervalos = 10;
+  cantIntervalos = 5;
   intervals = 5; // en minutos
   resCat: string[] = [];
   resCat2: any[] = [];
@@ -115,7 +115,7 @@ export class MesaComponent implements OnChanges {
         },
       },
       dataZoom: {
-        show: false,
+        show: true,
         start: 0,
         end: 100,
       },
@@ -182,7 +182,7 @@ export class MesaComponent implements OnChanges {
         echarts.dispose(this.myChart);
       }
     }
-    
+
     // const ts = parseInt(this.dato.winningNumbersData[0][1]);
     let grp: string = this.mostrarSala ? "graph" : "graphIndiv";
 
@@ -190,13 +190,13 @@ export class MesaComponent implements OnChanges {
       if (this.timeToSemaforo === null) {
         this.timeToSemaforo = ["allTable", "animate4", grp];
       }
-      if (this.dato.status[1].toString()==="red") {
+      if (this.dato.status[1].toString() === "red") {
         this.timeToSemaforo = ["allTable", "animate3", grp];
       }
-      if (this.dato.status[1].toString()==="yellow") {
+      if (this.dato.status[1].toString() === "yellow") {
         this.timeToSemaforo = ["allTable", "animate2", grp];
       }
-      if (this.dato.status[1].toString()==="green") {
+      if (this.dato.status[1].toString() === "green") {
         this.timeToSemaforo = ["allTable", "animate1", grp];
       }
     }

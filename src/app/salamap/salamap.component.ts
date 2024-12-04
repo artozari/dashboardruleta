@@ -1,17 +1,24 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Mesa } from "../conector/conector.component";
-import { Canvas, Path, FabricText, FabricObject, loadSVGFromURL, util } from 'fabric';
+import { Mesa } from '../conector/conector.component';
+import {
+  Canvas,
+  Path,
+  FabricText,
+  FabricObject,
+  loadSVGFromURL,
+  util,
+} from 'fabric';
 @Component({
   selector: 'app-salamap',
   standalone: true,
   imports: [],
   templateUrl: './salamap.component.html',
-  styleUrls: ['./salamap.component.css']
+  styleUrls: ['./salamap.component.css'],
 })
-
 export class SalamapComponent implements OnChanges {
-
   @Input() datoSimple: Mesa;
+  @Input() planoSelect: number;
+  layout: number = 0;
   canvas = new Canvas();
   fabric = new FabricObject();
   objetos: FabricObject[];
@@ -20,7 +27,7 @@ export class SalamapComponent implements OnChanges {
   idMesa = new FabricObject();
   numero = new FabricObject();
 
-  tsPrev = 0;
+  primerIteracion = false;
   buildZone: any;
   wrapper: any;
   paddingShift: any;
@@ -31,12 +38,23 @@ export class SalamapComponent implements OnChanges {
   isSelectedClass: string;
   strokeWidth: number;
   strokeColor: string;
-  pathString = "M 0 0 Q 50 -50 100 0 L 100 50 Q 50 150 0 50 Z";
+  pathString = 'M 0 0 Q 50 -50 100 0 L 100 50 Q 50 150 0 50 Z';
 
   constructor() {
     this.objetos = [];
+    this.planoSelect = 0;
     this.datoSimple = {} as Mesa;
-    this.colors = ['red', 'yellow', 'green', '#43c8bf', '#896bc8', '#e54f6b', '#a5346b', '#234f6b', '#ffffff'];
+    this.colors = [
+      'red',
+      'yellow',
+      'green',
+      '#43c8bf',
+      '#896bc8',
+      '#e54f6b',
+      '#a5346b',
+      '#234f6b',
+      '#ffffff',
+    ];
     this.defaultColor = this.colors[3];
     this.activeElement = null;
     this.isSelectedClass = 'isSelected';
@@ -44,20 +62,48 @@ export class SalamapComponent implements OnChanges {
     this.strokeWidth = 2;
     this.strokeColor = this.defaultColor;
   }
-  //#  onChanges 
+  //#  onChanges
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['datoSimple']?.firstChange === false) {
+      if (this.datoSimple.tableData[13] === this.planoSelect) {
+        let svgString = this.obtenerPlano(this.planoSelect.toString());
+        console.log(svgString);
 
-    if (changes["datoSimple"]?.firstChange === false) {
+        loadSVGFromURL(svgString).then((resultSVG) => {
+          const obj = util.groupSVGElements(
+            resultSVG.objects as FabricObject[],
+            resultSVG.options
+          );
+          obj.set({
+            left: 0,
+            top: 0,
+            scaleX: 3,
+            scaleY: 3,
+            originX: 0,
+            originY: 0,
+            hoverCursor: 'pointer',
+            selectable: false,
+          });
+          this.canvas.add(obj);
+          this.canvas.setWidth(obj.getScaledWidth());
+          this.canvas.setHeight(obj.getScaledHeight());
+        });
+      } 
 
-      this.objetos = this.canvas?.getObjects().filter(Obj => Obj.get('id') === this.datoSimple.tableData[1]);
+      this.primerIteracion = true;
 
-      this.objetos.forEach(element => {
-        if (element.get("id") === this.datoSimple.tableData[1]) {
+      this.objetos = this.canvas
+        ?.getObjects()
+        .filter((Obj) => Obj.get('id') === this.datoSimple.tableData[1]);
+
+      this.objetos.forEach((element) => {
+        if (element.get('id') === this.datoSimple.tableData[1]) {
           this.canvas.remove(element);
         }
       });
 
-      this.mesa = new Path(this.pathString, {//#
+      this.mesa = new Path(this.pathString, {
+        //#
         strokeWidth: this.strokeWidth,
         stroke: this.strokeColor,
         angle: 0,
@@ -68,84 +114,42 @@ export class SalamapComponent implements OnChanges {
         id: this.datoSimple.tableData[1],
       });
 
-      this.numero = new FabricText(this.datoSimple.winningNumbersData[0][3].toString(),//#
+      this.numero = new FabricText(
+        this.datoSimple.winningNumbersData[0][3].toString(), //#
         {
           strokeWidth: this.strokeWidth,
-          backgroundColor: "transparent",
-          stroke: "white",
-          fill: "white",
+          backgroundColor: 'transparent',
+          stroke: 'white',
+          fill: 'white',
           left: parseInt(this.datoSimple.tableData[9].toString()) + 40,
           top: parseInt(this.datoSimple.tableData[11].toString()) + 30,
           id: this.datoSimple.tableData[1],
-          selectable: false
-        });
+          selectable: false,
+        }
+      );
 
-      this.idMesa = new FabricText(this.datoSimple.tableData[1].toString(),//#
+      this.idMesa = new FabricText(
+        this.datoSimple.tableData[1].toString(), //#
         {
           strokeWidth: this.strokeWidth,
-          backgroundColor: "transparent",
-          stroke: "black",
-          fill: "black",
+          backgroundColor: 'transparent',
+          stroke: 'black',
+          fill: 'black',
           left: parseInt(this.datoSimple.tableData[9].toString()) + 40,
           top: parseInt(this.datoSimple.tableData[11].toString()) + 90,
           id: this.datoSimple.tableData[1],
-          selectable: false
-        });
+          selectable: false,
+        }
+      );
       this.canvas.add(this.mesa, this.idMesa, this.numero);
-
-
-
     }
-
-    // let svgString = "./sala1.svg";
-    // loadSVGFromURL(svgString).then((resultSVG) => {
-    //   const obj = util.groupSVGElements(
-    //     resultSVG.objects as FabricObject[],
-    //     resultSVG.options
-    //   );
-    //   obj.set({
-    //     left: 150,
-    //     top: 100,
-    //     // scaleX: 1,
-    //     // scaleY: 1,
-    //     // with: 500,
-    //     // height: 50,
-    //     originX: "center",
-    //     originY: "center",
-    //   });
-    //   this.canvas.add(obj);
-    // });
-    // this.canvas.renderAll();
-
   }
   //#hasta aqui onChanges
-  ngOnInit() {
-    let svgString = "./sala3.svg";
-    loadSVGFromURL(svgString).then((resultSVG) => {
-      const obj = util.groupSVGElements(
-        resultSVG.objects as FabricObject[],
-        resultSVG.options
-      );
-      obj.set({
-        left: 0,
-        top: 0,
-        scaleX: 3,
-        scaleY: 3,
-        originX: 0,
-        originY: 0,
-        selectable: false
-      });
-      this.canvas.add(obj);
-      this.canvas.setWidth(obj.getScaledWidth());
-      this.canvas.setHeight(obj.getScaledHeight());
-      // this.canvas.setDimensions(obj);
-      console.log(this.canvas.getWidth());
-      console.log(this.canvas.getHeight());
-    });
 
-
-    this.canvas.renderAll();
+  obtenerPlano(name: string): string {
+    return `plano-${name}.svg`;
   }
+
   ngAfterViewInit() {
     this.buildZone = document.getElementById('buildZone');
     this.wrapper = document.getElementById('wrapper');
@@ -167,7 +171,7 @@ export class SalamapComponent implements OnChanges {
       }
     });
 
-    this.canvas = new Canvas("canvas", { width: 700, height: 400 });
+    this.canvas = new Canvas('canvas', { width: 700, height: 400 });
   }
 
   mostrarObjeto() {
@@ -195,5 +199,4 @@ export class SalamapComponent implements OnChanges {
   //   if (newHeight < 360 && newHeight > 250) this.canvas.setHeight(newHeight);
   //   window.addEventListener('resize', this.resizeCanvas.bind(this));
   // }
-
 }

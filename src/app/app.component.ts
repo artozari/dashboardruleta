@@ -5,9 +5,10 @@ import { ConectorComponent, Mesa } from './conector/conector.component';
 import { MesaComponent } from './mesa/mesa.component';
 import { SalamapComponent } from './salamap/salamap.component';
 import { WinningGamesGraphComponent } from './winning-games-graph/winning-games-graph.component';
-import { ConfigTableComponent } from "./config-table/config-table.component";
-import { DataTableComponent } from "./table-data/table-data.component";
-import { CasinoDataComponent } from "./casino-data/casino-data.component";
+import { ConfigTableComponent } from './config-table/config-table.component';
+import { DataTableComponent } from './table-data/table-data.component';
+import { CasinoDataComponent } from './casino-data/casino-data.component';
+import { FormsModule } from '@angular/Forms';
 
 @Component({
   selector: 'app-root',
@@ -20,13 +21,14 @@ import { CasinoDataComponent } from "./casino-data/casino-data.component";
     WinningGamesGraphComponent,
     ConfigTableComponent,
     DataTableComponent,
-    CasinoDataComponent
+    CasinoDataComponent,
+    FormsModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-
+  planoSelect = 1;
   conexion: ConectorComponent;
   mesas: Record<string, Mesa> = {};
   dato: Mesa = {} as Mesa;
@@ -37,9 +39,7 @@ export class AppComponent {
   tableSelected: string = '1';
   semaforo: string[] = [];
 
-
   constructor() {
-
     setInterval(() => {
       this.time = new Date().toLocaleTimeString();
       this.min = new Date().getMinutes();
@@ -62,11 +62,16 @@ export class AppComponent {
       };
       this.cantTablesRecived = Object.keys(this.mesas);
     });
-
   }
 
   cambiarMostrarMesa(k: string): void {
     this.tableSelected = k;
     this.mostrarSala = !this.mostrarSala;
+  }
+
+  cambiarPlano(plano: number) {
+    console.log(plano);
+
+    this.planoSelect = plano;
   }
 }
