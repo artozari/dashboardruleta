@@ -18,16 +18,16 @@ import {
 export class SalamapComponent implements OnChanges {
   @Input() datoSimple: Mesa;
   @Input() planoSelect: number;
-  layout: number = 0;
-  canvas = new Canvas();
+  canvas: any;
   fabric = new FabricObject();
   objetos: FabricObject[];
   ubicacion: number[];
   mesa = new FabricObject();
   idMesa = new FabricObject();
   numero = new FabricObject();
+  plano = new FabricObject();
 
-  primerIteracion = false;
+  primerIteracion: boolean;
   buildZone: any;
   wrapper: any;
   paddingShift: any;
@@ -43,6 +43,9 @@ export class SalamapComponent implements OnChanges {
   constructor() {
     this.objetos = [];
     this.planoSelect = 0;
+    this.primerIteracion = false;
+    this.canvas = new Canvas();
+
     this.datoSimple = {} as Mesa;
     this.colors = [
       'red',
@@ -62,89 +65,94 @@ export class SalamapComponent implements OnChanges {
     this.strokeWidth = 2;
     this.strokeColor = this.defaultColor;
   }
-  //#  onChanges
+  //# onChanges
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['datoSimple']?.firstChange === false) {
-      if (this.datoSimple.tableData[13] === this.planoSelect) {
-        let svgString = this.obtenerPlano(this.planoSelect.toString());
-        console.log(svgString);
-
-        loadSVGFromURL(svgString).then((resultSVG) => {
-          const obj = util.groupSVGElements(
-            resultSVG.objects as FabricObject[],
-            resultSVG.options
+      if (
+        this.datoSimple.tableData[15].toString() === this.planoSelect.toString()
+      ) {
+        this.objetos = this.canvas
+          ?.getObjects()
+          .filter(
+            (Obj: { get: (arg0: string) => string | number }) =>
+              Obj.get('id') === this.datoSimple.tableData[1]
           );
-          obj.set({
-            left: 0,
-            top: 0,
-            scaleX: 3,
-            scaleY: 3,
-            originX: 0,
-            originY: 0,
-            hoverCursor: 'pointer',
-            selectable: false,
-          });
-          this.canvas.add(obj);
-          this.canvas.setWidth(obj.getScaledWidth());
-          this.canvas.setHeight(obj.getScaledHeight());
+
+        this.objetos.forEach((element) => {
+          if (element.get('id') === this.datoSimple.tableData[1]) {
+            this.canvas.remove(element);
+          }
         });
-      } 
 
-      this.primerIteracion = true;
-
-      this.objetos = this.canvas
-        ?.getObjects()
-        .filter((Obj) => Obj.get('id') === this.datoSimple.tableData[1]);
-
-      this.objetos.forEach((element) => {
-        if (element.get('id') === this.datoSimple.tableData[1]) {
-          this.canvas.remove(element);
-        }
-      });
-
-      this.mesa = new Path(this.pathString, {
-        //#
-        strokeWidth: this.strokeWidth,
-        stroke: this.strokeColor,
-        angle: 0,
-        left: parseInt(this.datoSimple.tableData[9].toString()),
-        top: parseInt(this.datoSimple.tableData[11].toString()),
-        fill: this.datoSimple.status[1],
-        selectable: false,
-        id: this.datoSimple.tableData[1],
-      });
-
-      this.numero = new FabricText(
-        this.datoSimple.winningNumbersData[0][3].toString(), //#
-        {
+        this.mesa = new Path(this.pathString, {
+          //#
           strokeWidth: this.strokeWidth,
-          backgroundColor: 'transparent',
-          stroke: 'white',
-          fill: 'white',
-          left: parseInt(this.datoSimple.tableData[9].toString()) + 40,
-          top: parseInt(this.datoSimple.tableData[11].toString()) + 30,
-          id: this.datoSimple.tableData[1],
+          stroke: this.strokeColor,
+          angle: 0,
+          left: parseInt(this.datoSimple.tableData[11].toString()),
+          top: parseInt(this.datoSimple.tableData[13].toString()),
+          fill: this.datoSimple.status[1],
           selectable: false,
-        }
-      );
+          id: this.datoSimple.tableData[1],
+        });
 
-      this.idMesa = new FabricText(
-        this.datoSimple.tableData[1].toString(), //#
-        {
-          strokeWidth: this.strokeWidth,
-          backgroundColor: 'transparent',
-          stroke: 'black',
-          fill: 'black',
-          left: parseInt(this.datoSimple.tableData[9].toString()) + 40,
-          top: parseInt(this.datoSimple.tableData[11].toString()) + 90,
-          id: this.datoSimple.tableData[1],
+        this.numero = new FabricText(
+          //#
+          this.datoSimple.winningNumbersData[0][3].toString(),
+          {
+            strokeWidth: this.strokeWidth,
+            backgroundColor: 'transparent',
+            stroke: 'white',
+            fill: 'white',
+            left: parseInt(this.datoSimple.tableData[11].toString()) + 40,
+            top: parseInt(this.datoSimple.tableData[13].toString()) + 30,
+            id: this.datoSimple.tableData[1],
+            selectable: false,
+          }
+        );
+
+        this.idMesa = new FabricText(
+          this.datoSimple.tableData[1].toString(), //#
+          {
+            strokeWidth: this.strokeWidth,
+            backgroundColor: 'transparent',
+            stroke: 'black',
+            fill: 'black',
+            left: parseInt(this.datoSimple.tableData[11].toString()) + 40,
+            top: parseInt(this.datoSimple.tableData[13].toString()) + 90,
+            id: this.datoSimple.tableData[1],
+            selectable: false,
+          }
+        );
+
+        this.canvas.add(this.mesa, this.idMesa, this.numero);
+      }
+    }
+
+    if (changes['planoSelect']) {
+      this.canvas.clear();
+      let svgString = this.obtenerPlano(this.planoSelect.toString());
+      loadSVGFromURL(svgString).then((resultSVG) => {
+        this.plano = util.groupSVGElements(
+          resultSVG.objects as FabricObject[],
+          resultSVG.options
+        );
+        this.plano.set({
+          left: 0,
+          top: 0,
+          scaleX: 3,
+          scaleY: 3,
+          originX: 0,
+          originY: 0,
+          hoverCursor: 'pointer',
           selectable: false,
-        }
-      );
-      this.canvas.add(this.mesa, this.idMesa, this.numero);
+        });
+        this.canvas.setWidth(this.plano.getScaledWidth());
+        this.canvas.setHeight(this.plano.getScaledHeight());
+        this.canvas.add(this.plano);
+      });
     }
   }
-  //#hasta aqui onChanges
 
   obtenerPlano(name: string): string {
     return `plano-${name}.svg`;
@@ -175,8 +183,8 @@ export class SalamapComponent implements OnChanges {
   }
 
   mostrarObjeto() {
-    let objsBuscado = this.canvas.getObjects();
-    return objsBuscado;
+    let objsBuscados = this.canvas.getObjects();
+    return objsBuscados;
   }
 
   deleteActiveObjects() {

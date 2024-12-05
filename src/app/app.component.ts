@@ -9,6 +9,7 @@ import { ConfigTableComponent } from './config-table/config-table.component';
 import { DataTableComponent } from './table-data/table-data.component';
 import { CasinoDataComponent } from './casino-data/casino-data.component';
 import { FormsModule } from '@angular/Forms';
+import { StatusComponent } from "./status/status.component";
 
 @Component({
   selector: 'app-root',
@@ -23,12 +24,13 @@ import { FormsModule } from '@angular/Forms';
     DataTableComponent,
     CasinoDataComponent,
     FormsModule,
-  ],
+    StatusComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  planoSelect = 1;
+  planoSelect: number;
   conexion: ConectorComponent;
   mesas: Record<string, Mesa> = {};
   dato: Mesa = {} as Mesa;
@@ -40,6 +42,8 @@ export class AppComponent {
   semaforo: string[] = [];
 
   constructor() {
+    this.planoSelect = 1;
+
     setInterval(() => {
       this.time = new Date().toLocaleTimeString();
       this.min = new Date().getMinutes();
@@ -62,6 +66,7 @@ export class AppComponent {
       };
       this.cantTablesRecived = Object.keys(this.mesas);
     });
+
   }
 
   cambiarMostrarMesa(k: string): void {
