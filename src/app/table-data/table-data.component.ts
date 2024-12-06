@@ -43,7 +43,7 @@ export class DataTableComponent implements OnChanges {
     let newRowData = [];
     for (let i = 0; i < message.length - 1; i += 2) {
       newRowData.push({
-        Data: message[i].toString(),
+        Data: message[i],
         Values: message[i + 1].toString(),
       });
     }
@@ -64,6 +64,6 @@ export class DataTableComponent implements OnChanges {
 
   onGridReady(params: any): void {
     params.api.sizeColumnsToFit();
-    params.api.setRowData(this.rowData);
+    // params.api.setRowData(this.rowData);
   }
 }

@@ -1,7 +1,6 @@
 import {
   Component,
   Input,
-  OnChanges,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -28,7 +27,7 @@ export class StatusComponent {
   gridApi!: GridApi;
 
   constructor() {
-    this.title = 'Configuracion de Mesa';
+    this.title = 'status de Mesa';
     this.colDefs = [{ field: 'Data' }, { field: 'Values' }];
     this.rowData = [];
   }
@@ -45,7 +44,7 @@ export class StatusComponent {
   private updateGridData() {
     if (!this.dato.status) return;
 
-    this.title = `Configuracion de Mesa: ${this.dato.tableData[3].toString()}`;
+    this.title = `status de Mesa: ${this.dato.tableData[3].toString()}`;
 
     const newRowData = [];
     for (let i = 0; i < this.dato.status.length - 1; i += 2) {

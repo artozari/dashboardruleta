@@ -49,6 +49,6 @@ export class CasinoDataComponent implements OnChanges {
 
   onGridReady(params: any): void {
     params.api.sizeColumnsToFit();
-    params.api.setRowData(this.rowData);
+    // params.api.setRowData(this.rowData);
   }
 }

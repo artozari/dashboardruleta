@@ -16,8 +16,6 @@ export interface Mesa {
 
 type dataInWinning = [number, string, number, number, number, boolean, boolean, boolean, number | null, number];
 
-
-
 @Component({
   selector: 'app-conector',
   standalone: true,
@@ -43,7 +41,7 @@ export class ConectorComponent {
   constructor() {
     this.server = "ws://sielcondev01.site:9105";
     this.clientName = "mqttClinteAngel";
-    this.topico = "sts1/dashboard/local/CA_SLCN/#";
+    this.topico = "sts/dashboard/local/CA_SLCNSist/#";
   };
 
   conectar(): void {

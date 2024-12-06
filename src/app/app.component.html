@@ -10,22 +10,30 @@
     {{ time }}
   </p>
   <div class="body">
-    <input
+    <!-- <input
       type="text"
       name="planoInputTxt"
       id="planoInputTxt"
       [(ngModel)]="planoSelect"
-    />
+    /> -->
+    <select class="form-control" id="planos" required [(ngModel)]="planoSelect">
+      <!-- <option value="1">1</option> -->
+      @for ( i of cantplanos; track $index) {
+      <option value="{{i}}">{{i}}</option>S
+      }
+    </select>
     <div class="mapaSala">
-      <app-salamap [datoSimple]="dato" [planoSelect]="planoSelect" />
+      <app-salamap
+        [datoSimple]="dato"
+        [planoSelect]="planoSelect"
+        [mesaSelect]="tableSelected"
+      />
     </div>
     @if (mostrarSala) {
-    {{ planoSelect + " plano select" }}
     <div class="graphSala">
       @for (k of cantTablesRecived; track $index) { @if
       (mesas[k].tableData[15].toString() === planoSelect.toString()) {
       <div class="allTable">
-        {{ mesas[k].tableData[15] + "tableData" }}
         <app-mesa [dato]="mesas[k]" [min]="min"></app-mesa>
         <button class="btnfos btnfos-h" (click)="cambiarMostrarMesa(k)">
           Ver Mesa

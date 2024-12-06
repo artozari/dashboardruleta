@@ -9,7 +9,7 @@ import { ConfigTableComponent } from './config-table/config-table.component';
 import { DataTableComponent } from './table-data/table-data.component';
 import { CasinoDataComponent } from './casino-data/casino-data.component';
 import { FormsModule } from '@angular/Forms';
-import { StatusComponent } from "./status/status.component";
+import { StatusComponent } from './status/status.component';
 
 @Component({
   selector: 'app-root',
@@ -24,8 +24,8 @@ import { StatusComponent } from "./status/status.component";
     DataTableComponent,
     CasinoDataComponent,
     FormsModule,
-    StatusComponent
-],
+    StatusComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -38,12 +38,12 @@ export class AppComponent {
   mostrarSala = true;
   time: string = new Date().toLocaleTimeString();
   min: number = 0;
-  tableSelected: string = '1';
+  tableSelected: string = '0';
+  cantplanos : string[] = ["0","1","2","3","4"];
   semaforo: string[] = [];
 
   constructor() {
     this.planoSelect = 1;
-
     setInterval(() => {
       this.time = new Date().toLocaleTimeString();
       this.min = new Date().getMinutes();
@@ -66,17 +66,17 @@ export class AppComponent {
       };
       this.cantTablesRecived = Object.keys(this.mesas);
     });
-
   }
 
   cambiarMostrarMesa(k: string): void {
     this.tableSelected = k;
     this.mostrarSala = !this.mostrarSala;
+    // if (!this.mostrarSala) {
+    //   this.tableSelected = "0";
+    // }
   }
 
   cambiarPlano(plano: number) {
-    console.log(plano);
-
     this.planoSelect = plano;
   }
 }

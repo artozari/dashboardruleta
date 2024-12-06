@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi } from 'ag-grid-community';
 import { Mesa } from '../conector/conector.component';
@@ -10,7 +16,7 @@ import 'ag-grid-community/styles/ag-theme-quartz.css';
   standalone: true,
   imports: [AgGridAngular],
   templateUrl: './config-table.component.html',
-  styleUrl: './config-table.component.css'
+  styleUrl: './config-table.component.css',
 })
 export class ConfigTableComponent implements OnChanges {
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
@@ -22,11 +28,8 @@ export class ConfigTableComponent implements OnChanges {
   gridApi!: GridApi;
 
   constructor() {
-    this.title = "Configuracion de Mesa";
-    this.colDefs = [
-      { field: "Data" },
-      { field: "Values" },
-    ];
+    this.title = 'Configuracion de Mesa';
+    this.colDefs = [{ field: 'Data' }, { field: 'Values' }];
     this.rowData = [];
   }
 
@@ -47,23 +50,24 @@ export class ConfigTableComponent implements OnChanges {
     const newRowData = [];
     for (let i = 0; i < this.dato.configData.length - 1; i += 2) {
       newRowData.push({
-        Data: this.dato.configData[i].toString(),
-        Values: this.dato.configData[i + 1].toString(),
+        Data: this.dato.configData[i],
+        Values: this.dato.configData[i + 1],
       });
     }
 
     this.colDefs = [
-      { field: "Data" },
+      { field: 'Data' },
       {
-        field: "Values",
+        field: 'Values',
         cellStyle: (params: any) => {
           if (params.value === this.dato.status[1]) {
             return { background: params.value };
           } else {
             return { background: this.dato.status[1] };
           }
-        }
-      },];
+        },
+      },
+    ];
 
     if (this.gridApi) {
       this.gridApi.setGridOption('rowData', newRowData);
@@ -73,15 +77,14 @@ export class ConfigTableComponent implements OnChanges {
   }
 
   getRowStyle(params: any) {
-    if (params.data.Values === 'someValue') { // Cambia 'someValue' por la condición que desees
+    if (params.data.Values === 'someValue') {
+      // Cambia 'someValue' por la condición que desees
       return { background: 'lightgreen' }; // Cambia el color según sea necesario
     }
     return null; // Estilo por defecto
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  ngAfterViewInit() {
-  }
+  ngAfterViewInit() {}
 }

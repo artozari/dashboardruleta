@@ -1,1 +1,8 @@
-<p>status works!</p>
+<h2 style="text-align: center">Datos de {{ title }}</h2>
+<ag-grid-angular
+  class="ag-theme-quartz-dark"
+  style="height: 125px; width: 405px"
+  [rowData]="rowData"
+  [columnDefs]="colDefs"
+  (gridReady)="onGridReady($event)"
+/>

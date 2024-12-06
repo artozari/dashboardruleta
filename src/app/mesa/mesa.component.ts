@@ -69,16 +69,6 @@ export class MesaComponent implements OnChanges {
       return res;
     })();
 
-    const data2 = (() => {
-      const startIndex = Math.max(
-        this.dato.winningNumbersData.length - this.cantIntervalos,
-        0
-      );
-      return this.dato.winningNumbersData
-        .slice(startIndex)
-        .map((item) => item[3]);
-    })();
-
     let horaInicial = Date.now() - (Date.now() % (this.intervals * 60 * 1000));
 
     //# Valores de las barras que muestran el numero de jugadas realizadas en los intervalos de tiempo en la grafica
@@ -113,7 +103,7 @@ export class MesaComponent implements OnChanges {
         },
       },
       dataZoom: {
-        show: true,
+        show: false,
         start: 0,
         end: 100,
       },
@@ -172,13 +162,12 @@ export class MesaComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['min']?.firstChange === false) {
-      if (this.myChart) {
-        echarts.dispose(this.myChart);
-      }
-    }
+    // if (changes['min']?.firstChange === false) {
+    //   if (this.myChart) {
+    //     echarts.dispose(this.myChart);
+    //   }
+    // }
 
-    // const ts = parseInt(this.dato.winningNumbersData[0][1]);
     let grp: string = this.mostrarSala ? 'graph' : 'graphIndiv';
 
     if (changes['dato']?.currentValue) {
@@ -197,6 +186,7 @@ export class MesaComponent implements OnChanges {
     }
 
     if (changes['dato']) {
+      
       this.myChart = echarts.init(
         document.getElementById(this.dato.tableData[1].toString())
       );

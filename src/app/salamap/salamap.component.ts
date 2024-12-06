@@ -18,6 +18,7 @@ import {
 export class SalamapComponent implements OnChanges {
   @Input() datoSimple: Mesa;
   @Input() planoSelect: number;
+  @Input() mesaSelect: string;
   canvas: any;
   fabric = new FabricObject();
   objetos: FabricObject[];
@@ -43,6 +44,7 @@ export class SalamapComponent implements OnChanges {
   constructor() {
     this.objetos = [];
     this.planoSelect = 0;
+    this.mesaSelect = '0';
     this.primerIteracion = false;
     this.canvas = new Canvas();
 
@@ -93,7 +95,7 @@ export class SalamapComponent implements OnChanges {
           top: parseInt(this.datoSimple.tableData[13].toString()),
           fill: this.datoSimple.status[1],
           selectable: false,
-          id: this.datoSimple.tableData[1],
+          idp: this.datoSimple.tableData[1],
         });
 
         this.numero = new FabricText(
@@ -106,7 +108,7 @@ export class SalamapComponent implements OnChanges {
             fill: 'white',
             left: parseInt(this.datoSimple.tableData[11].toString()) + 40,
             top: parseInt(this.datoSimple.tableData[13].toString()) + 30,
-            id: this.datoSimple.tableData[1],
+            idp: this.datoSimple.tableData[1],
             selectable: false,
           }
         );
@@ -120,12 +122,18 @@ export class SalamapComponent implements OnChanges {
             fill: 'black',
             left: parseInt(this.datoSimple.tableData[11].toString()) + 40,
             top: parseInt(this.datoSimple.tableData[13].toString()) + 90,
-            id: this.datoSimple.tableData[1],
+            idp: this.datoSimple.tableData[1],
             selectable: false,
           }
         );
-
         this.canvas.add(this.mesa, this.idMesa, this.numero);
+        // if (this.mesaSelect !== '0') {
+        //   this.canvas.getObjects().forEach((element: FabricObject) => {
+        //     if (element.get('idp') !== parseInt(this.mesaSelect)) {
+        //       element.set('fill', 'grey');
+        //     } 
+        //   });
+        // }
       }
     }
 
