@@ -86,54 +86,54 @@ export class SalamapComponent implements OnChanges {
           }
         });
 
-        this.mesa = new Path(this.pathString, {
-          //#
-          strokeWidth: this.strokeWidth,
-          stroke: this.strokeColor,
-          angle: 0,
-          left: parseInt(this.datoSimple.tableData[11].toString()),
-          top: parseInt(this.datoSimple.tableData[13].toString()),
-          fill: this.datoSimple.status[1],
-          selectable: false,
-          idp: this.datoSimple.tableData[1],
-        });
-
-        this.numero = new FabricText(
-          //#
-          this.datoSimple.winningNumbersData[0][3].toString(),
-          {
+        if (
+          parseInt(this.datoSimple.tableData[11].toString()) >= 0 &&
+          parseInt(this.datoSimple.tableData[13].toString()) >= 0 &&
+          this.datoSimple.tableData[15] !== 0
+        ) {
+          this.mesa = new Path(this.pathString, {
+            //#
             strokeWidth: this.strokeWidth,
-            backgroundColor: 'transparent',
-            stroke: 'white',
-            fill: 'white',
-            left: parseInt(this.datoSimple.tableData[11].toString()) + 40,
-            top: parseInt(this.datoSimple.tableData[13].toString()) + 30,
-            idp: this.datoSimple.tableData[1],
+            stroke: this.strokeColor,
+            angle: 0,
+            left: parseInt(this.datoSimple.tableData[11].toString()),
+            top: parseInt(this.datoSimple.tableData[13].toString()),
+            fill: this.datoSimple.status[1],
             selectable: false,
-          }
-        );
+            idp: this.datoSimple.tableData[1],
+          });
 
-        this.idMesa = new FabricText(
-          this.datoSimple.tableData[1].toString(), //#
-          {
-            strokeWidth: this.strokeWidth,
-            backgroundColor: 'transparent',
-            stroke: 'black',
-            fill: 'black',
-            left: parseInt(this.datoSimple.tableData[11].toString()) + 40,
-            top: parseInt(this.datoSimple.tableData[13].toString()) + 90,
-            idp: this.datoSimple.tableData[1],
-            selectable: false,
-          }
-        );
-        this.canvas.add(this.mesa, this.idMesa, this.numero);
-        // if (this.mesaSelect !== '0') {
-        //   this.canvas.getObjects().forEach((element: FabricObject) => {
-        //     if (element.get('idp') !== parseInt(this.mesaSelect)) {
-        //       element.set('fill', 'grey');
-        //     } 
-        //   });
-        // }
+          this.numero = new FabricText(
+            //#
+            this.datoSimple.winningNumbersData[0][3].toString(),
+            {
+              strokeWidth: this.strokeWidth,
+              backgroundColor: 'transparent',
+              stroke: 'white',
+              fill: 'white',
+              left: parseInt(this.datoSimple.tableData[11].toString()) + 40,
+              top: parseInt(this.datoSimple.tableData[13].toString()) + 30,
+              idp: this.datoSimple.tableData[1],
+              selectable: false,
+            }
+          );
+
+          this.idMesa = new FabricText(
+            this.datoSimple.tableData[1].toString(), //#
+            {
+              strokeWidth: this.strokeWidth,
+              backgroundColor: 'transparent',
+              stroke: 'black',
+              fill: 'black',
+              left: parseInt(this.datoSimple.tableData[11].toString()) + 40,
+              top: parseInt(this.datoSimple.tableData[13].toString()) + 90,
+              idp: this.datoSimple.tableData[1],
+              selectable: false,
+            }
+          );
+          this.canvas.add(this.mesa, this.idMesa, this.numero);
+        }
+
       }
     }
 
@@ -163,7 +163,14 @@ export class SalamapComponent implements OnChanges {
   }
 
   obtenerPlano(name: string): string {
-    return `plano-${name}.svg`;
+    if (name !== '-1' && name !== "-2") {
+      return `plano-${name}.svg`;
+    } 
+    else {
+      this.canvas.setWidth(400);
+      this.canvas.setHeight(400);
+      return `plano.svg`;
+    }
   }
 
   ngAfterViewInit() {

@@ -139,3 +139,22 @@
   gap: 15px;
   justify-content: center;
 }
+
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff; 
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#splash-screen h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: red;
+}

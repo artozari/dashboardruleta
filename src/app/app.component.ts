@@ -10,6 +10,7 @@ import { DataTableComponent } from './table-data/table-data.component';
 import { CasinoDataComponent } from './casino-data/casino-data.component';
 import { FormsModule } from '@angular/Forms';
 import { StatusComponent } from './status/status.component';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -39,8 +40,9 @@ export class AppComponent {
   time: string = new Date().toLocaleTimeString();
   min: number = 0;
   tableSelected: string = '0';
-  cantplanos : string[] = ["0","1","2","3","4"];
+  cantplanos: string[] = ['-2', '-1', '0', '1', '2', '3', '4'];
   semaforo: string[] = [];
+  mostrarPlanos: boolean = false;
 
   constructor() {
     this.planoSelect = 1;
@@ -71,12 +73,23 @@ export class AppComponent {
   cambiarMostrarMesa(k: string): void {
     this.tableSelected = k;
     this.mostrarSala = !this.mostrarSala;
-    // if (!this.mostrarSala) {
-    //   this.tableSelected = "0";
-    // }
   }
 
   cambiarPlano(plano: number) {
     this.planoSelect = plano;
+  }
+
+  rotarPlanos() {
+    this.mostrarPlanos = !this.mostrarPlanos;
+    const intervalId = setInterval(() => {
+      if (this.mostrarPlanos) {
+        this.planoSelect = parseInt(this.planoSelect.toString()) + 1;
+        if (this.planoSelect > 4) {
+          this.planoSelect = 0;
+        }
+      } else {
+        clearInterval(intervalId);
+      }
+    }, 4000);
   }
 }
