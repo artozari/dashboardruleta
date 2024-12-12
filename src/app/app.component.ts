@@ -8,9 +8,9 @@ import { WinningGamesGraphComponent } from './winning-games-graph/winning-games-
 import { ConfigTableComponent } from './config-table/config-table.component';
 import { DataTableComponent } from './table-data/table-data.component';
 import { CasinoDataComponent } from './casino-data/casino-data.component';
-import { FormsModule } from '@angular/Forms';
+import { FormsModule } from '@angular/forms';
 import { StatusComponent } from './status/status.component';
-import { interval } from 'rxjs';
+import { MenuVerticalComponent } from './menu-vertical/menu-vertical.component';
 
 @Component({
   selector: 'app-root',
@@ -26,12 +26,13 @@ import { interval } from 'rxjs';
     CasinoDataComponent,
     FormsModule,
     StatusComponent,
+    MenuVerticalComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  planoSelect: number;
+  planoSelect: number = 0;
   conexion: ConectorComponent;
   mesas: Record<string, Mesa> = {};
   dato: Mesa = {} as Mesa;
@@ -40,9 +41,9 @@ export class AppComponent {
   time: string = new Date().toLocaleTimeString();
   min: number = 0;
   tableSelected: string = '0';
-  cantplanos: string[] = ['-2', '-1', '0', '1', '2', '3', '4'];
+  cantplanos: string[] = ['-1', '0', '1', '2', '3'];
   semaforo: string[] = [];
-  mostrarPlanos: boolean = false;
+  rotarPlanos: boolean = false;
 
   constructor() {
     this.planoSelect = 1;
@@ -79,10 +80,10 @@ export class AppComponent {
     this.planoSelect = plano;
   }
 
-  rotarPlanos() {
-    this.mostrarPlanos = !this.mostrarPlanos;
+  rotarEntrePlanos() {
+    this.rotarPlanos = !this.rotarPlanos;
     const intervalId = setInterval(() => {
-      if (this.mostrarPlanos) {
+      if (this.rotarPlanos) {
         this.planoSelect = parseInt(this.planoSelect.toString()) + 1;
         if (this.planoSelect > 4) {
           this.planoSelect = 0;

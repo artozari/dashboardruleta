@@ -1,68 +1,89 @@
 <div class="container">
-  <div class="logo">
-    <img src="roulette.svg" alt="logotipo" srcset="" />
-  </div>
-  <div class="cabecera">
-    <app-cabecera />
-  </div>
-  <div class="menu">
-    <button (click)="rotarPlanos()" [style.background-color]="mostrarPlanos ? 'red' : 'blue'" > Rotar Planos </button>
-  </div>
-  <p class="mainClock">
-    {{ time }}
-  </p>
-  <div class="body">
-    <select class="form-control" id="planos" required [(ngModel)]="planoSelect">
-      @for ( i of cantplanos; track $index) {
-      <option value="{{ i }}">{{ i }}</option>
-      S }
-    </select>
-    <div class="mapaSala">
-      <app-salamap
-        [datoSimple]="dato"
-        [planoSelect]="planoSelect"
-        [mesaSelect]="tableSelected"
+  <header>
+    <div class="logo">
+      <img src="roulette.svg" alt="logotipo" srcset="" />
+    </div>
+    <div class="cabecera">
+      <app-cabecera />
+    </div>
+    <div class="menu">
+      <app-menu-vertical
+        [mostrarPlano]="rotarPlanos"
+        [cantPlanos]="cantplanos"
+        [planoSelected]="planoSelect"
       />
-    </div>
-    @if (mostrarSala) {
-    <div class="graphSala">
-      @for (k of cantTablesRecived; track $index) {
-      @if(mesas[k].tableData[15].toString() === planoSelect.toString() ||
-      planoSelect.toString() === "-1" || planoSelect.toString() === "-2") {
-      <div class="allTable">
-        <app-mesa [dato]="mesas[k]" [min]="min"></app-mesa>
-        <button class="btnfos btnfos-h" (click)="cambiarMostrarMesa(k)">
-          Ver Mesa
-        </button>
-      </div>
-      } }
-    </div>
-    } @if(!mostrarSala) {
-    <div class="oneTable">
       <button
-        class="btnfos btnfos-h"
-        (click)="cambiarMostrarMesa(tableSelected)"
+        (click)="rotarEntrePlanos()"
+        [style.background-color]="rotarPlanos ? 'red' : 'blue'"
       >
-        Ver Sala
+        Rotar Planos
       </button>
-      <app-casino-data [dato]="mesas[tableSelected]" />
-      <app-status [dato]="mesas[tableSelected]" />
-      <div class="dashMesa">
-        <div class="cuadros">
-          <app-mesa
-            [mostrarSala]="mostrarSala"
-            [dato]="mesas[tableSelected]"
-            [min]="min"
-          />
-          <app-winning-games-graph [dato]="mesas[tableSelected]" />
-        </div>
-        <app-config-table [dato]="mesas[tableSelected]" />
-        <app-data-table [dato]="mesas[tableSelected]"></app-data-table>
-      </div>
     </div>
-    }
-  </div>
-  <div class="footer">
-    <app-footer></app-footer>
-  </div>
+    <p class="mainClock">
+      {{ time }}
+    </p>
+  </header>
+  <main>
+    <div class="body">
+      <select
+        class="form-control"
+        id="planos"
+        required
+        [(ngModel)]="planoSelect"
+      >
+        @for ( i of cantplanos; track $index) {
+        <option value="{{ i }}">{{ i }}</option>
+        }
+      </select>
+      <div class="mapaSala">
+        <app-salamap
+          [datoSimple]="dato"
+          [planoSelect]="planoSelect"
+          [mesaSelect]="tableSelected"
+        />
+      </div>
+      @if (mostrarSala) {
+      <div class="graphSala">
+        @for (k of cantTablesRecived; track $index) {
+        @if(mesas[k].tableData[15].toString() === planoSelect.toString() ||
+        planoSelect.toString() === "-1" || planoSelect.toString() === "-2") {
+        <div class="allTable">
+          <app-mesa [dato]="mesas[k]" [min]="min"></app-mesa>
+          <button class="btnfos btnfos-h" (click)="cambiarMostrarMesa(k)">
+            Ver Mesa
+          </button>
+        </div>
+        } }
+      </div>
+      } @if(!mostrarSala) {
+      <div class="oneTable">
+        <button
+          class="btnfos btnfos-h"
+          (click)="cambiarMostrarMesa(tableSelected)"
+        >
+          Ver Sala
+        </button>
+        <app-casino-data [dato]="mesas[tableSelected]" />
+        <app-status [dato]="mesas[tableSelected]" />
+        <div class="dashMesa">
+          <div class="cuadros">
+            <app-mesa
+              [mostrarSala]="mostrarSala"
+              [dato]="mesas[tableSelected]"
+              [min]="min"
+            />
+            <app-winning-games-graph [dato]="mesas[tableSelected]" />
+          </div>
+          <app-config-table [dato]="mesas[tableSelected]" />
+          <app-data-table [dato]="mesas[tableSelected]"></app-data-table>
+        </div>
+      </div>
+      }
+    </div>
+  </main>
+  <footer>
+    <div class="footer">
+      <app-footer></app-footer>
+    </div>
+  </footer>
 </div>

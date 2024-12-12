@@ -1,0 +1,24 @@
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="menu"
+  aria-label="Example icon-button with a menu"
+>
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <select class="form-control" id="planos" required [(ngModel)]="planoSelected">
+    @for ( i of cantPlanos(); track $index) {
+    <option [ngValue]="i">{{ i }}</option>
+    }
+  </select>
+  <button mat-menu-item>
+    <mat-icon>voicemail</mat-icon>
+    <span>plano seleccionado: {{ planoSelected() }} </span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>{{
+      mostrarPlano() ? "notifications_on" : "notifications_off"
+    }}</mat-icon>
+    <span>Mostrar plano: {{ mostrarPlano() ? "ON" : "OFF" }}</span>
+  </button>
+</mat-menu>

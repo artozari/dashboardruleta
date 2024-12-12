@@ -163,7 +163,7 @@ export class SalamapComponent implements OnChanges {
   }
 
   obtenerPlano(name: string): string {
-    if (name !== '-1' && name !== "-2") {
+    if (name !== '-1') {
       return `plano-${name}.svg`;
     } 
     else {
