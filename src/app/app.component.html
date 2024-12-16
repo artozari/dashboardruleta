@@ -7,15 +7,8 @@
       <app-cabecera />
     </div>
     <div class="menu">
-      <app-menu-vertical
-        [mostrarPlano]="rotarPlanos"
-        [cantPlanos]="cantplanos"
-        [planoSelected]="planoSelect"
-      />
-      <button
-        (click)="rotarEntrePlanos()"
-        [style.background-color]="rotarPlanos ? 'red' : 'blue'"
-      >
+      <app-menu-vertical [mostrarPlano]="rotarPlanos" [cantPlanos]="cantplanos" [planoSelected]="planoSelect" />
+      <button (click)="rotarEntrePlanos()" [style.background-color]="rotarPlanos ? 'red' : 'blue'">
         Rotar Planos
       </button>
     </div>
@@ -25,23 +18,19 @@
   </header>
   <main>
     <div class="body">
-      <select
-        class="form-control"
-        id="planos"
-        required
-        [(ngModel)]="planoSelect"
-      >
+      <select class="form-control" id="planos" required [(ngModel)]="planoSelect">
         @for ( i of cantplanos; track $index) {
         <option value="{{ i }}">{{ i }}</option>
         }
       </select>
       <div class="mapaSala">
-        <app-salamap
-          [datoSimple]="dato"
-          [planoSelect]="planoSelect"
-          [mesaSelect]="tableSelected"
-        />
+        <app-salamap [datoSimple]="dato" [planoSelect]="planoSelect" [mesaSelect]="tableSelected" />
       </div>
+      @if (mesas[1]) {
+      <div class="mapaSala">
+          <app-sala-map [idMesa]="mesas[1].tableData[1]" [winningNumber]="mesas[1].winningNumbersData[0][3]" [status]="mesas[1].status[1]" [planoSelect]="planoSelect" [mesaSelect]="tableSelected" />
+      </div>
+      }
       @if (mostrarSala) {
       <div class="graphSala">
         @for (k of cantTablesRecived; track $index) {
@@ -53,25 +42,20 @@
             Ver Mesa
           </button>
         </div>
-        } }
+        }
+        }
       </div>
-      } @if(!mostrarSala) {
+      }
+      @if(!mostrarSala) {
       <div class="oneTable">
-        <button
-          class="btnfos btnfos-h"
-          (click)="cambiarMostrarMesa(tableSelected)"
-        >
+        <button class="btnfos btnfos-h" (click)="cambiarMostrarMesa(tableSelected)">
           Ver Sala
         </button>
         <app-casino-data [dato]="mesas[tableSelected]" />
         <app-status [dato]="mesas[tableSelected]" />
         <div class="dashMesa">
           <div class="cuadros">
-            <app-mesa
-              [mostrarSala]="mostrarSala"
-              [dato]="mesas[tableSelected]"
-              [min]="min"
-            />
+            <app-mesa [mostrarSala]="mostrarSala" [dato]="mesas[tableSelected]" [min]="min" />
             <app-winning-games-graph [dato]="mesas[tableSelected]" />
           </div>
           <app-config-table [dato]="mesas[tableSelected]" />

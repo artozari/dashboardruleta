@@ -77,13 +77,9 @@ export class StatusComponent {
 
   getRowStyle(params: any) {
     if (params.data.Values === 'someValue') {
-      // Cambia 'someValue' por la condición que desees
-      return { background: 'lightgreen' }; // Cambia el color según sea necesario
+      return { background: 'lightgreen' };
     }
-    return null; // Estilo por defecto
+    return null; 
   }
 
-  ngOnInit() {}
-
-  ngAfterViewInit() {}
 }

@@ -42,6 +42,11 @@ export class MesaComponent implements OnChanges {
     this.clases = ['allTable', 'animate1', 'animate2', 'animate3', 'animate4'];
   }
 
+  ngOnInit(): void {
+    document.getElementById(this.dato.tableData[1].toString())
+
+  }
+
   ngAfterViewInit() {
     this.myChart = echarts.init(
       document.getElementById(this.dato.tableData[1].toString())
@@ -185,7 +190,7 @@ export class MesaComponent implements OnChanges {
       }
     }
 
-    if (changes['dato']) {
+    if (changes['dato'].firstChange===false) {
       
       this.myChart = echarts.init(
         document.getElementById(this.dato.tableData[1].toString())

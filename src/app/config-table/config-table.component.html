@@ -1,11 +1,13 @@
 <h2 style="text-align: center">{{ title }}</h2>
 
-<ag-grid-angular
-  class="ag-theme-quartz-dark"
-  style="height: 850px; width: 410px"
-  [rowData]="rowData"
-  [columnDefs]="colDefs"
-  (gridReady)="onGridReady($event)"
-/>
+<div class="configTableClass">
+  <ag-grid-angular
+    class="ag-theme-quartz-dark"
+    style="height: 850px; width: 410px"
+    [rowData]="rowData"
+    [columnDefs]="colDefs"
+    (gridReady)="onGridReady($event)"
+  />
+</div>
 
 <!-- dato de programacion incompleto? -->

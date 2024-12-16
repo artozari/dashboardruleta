@@ -14,9 +14,5 @@ import { FormsModule } from '@angular/forms';
 export class MenuVerticalComponent {
   mostrarPlano = input(true);
   planoSelected= input<number>(0);
-  cantPlanos = input<string[]>([]);
-
-  // mostrarPlanoFn(event: any) {
-  //   this.planoSelected = event.target.value.toString();
-  // }
+  cantPlanos = input<string[]>(["1", "2", "3"]);
 }
