@@ -11,8 +11,6 @@ import { CasinoDataComponent } from './casino-data/casino-data.component';
 import { FormsModule } from '@angular/forms';
 import { StatusComponent } from './status/status.component';
 import { MenuVerticalComponent } from './menu-vertical/menu-vertical.component';
-import { SalaMapComponent } from './sala-map/sala-map.component';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +27,7 @@ import { BehaviorSubject } from 'rxjs';
     FormsModule,
     StatusComponent,
     MenuVerticalComponent,
-    SalaMapComponent,
+    
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

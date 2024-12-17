@@ -1,5 +1,5 @@
 import { Component, effect, input } from '@angular/core';
-import { Canvas, FabricObject, loadSVGFromURL, Rect, util } from 'fabric';
+import { Canvas, FabricObject, loadSVGFromURL, util } from 'fabric';
 
 @Component({
   selector: 'app-sala-map',

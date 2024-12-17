@@ -1,0 +1,7 @@
+.banner{
+   background-position: center;
+   background-image: url(../../../public/logo2.png);
+   background-size: contain;
+   width: 450px;
+   height: 200px;
+}

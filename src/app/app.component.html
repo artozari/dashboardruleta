@@ -26,11 +26,6 @@
       <div class="mapaSala">
         <app-salamap [datoSimple]="dato" [planoSelect]="planoSelect" [mesaSelect]="tableSelected" />
       </div>
-      @if (mesas[1]) {
-      <div class="mapaSala">
-          <app-sala-map [idMesa]="mesas[1].tableData[1]" [winningNumber]="mesas[1].winningNumbersData[0][3]" [status]="mesas[1].status[1]" [planoSelect]="planoSelect" [mesaSelect]="tableSelected" />
-      </div>
-      }
       @if (mostrarSala) {
       <div class="graphSala">
         @for (k of cantTablesRecived; track $index) {
@@ -65,8 +60,8 @@
       }
     </div>
   </main>
-  <footer>
-    <div class="footer">
+  <footer class="footer">
+    <div class="pie">
       <app-footer></app-footer>
     </div>
   </footer>
