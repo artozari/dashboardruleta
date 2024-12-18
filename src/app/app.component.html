@@ -1,4 +1,8 @@
-<div class="container">
+@if (mainSetup) {
+<app-setup-table />
+}
+@else {
+<div class="containerDashboard">
   <header>
     <div class="logo">
       <img src="roulette.svg" alt="logotipo" srcset="" />
@@ -60,9 +64,8 @@
       }
     </div>
   </main>
-  <footer class="footer">
-    <div class="pie">
-      <app-footer></app-footer>
-    </div>
+  <footer>
+    <app-footer></app-footer>
   </footer>
 </div>
+}

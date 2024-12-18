@@ -11,6 +11,7 @@ import { CasinoDataComponent } from './casino-data/casino-data.component';
 import { FormsModule } from '@angular/forms';
 import { StatusComponent } from './status/status.component';
 import { MenuVerticalComponent } from './menu-vertical/menu-vertical.component';
+import { SetupTableComponent } from "./main/setups/setup-table/setup-table.component";
 
 @Component({
   selector: 'app-root',
@@ -27,12 +28,14 @@ import { MenuVerticalComponent } from './menu-vertical/menu-vertical.component';
     FormsModule,
     StatusComponent,
     MenuVerticalComponent,
-    
-  ],
+    SetupTableComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+  title = 'app';
+  mainSetup: boolean = true;
   planoSelect: number = 0;
   conexion: ConectorComponent;
   mesas: Record<string, Mesa> = {};
