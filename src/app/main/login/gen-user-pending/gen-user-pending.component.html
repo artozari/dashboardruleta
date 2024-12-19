@@ -1,0 +1,23 @@
+<div style="display: flex; justify-content: center; align-items: center; height: auto;">
+  <form (ngSubmit)="onSubmit()" style="width: 300px; text-align: left;">
+    <h2>Crear Usuario</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="Correo electronico" required>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <input [type]="showPassword ? 'text' : 'password'" id="password" name="password" [(ngModel)]="password" placeholder="Contraseña" required>
+      <button type="button" (click)="showPassword = !showPassword">
+        <i class="fa fa-eye" aria-hidden="true">ver</i>
+      </button>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <input [type]="showVerificacion ? 'text' : 'password'" id="verificacion" name="verificacion" [(ngModel)]="verificacion" placeholder="Verificar Contrase a" required>
+      <button type="button" (click)="showVerificacion = !showVerificacion">
+        <i class="fa fa-eye" aria-hidden="true">ver</i>
+      </button>
+    </div>
+    <div style="text-align: center;">
+      <button type="submit">Confirmar</button>
+    </div>
+  </form>
+</div>

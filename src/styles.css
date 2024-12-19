@@ -4,25 +4,27 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #200122; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #6f0000,
-    #200122
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #6f0000,
-    #200122
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #200122;
+  background: -webkit-linear-gradient(left, #6f0000, #200122);
+  background: linear-gradient(to right, #6f0000, #200122);
 }
 
 html,
 body {
-  height: 100vh;
-  min-height: 100vh;
+  height: 100%;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
 }
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+main {
+  overflow: auto;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: center;
+  align-items: center;
 }

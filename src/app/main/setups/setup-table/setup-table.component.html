@@ -1,10 +1,5 @@
-<p>setup-table works!</p>
-<p>{{tableName}}</p>
-<ag-grid-angular
-class="ag-theme-quartz-dark"
-[columnDefs]="columnDefs"
-[rowData]="rowData"
-(gridReady)="onGridReady($event)"
-style="width: 800px; height: 700px;"
-></ag-grid-angular>
-<app-create-table/>
+<div class="setup-table-class">
+   <ag-grid-angular class="ag-theme-quartz-dark" [columnDefs]="columnDefs" [rowData]="rowData"
+      (gridReady)="onGridReady($event)" style="width: 800px; height: 700px;"></ag-grid-angular>
+   <app-create-table />
+</div>

@@ -1,3 +1,11 @@
 h6{
     color: rgba(159,26,236,255);
+    margin: 0px;
 }
+
+.footer-content {
+    width: 100dvw;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }

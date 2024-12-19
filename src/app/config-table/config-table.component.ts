@@ -55,9 +55,6 @@ export class ConfigTableComponent implements OnChanges {
       });
     }
 
-    // Se redefine la columna 'Values' para que en la celda donde Data sea 'colorOfLights'
-    // se muestre el valor de Values como un background color en esa celda.
-    // Si no se cumple la condición, se devuelve null para que se muestre con el estilo por defecto.
     this.colDefs = [
       { field: 'Data' },
       {

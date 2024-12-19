@@ -1,26 +1,29 @@
-@if (mainSetup) {
-<app-setup-table />
-}
-@else {
-<div class="containerDashboard">
-  <header>
-    <div class="logo">
-      <img src="roulette.svg" alt="logotipo" srcset="" />
-    </div>
-    <div class="cabecera">
-      <app-cabecera />
-    </div>
+<header class="d-flex justify-content-between align-items-center">
+  <div class="logo">
+    <img src="roulette.svg" alt="logotipo" srcset="" />
+  </div>
+  <div class="cabecera">
+    <app-cabecera />
+  </div>
+  <p class="mainClock">
+    {{ time }}
+  </p>
+</header>
+<main>
+  @if (loginForm) {
+  <app-login />
+  }
+  @if (mainSetup) {
+  <app-setup-table />
+  }
+  @if(dashboard) {
+  <div class="containerDashboard">
     <div class="menu">
       <app-menu-vertical [mostrarPlano]="rotarPlanos" [cantPlanos]="cantplanos" [planoSelected]="planoSelect" />
       <button (click)="rotarEntrePlanos()" [style.background-color]="rotarPlanos ? 'red' : 'blue'">
         Rotar Planos
       </button>
     </div>
-    <p class="mainClock">
-      {{ time }}
-    </p>
-  </header>
-  <main>
     <div class="body">
       <select class="form-control" id="planos" required [(ngModel)]="planoSelect">
         @for ( i of cantplanos; track $index) {
@@ -63,9 +66,9 @@
       </div>
       }
     </div>
-  </main>
-  <footer>
-    <app-footer></app-footer>
-  </footer>
-</div>
-}
+  </div>
+  }
+</main>
+<footer>
+  <app-footer></app-footer>
+</footer>

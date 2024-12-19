@@ -13,9 +13,11 @@ export class RuletaServiceService {
     return this.http.get(`${this.url_api}/api/v1/table`);
   }
 
-  putTable(table: any): Observable<any> {
-    console.log(`${this.url_api}/api/v1/table`, table);
+  postTable(table: any): Observable<any> {
+    return this.http.post(`${this.url_api}/api/v1/table`, table);
+  }
 
-    return this.http.put(`http://sielcondev01.site:4000/api/v1/table`, table);
+  enableTable(key: string): Observable<any> {
+    return this.http.delete(`${this.url_api}/api/v1/table/${key}`);
   }
 }

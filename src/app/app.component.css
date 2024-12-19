@@ -1,7 +1,8 @@
 .containerDashboard {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -70,6 +71,7 @@
   border-radius: 42px;
   background: linear-gradient(145deg, #292929, #222222);
   box-shadow: 5px 5px 29px #0f0f0f, -5px -5px 29px #0f0f0f;
+  margin:0;
 }
 
 .logo {
@@ -167,10 +169,10 @@ header {
 
 footer {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  width: 100dvw;
-  height: 50px;
+  width: 100%;
+  height: 100px;
   background-color: #090909;
   position: sticky;
   z-index: 1000;

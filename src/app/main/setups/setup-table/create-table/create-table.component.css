@@ -1,0 +1,7 @@
+.create-table-form {
+  display: flex;
+  justify-content: flex-end;
+  align-items: end;
+  flex-wrap: wrap;
+  flex-direction: column;
+}

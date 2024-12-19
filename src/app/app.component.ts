@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { StatusComponent } from './status/status.component';
 import { MenuVerticalComponent } from './menu-vertical/menu-vertical.component';
 import { SetupTableComponent } from "./main/setups/setup-table/setup-table.component";
+import { LoginComponent } from "./main/login/login.component";
 
 @Component({
   selector: 'app-root',
@@ -28,14 +29,17 @@ import { SetupTableComponent } from "./main/setups/setup-table/setup-table.compo
     FormsModule,
     StatusComponent,
     MenuVerticalComponent,
-    SetupTableComponent
+    SetupTableComponent,
+    LoginComponent
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'app';
-  mainSetup: boolean = true;
+  loginForm: boolean = true;
+  mainSetup: boolean = false;
+  dashboard: boolean = false;
   planoSelect: number = 0;
   conexion: ConectorComponent;
   mesas: Record<string, Mesa> = {};

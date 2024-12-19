@@ -31,10 +31,10 @@ export class CreateTableComponent {
   tablePosX: number = 0;
   tablePosY: number = 0;
 
-  constructor(private ruletaService: RuletaServiceService) {}
+  constructor(private readonly ruletaService: RuletaServiceService) {}
 
   insertTable(table: Table) {
-    this.ruletaService.putTable(table).subscribe((data) => {
+    this.ruletaService.postTable(table).subscribe((data) => {
       console.log(data);
     });
   }
@@ -50,7 +50,6 @@ export class CreateTableComponent {
       noSmoking: this.tableNoSmoking,
       tableNumber: this.tableNumber,
     };
-    console.log(table);
     this.insertTable(table);
   }
 }
