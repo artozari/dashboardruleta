@@ -152,29 +152,24 @@
   color: red;
 }
 
-header {
+.common-header-footer {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  flex-wrap: wrap;
-  flex-direction: column;
-  width: 100dvw;
+  position: sticky;
+  z-index: 1000;
+  width: 98.5vw;
+}
+
+header {
   height: 80px;
   background-image: url(../../public/trama\ header.png);
   background-size: cover;
-  position: sticky;
   top: 0;
-  z-index: 1000;
 }
 
 footer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
   height: 100px;
   background-color: #090909;
-  position: sticky;
-  z-index: 1000;
   bottom: 0;
 }

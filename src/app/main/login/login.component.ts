@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { RuletaServiceService } from '../../services/ruleta-service.service';
+import { Component } from '@angular/core';
+import { RuletaService } from '../../services/ruleta-service.service';
 import { FormsModule } from '@angular/forms';
 import { GenUserPendingComponent } from './gen-user-pending/gen-user-pending.component';
 
@@ -10,27 +10,26 @@ import { GenUserPendingComponent } from './gen-user-pending/gen-user-pending.com
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent implements OnInit {
+
+export class LoginComponent {
   email: string = '';
   password: string = '';
   enumRolUser: object;
   rolUser: number;
+  showPassword: any;
 
-  constructor(private readonly ruletaService: RuletaServiceService) {
+  constructor(private readonly ruletaService: RuletaService) {
     this.enumRolUser = {
-      ADMIN: 0o1,
-      USER: 0o2, // 0001 + 0010 = 0011
-      SUPERUSER: 0o4, // 0011 + 0100 = 0111
-      SUPERADMIN: 0o10, // 0111 + 1000 = 1111
-      PENDIENTE: 0o100, // 1111 + 10000 = 11111
+      ADMIN: 0x1, // 0001
+      USER: 0x2, // 0010
+      SUPERUSER: 0x3, // 0011
+      SUPERADMIN: 0x4, // 0100
+      PENDIENTE: 0x5, // 0101
     };
-    this.rolUser = 0o5;
+    this.rolUser = 0x5;  
+    
   }
-  ngOnInit(): void {
-    // this.ruletaService.login(this.email, this.password).subscribe((data) => {
-    //   console.log(data);
-    // });
-  }
+
   onSubmit() {
     throw new Error('Method not implemented.');
   }

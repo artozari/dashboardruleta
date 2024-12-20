@@ -5,12 +5,16 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class RuletaServiceService {
+export class RuletaService {
   url_api = 'http://sielcondev01.site:4000';
   constructor(private readonly http: HttpClient) {}
 
   getTables(): Observable<any> {
     return this.http.get(`${this.url_api}/api/v1/table`);
+  }
+
+  getTable(key: string): Observable<any> {
+    return this.http.get(`${this.url_api}/api/v1/table/${key}`);
   }
 
   postTable(table: any): Observable<any> {

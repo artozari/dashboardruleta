@@ -45,9 +45,11 @@ export class ConectorComponent {
   };
 
   conectar(): void {
+    
     this.client = mqtt.connect(this.server, {
       clientId: this.clientName,
       clean: true,
     });
+    console.log("entro a la conectar");
   }
 }  

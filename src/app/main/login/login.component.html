@@ -1,19 +1,19 @@
 <div tyle="display: flex; justify-content: center; align-items: center; height: auto;">
   @switch (rolUser) {
-  @case (0001) {
+  @case (1) {
   Case A.
   }
-  @case (0010) {
+  @case (2) {
   Case B.
   }
-  @case (0100) {
+  @case (3) {
   Case C.
   }
-  @case (1000) {
+  @case (4) {
   Case D.
   }
-  @case (10000) {
-  <app-gen-user-pending/>
+  @case (5) {
+  <app-gen-user-pending />
   }
   @default {
   <form style="width: 300px; text-align: left;" (ngSubmit)="onSubmit()">
@@ -21,8 +21,12 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
       <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="Correo electronico" required>
     </div>
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-      <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Contraseña" required>
+    <div class="input-container">
+      <input [type]="showPassword ? 'text' : 'password'" id="password" name="password" [(ngModel)]="password"
+        placeholder="Contraseña" required>
+      <button type="button" (click)="showPassword = !showPassword" [style.color]="showPassword ? '#93ff93' : ''">
+        <i class="fa fa-eye" aria-hidden="true">ver</i>
+      </button>
     </div>
     <div style="text-align: center;">
       <button type="submit">Iniciar</button>

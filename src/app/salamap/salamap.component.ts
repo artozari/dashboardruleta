@@ -91,6 +91,8 @@ export class SalamapComponent implements OnChanges {
           parseInt(this.datoSimple.tableData[13].toString()) >= 0 &&
           this.datoSimple.tableData[15] !== 0
         ) {
+          console.log('entro');
+          
           this.mesa = new Path(this.pathString, {
             //#
             strokeWidth: this.strokeWidth,

@@ -2,6 +2,7 @@
    background-position: center;
    background-image: url(../../../public/logo2.png);
    background-size: contain;
+   background-repeat: no-repeat;
    width: 450px;
-   height: 200px;
+   height: 80px;
 }

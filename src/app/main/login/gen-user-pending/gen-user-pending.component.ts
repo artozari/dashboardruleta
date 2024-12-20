@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RuletaServiceService } from '../../../services/ruleta-service.service';
+import { RuletaService } from '../../../services/ruleta-service.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -16,7 +16,7 @@ export class GenUserPendingComponent implements OnInit {
   password: string = '';
   verificacion: string = '';
 
-  constructor(private readonly ruletaService: RuletaServiceService) {}
+  constructor(private readonly ruletaService: RuletaService) {}
 
   
   checkPassword() {

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RuletaServiceService } from '../../../../services/ruleta-service.service';
+import { RuletaService } from '../../../../services/ruleta-service.service';
 import { uid } from 'uid';
 
 interface Table {
@@ -22,6 +22,7 @@ interface Table {
   templateUrl: './create-table.component.html',
   styleUrl: './create-table.component.css',
 })
+
 export class CreateTableComponent {
   tableName: string = '';
   tableShortName: string = '';
@@ -31,11 +32,13 @@ export class CreateTableComponent {
   tablePosX: number = 0;
   tablePosY: number = 0;
 
-  constructor(private readonly ruletaService: RuletaServiceService) {}
+  constructor(private readonly ruletaService: RuletaService) {}
 
   insertTable(table: Table) {
     this.ruletaService.postTable(table).subscribe((data) => {
-      console.log(data);
+      if (data.status === 400) {
+        console.log("ok");
+      }
     });
   }
 
