@@ -5,23 +5,24 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class TableServiceApi {
-  url_api = 'http://sielcondev01.site:4000';
+export class UsuarioService {
+  url_api = 'https://my-json-server.typicode.com/artozari/Test-Usuario/users';
   constructor(private readonly http: HttpClient) {}
 
   getTables(): Observable<any> {
-    return this.http.get(`${this.url_api}/api/v1/table`);
+    return this.http.get(`${this.url_api}`);
   }
 
   getTable(key: string): Observable<any> {
-    return this.http.get(`${this.url_api}/api/v1/table/${key}`);
+    return this.http.get(`${this.url_api}${key}`);
   }
 
   postTable(table: any): Observable<any> {
-    return this.http.post(`${this.url_api}/api/v1/table`, table);
+    return this.http.post(`${this.url_api}`, table);
   }
 
   enableTable(key: string): Observable<any> {
-    return this.http.delete(`${this.url_api}/api/v1/table/${key}`);
+    return this.http.delete(`${this.url_api}${key}`);
   }
 }
+

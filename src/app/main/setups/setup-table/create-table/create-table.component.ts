@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RuletaService } from '../../../../services/ruleta-service.service';
+import { TableServiceApi } from '../../../../services/ruleta-service.service';
 import { uid } from 'uid';
 
 interface Table {
@@ -32,7 +32,7 @@ export class CreateTableComponent {
   tablePosX: number = 0;
   tablePosY: number = 0;
 
-  constructor(private readonly ruletaService: RuletaService) {}
+  constructor(private readonly ruletaService: TableServiceApi) {}
 
   insertTable(table: Table) {
     this.ruletaService.postTable(table).subscribe((data) => {

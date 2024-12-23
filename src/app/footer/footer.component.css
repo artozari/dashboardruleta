@@ -1,11 +1,22 @@
-h6{
-    color: rgba(159,26,236,255);
-    margin: 0px;
+.footer{
+  border: green 1px solid;
+  width: 500%;
+  height: 100px;
+  background-color: #090909;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: sticky;
+  z-index: 1000;
 }
-
 .footer-content {
-    width: auto;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-  }
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+h6 {
+  color: rgba(159, 26, 236, 255);
+  margin: 0px;
+}

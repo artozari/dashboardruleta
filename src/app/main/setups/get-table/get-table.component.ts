@@ -1,5 +1,5 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
-import { RuletaService } from '../../../services/ruleta-service.service';
+import { TableServiceApi } from '../../../services/ruleta-service.service';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 
@@ -15,7 +15,7 @@ export class GetTableComponent {
   procesData = input();
   @Output() procesDataChange = new EventEmitter<any>();
 
-  constructor(private readonly ruletaService: RuletaService) {}
+  constructor(private readonly ruletaService: TableServiceApi) {}
 
   getTable(id: string): Observable<any> {
     return this.ruletaService.getTable(id);

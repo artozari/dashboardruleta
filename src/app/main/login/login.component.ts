@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RuletaService } from '../../services/ruleta-service.service';
+import { TableServiceApi } from '../../services/ruleta-service.service';
 import { FormsModule } from '@angular/forms';
 import { GenUserPendingComponent } from './gen-user-pending/gen-user-pending.component';
 
@@ -18,7 +18,7 @@ export class LoginComponent {
   rolUser: number;
   showPassword: any;
 
-  constructor(private readonly ruletaService: RuletaService) {
+  constructor(private readonly ruletaService: TableServiceApi) {
     this.enumRolUser = {
       ADMIN: 0x1, // 0001
       USER: 0x2, // 0010

@@ -1,0 +1,39 @@
+.lateral {
+}
+
+nav.menu-lateral {
+  background-color: #282828;
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+nav.menu-lateral ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav.menu-lateral li {
+  padding: 8px;
+  margin-bottom: 7px;
+  background-color: #4e4e4e;
+  color: #f5f5f5;
+}
+
+nav.menu-lateral li a {
+  color: #f5f5f5;
+  text-decoration: none;
+}
+
+nav.menu-lateral li:hover:not(.active) {
+  background-color: #66cccc;
+  color: #f5f5f5;
+}
+
+.active {
+  background-color: #0099cc;
+}

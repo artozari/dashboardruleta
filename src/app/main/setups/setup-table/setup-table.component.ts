@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RuletaService } from '../../../services/ruleta-service.service';
+import { TableServiceApi } from '../../../services/ruleta-service.service';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi } from 'ag-grid-community';
 import { CreateTableComponent } from './create-table/create-table.component';
@@ -21,7 +21,7 @@ export class SetupTableComponent implements OnInit {
   tableName: string = '';
   result: any = {};
 
-  constructor(private readonly httpService: RuletaService) {}
+  constructor(private readonly httpService: TableServiceApi) {}
 
   getTables(): Observable<any> {
     return this.httpService.getTables();

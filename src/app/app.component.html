@@ -1,4 +1,4 @@
-<header class="d-flex justify-content-evenly align-items-center common-header-footer">
+<header class="common-header-footer">
   <div class="logo">
     <img src="roulette.svg" alt="logotipo" srcset="" />
   </div>
@@ -9,12 +9,15 @@
     {{ time }}
   </p>
 </header>
+@if (menu) {
+<app-menu-lateral />
+}
 <main>
   @if (loginForm) {
   <app-login />
   }
   @if(casino) {
-    <app-casino />
+  <app-casino />
   }
   @if (mainSetup) {
   <app-setup-table />
@@ -73,5 +76,5 @@
   }
 </main>
 <footer class="common-header-footer">
-  <app-footer></app-footer>
+  <app-footer />
 </footer>
