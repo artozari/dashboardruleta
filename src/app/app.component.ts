@@ -14,7 +14,7 @@ import { MenuVerticalComponent } from './menu-vertical/menu-vertical.component';
 import { SetupTableComponent } from './main/setups/setup-table/setup-table.component';
 import { LoginComponent } from './main/login/login.component';
 import { CasinoComponent } from './main/casino/casino.component';
-import { MenuLateralComponent } from "./main/menu-lateral/menu-lateral.component";
+import { MenuLateralComponent } from './main/menu-lateral/menu-lateral.component';
 
 @Component({
   selector: 'app-root',
@@ -34,8 +34,8 @@ import { MenuLateralComponent } from "./main/menu-lateral/menu-lateral.component
     SetupTableComponent,
     LoginComponent,
     CasinoComponent,
-    MenuLateralComponent
-],
+    MenuLateralComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -45,7 +45,7 @@ export class AppComponent {
   menu = true;
   loginForm: boolean = false;
   casino: boolean = false;
-  mainSetup: boolean = false;
+  mainSetup: boolean = true;
   dashboard: boolean = false;
 
   planoSelect: number = 0;
