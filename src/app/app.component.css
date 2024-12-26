@@ -160,12 +160,11 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-
 }
 
 header {
   background-image: url(../../public/trama\ header.png);
-  background-size: cover;
+  background-size: fill;
   top: 0;
 }
 /* footer {
@@ -182,10 +181,70 @@ header {
   z-index: 1000;
 } */
 
+/* html{
+  height: 100%;
+} */
+
 main {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.container {
+  display: grid;
+  min-height: 100dvh;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 200px 1fr;
+  grid-auto-columns: 1fr;
+  gap: px 3px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "Header Header"
+    "Menu Main"
+    "Footer Footer";
+}
+
+.Header {
+  grid-area: Header;
+  background-color: rgb(7, 32, 20);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  z-index: 1000;
+  top: 0;
+}
+
+.Menu {
+  grid-area: Menu;
+  background-color: #000080;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: fixed;
+  z-index: 1000;
+  top: 80px;
+  height: 100%;
+}
+
+.Main {
+  grid-area: Main;
+  /* background-color: #323; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.Footer {
+  grid-area: Footer;
+  background-color: #000080;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  position: sticky;
+  z-index: 1000;
 }

@@ -5,5 +5,6 @@
       <button (click)="realizarBusqueda()">Actualizar tabla</button>
    </div>
    <ag-grid-angular class="ag-theme-quartz-dark setup-table-class" [columnDefs]="columnDefs" [rowData]="rowData"
-      (gridReady)="onGridReady($event)" style="width: 800px; height: 700px; padding-top: 20px"></ag-grid-angular>
+      (gridReady)="onGridReady($event)"
+      style="width: auto; height: 400px; min-height: 300px; padding-top: 20px"></ag-grid-angular>
 </div>

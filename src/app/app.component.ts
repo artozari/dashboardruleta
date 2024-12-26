@@ -46,7 +46,7 @@ export class AppComponent {
   loginForm: boolean = false;
   casino: boolean = false;
   mainSetup: boolean = true;
-  dashboard: boolean = false;
+  dashboard: boolean = true;
 
   planoSelect: number = 0;
   conexion: ConectorComponent;
