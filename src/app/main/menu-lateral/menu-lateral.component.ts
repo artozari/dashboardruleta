@@ -1,22 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-menu-lateral',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterLink],
   templateUrl: './menu-lateral.component.html',
   styleUrl: './menu-lateral.component.css',
 })
 export class MenuLateralComponent {
-  menu = [
-    { label: 'Inicio', routerLink: '/login' },
-    { label: 'Gestion de casino', routerLink: '/casino' },
-    {
-      label: 'Usuarios',
-      routerLink:
-        'https://my-json-server.typicode.com/artozari/Test-Usuario/users',
-    },
-    { label: 'Mesas en casino', routerLink: '/mesas' },
-    { label: 'Dashboard', routerLink: '/dashboard' },
-  ];
+  menuStatus: boolean = true;
 }

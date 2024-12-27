@@ -14,10 +14,13 @@
   </div>
   <div class="Menu">
     @if (menu) {
-    <app-menu-lateral />
+      <app-menu-lateral />
+    }@else {
+      <button (click)="mostrarMenu()">Menu</button>
     }
   </div>
   <div class="Main">
+    <router-outlet></router-outlet>
     <main>
       @if (loginForm) {
       <app-login />

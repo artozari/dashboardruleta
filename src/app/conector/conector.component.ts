@@ -50,6 +50,5 @@ export class ConectorComponent {
       clientId: this.clientName,
       clean: true,
     });
-    console.log("entro a la conectar");
   }
 }  

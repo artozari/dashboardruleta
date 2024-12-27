@@ -1,2 +1,10 @@
-.setup-table-class{
+.setup-table-class {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 25px;
+  gap: 10px;
+}
+.table-class {
+   min-width: 1000px;
 }

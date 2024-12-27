@@ -1,4 +1,4 @@
-<div tyle="display: flex; justify-content: center; align-items: center; height: auto;">
+<div class="input-container">
   @switch (rolUser) {
   @case (1) {
   Case A.
@@ -16,18 +16,18 @@
   <app-gen-user-pending />
   }
   @default {
-  <form style="width: 300px; text-align: left;" (ngSubmit)="onSubmit()">
-    <h2>Iniciar sesion</h2>
+  <form (ngSubmit)="onSubmit()">
+    <h2>
+      Iniciar sesion
+    </h2>
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
       <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="Correo electronico" required>
     </div>
-    <div class="input-container">
-      <input [type]="showPassword ? 'text' : 'password'" id="password" name="password" [(ngModel)]="password"
-        placeholder="Contraseña" required>
-      <button type="button" (click)="showPassword = !showPassword" [style.color]="showPassword ? '#93ff93' : ''">
-        <i class="fa fa-eye" aria-hidden="true">ver</i>
-      </button>
-    </div>
+    <input [type]="showPassword ? 'text' : 'password'" id="password" name="password" [(ngModel)]="password"
+      placeholder="Contraseña" required>
+    <button type="button" (click)="showPassword = !showPassword" [style.color]="showPassword ? '#93ff93' : ''">
+      <i class="fa fa-eye" aria-hidden="true">ver</i>
+    </button>
     <div style="text-align: center;">
       <button type="submit">Iniciar</button>
     </div>

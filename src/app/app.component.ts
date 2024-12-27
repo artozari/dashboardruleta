@@ -15,6 +15,8 @@ import { SetupTableComponent } from './main/setups/setup-table/setup-table.compo
 import { LoginComponent } from './main/login/login.component';
 import { CasinoComponent } from './main/casino/casino.component';
 import { MenuLateralComponent } from './main/menu-lateral/menu-lateral.component';
+import { RouterOutlet } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -35,18 +37,22 @@ import { MenuLateralComponent } from './main/menu-lateral/menu-lateral.component
     LoginComponent,
     CasinoComponent,
     MenuLateralComponent,
+    RouterOutlet
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+  mostrarMenu() {
+    this.menu = !this.menu;
+  }
   title = 'app';
 
   menu = true;
-  loginForm: boolean = false;
-  casino: boolean = false;
+  loginForm: boolean = true;
+  casino: boolean = true;
   mainSetup: boolean = true;
-  dashboard: boolean = true;
+  dashboard: boolean = false;
 
   planoSelect: number = 0;
   conexion: ConectorComponent;

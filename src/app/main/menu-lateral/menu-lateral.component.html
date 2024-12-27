@@ -1,11 +1,27 @@
 <div class="lateral">
-  <nav class="menu-lateral">
+  <nav *ngIf="menuStatus" class="menu-lateral">
     <ul>
-      <li><a routerLink="/login">Iniciar Sesion</a></li>
-      <li><a routerLink="/casino">Gestion de Casino</a></li>
-      <li><a routerLink="/users">Usuarios</a></li>
-      <li><a routerLink="/mesas">Mesas en Casino</a></li>
-      <li><a routerLink="/dashboard">Dashboard</a></li>
+      <li><a routerLink="login">Iniciar Sesion</a></li>
+      <li><a routerLink="casino">Gestion de Casino</a></li>
+      <li><a routerLink="users">Usuarios</a></li>
+      <li><a routerLink="mesas">Mesas en Casino</a></li>
+      <li><a routerLink="dashboard">Dashboard</a></li>
     </ul>
   </nav>
+  <button class="toggle-menu" (click)="menuStatus = !menuStatus" [style]="menuStatus ? ' position: absolute ; left: 230px; background-color: transparent' : 'padding-left: 0'">
+    <i class="fa fa-angle-double-right" *ngIf="!menuStatus">=></i>
+    <i class="fa fa-angle-double-left" *ngIf="menuStatus"><=</i>
+  </button>
 </div>
+
+<style>
+  .toggle-menu {
+    position: sticky;
+    background-color: #4e4e4e;
+    border: none;
+    color: #f5f5f5;
+    cursor: pointer;
+    padding: 10px 10px;
+    width: 35px;
+  }
+</style>

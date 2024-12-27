@@ -19,36 +19,36 @@ export class SalaMapComponent {
   buildZone: any;
   wrapper: any;
   styleZone: any;
-  plano: string="";
+  plano: string = '';
   pl = new FabricObject();
 
   constructor() {
-      this.plano = this.obtenerPlano(this.planoSelect().toString());
-      effect(() => {
-        if(this.planoSelect().toString() !== this.plano){
-          this.canvas2.clear();
-          this.plano = this.obtenerPlano(this.planoSelect().toString());
-          loadSVGFromURL(this.plano).then((resultSVG) => {
-            this.pl = util.groupSVGElements(
-              resultSVG.objects as FabricObject[],
-              resultSVG.options
-            );
-            this.pl.set({
-              left: 0,
-              top: 0,
-              scaleX: 3,
-              scaleY: 3,
-              originX: 0,
-              originY: 0,
-              hoverCursor: 'pointer',
-              selectable: false,
-            });
-            this.canvas2.setWidth(this.pl.getScaledWidth());
-            this.canvas2.setHeight(this.pl.getScaledHeight());
-            this.canvas2.add(this.pl);
+    this.plano = this.obtenerPlano(this.planoSelect().toString());
+    effect(() => {
+      if (this.planoSelect().toString() !== this.plano) {
+        this.canvas2.clear();
+        this.plano = this.obtenerPlano(this.planoSelect().toString());
+        loadSVGFromURL(this.plano).then((resultSVG) => {
+          this.pl = util.groupSVGElements(
+            resultSVG.objects as FabricObject[],
+            resultSVG.options
+          );
+          this.pl.set({
+            left: 0,
+            top: 0,
+            scaleX: 3,
+            scaleY: 3,
+            originX: 0,
+            originY: 0,
+            hoverCursor: 'pointer',
+            selectable: false,
           });
-        }
-      });
+          this.canvas2.setWidth(this.pl.getScaledWidth());
+          this.canvas2.setHeight(this.pl.getScaledHeight());
+          this.canvas2.add(this.pl);
+        });
+      }
+    });
   }
 
   ngOnInit() {

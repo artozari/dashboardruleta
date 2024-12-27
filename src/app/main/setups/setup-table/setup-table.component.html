@@ -1,10 +1,10 @@
 <div>
-   <div style="display: flex; justify-content: flex-start; align-items: flex-start; margin-top: 25px;">
+   <div class="setup-table-class">
       <app-get-table (procesDataChange)="onProcessDataChange($event)"></app-get-table>
       <app-create-table></app-create-table>
       <button (click)="realizarBusqueda()">Actualizar tabla</button>
    </div>
-   <ag-grid-angular class="ag-theme-quartz-dark setup-table-class" [columnDefs]="columnDefs" [rowData]="rowData"
-      (gridReady)="onGridReady($event)"
-      style="width: auto; height: 400px; min-height: 300px; padding-top: 20px"></ag-grid-angular>
+   <ag-grid-angular class="ag-theme-quartz-dark table-class" [columnDefs]="columnDefs" [rowData]="rowData"
+      (gridReady)="onGridReady($event)" style="width: auto; height: 400px; min-height: 300px; padding-top: 20px">
+   </ag-grid-angular>
 </div>

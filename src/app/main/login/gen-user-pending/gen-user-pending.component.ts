@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TableServiceApi } from '../../../services/ruleta-service.service';
 import { FormsModule } from '@angular/forms';
 
@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './gen-user-pending.component.html',
   styleUrl: './gen-user-pending.component.css',
 })
-export class GenUserPendingComponent implements OnInit {
+export class GenUserPendingComponent{
   showPassword: any;
   showVerificacion: any;
   email: string = '';
@@ -17,18 +17,16 @@ export class GenUserPendingComponent implements OnInit {
   verificacion: string = '';
 
   constructor(private readonly ruletaService: TableServiceApi) {}
-
   
   checkPassword() {
     if (this.password !== this.verificacion) {
-      alert('Las contrase as no coinciden');
+      alert('Las contraseñas no coinciden');
       return false;
     }
     return true;
   }
 
-  ngOnInit(): void {
-  }
+  
   onSubmit() {
     this.checkPassword();
   }

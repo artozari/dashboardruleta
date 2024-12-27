@@ -36,9 +36,7 @@ export class SetupTableComponent implements OnInit {
       columnNames = Object.keys(message);
       console.log(columnNames);
     } else {
-      console.log('tiene mas de 1');
       columnNames = Object.keys(message[0]);
-      console.log(columnNames);
     }
     this.columnDefs = columnNames.map((name) => ({
       field: name,
@@ -47,7 +45,6 @@ export class SetupTableComponent implements OnInit {
     }));
 
     const newRowData = [];
-    console.log(message);
     if (typeof message.length === 'undefined') {
       newRowData.push(message);
     } else {
